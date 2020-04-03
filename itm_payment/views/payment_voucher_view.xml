@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--     
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Expenses. 
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+<odoo>
+	<data>
+		<!--  payment voucher action  -->
+		<record id="payment.action_account_payments" model="ir.actions.act_window">
+			<field name="name">Payments</field>
+			<field name="res_model">account.payment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="context">{'default_payment_type': 'transfer'}</field>
+			<field name="domain">[('payment_type', '=', 'transfer')]</field>
+			<field name="view_id" ref="account.view_account_payment_tree"/>
+		</record>
+		
+		<!-- payment voucher menu in account  -->
+		<menuitem id="menu_payment_voucher_list" name="Payment Voucher" action="payment.action_account_payments"
+			parent="account.menu_finance_entries" groups="account.group_account_user,account.group_account_manager,account.group_account_invoice"/>
+	</data>
+</odoo>

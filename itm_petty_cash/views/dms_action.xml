@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<odoo>
+
+<record id="action_dms_documents" model="ir.actions.client">
+	<field name="name">DocumentTreeView</field>
+	<field name="tag">itm_petty_cash.documents</field>
+</record>
+
+<menuitem id="menu_dms_tree_view_main" name="Documents main"
+	action="action_dms_documents" />
+
+<menuitem id="menu_dms_tree_view" name="Documents "
+	action="action_dms_documents" parent="menu_dms_tree_view_main"/>
+
+
+</odoo>

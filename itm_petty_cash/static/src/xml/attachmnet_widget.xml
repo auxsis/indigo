@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+<templates xml:space="preserve">
+	<t t-name="itm_petty_cash.AttachmnetTreeViews">
+        <div class="muk_treeview">
+            <div class="container-fluid oe_document_container ">
+                <div class="row oe_document_row">
+	            	<div class="oe_document_col oe_document_col_tree">
+            			<div class="oe_document_tree" />
+            		</div>
+            		<div class="oe_document_col oe_document_col_preview">
+            			<div class="oe_document_preview" />
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </t>
+</templates>

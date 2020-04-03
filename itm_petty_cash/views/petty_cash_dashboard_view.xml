@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+--> 
+<odoo>
+    <data>
+        <!-- Dashboard Action for Menu Petty Cash Dashboard -->
+        <record id="action_petty_cash_dashboard" model="ir.actions.act_window">
+            <field name="name">Dashboard</field>
+            <field name="res_model">petty.cash.dashboard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">petty_cash_dashboard_view</field>
+            <field name="context">{
+            'petty_cash_dashboard_view_view_ref' : 'itm_petty_cash.petty_cash_dashboard_view'
+            }</field>
+        </record>
+        <!-- Default View for Petty Cash Dashboard, which is extended to make Dashboard View -->
+        <record model="ir.ui.view" id="petty_cash_dashboard_view">
+            <field name="name">Petty Cash Dashboard</field>
+            <field name="model">petty.cash.dashboard</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <!--<field name="name"/>-->
+                </kanban>
+            </field>
+        </record>
+       
+        
+    </data>
+</odoo>

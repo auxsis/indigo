@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+	<templates xml:space="preserve">
+	<t t-name="itm_petty_cash.dashboard">
+		<!--View Petty Cash Dashboard-->
+		<div class="hr_dash col-xs-12 col-md-12 col-lg-12">
+			<div class="col-md-12">
+				<div class="col-md-4">
+					<div class="media">
+						<a class="pull-left my_profile">
+							<t t-if="widget.employee_data.image != 'undefined'" >	
+							<img class="media-object dp img-circle" t-att-src="'data:image/png;base64,'+widget.employee_data.image"
+								style="width: 100px;height:100px;"/> </t>
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">
+								<span t-esc="widget.employee_data.display_name"/>
+							</h4>
+							<h5 t-if="widget.employee_data.job_id">
+								<span t-esc="widget.employee_data.job_id[1]"/>
+							</h5>
+							<h5>
+								<span t-esc="widget.employee_data.public_info"/>
+							</h5>
+							<hr style="margin:8px auto"/>
+							<t t-foreach="widget.employee_data.categories" t-as="c">
+								<span class="label label-default">
+									<t t-esc="c"/>
+								</span>
+							</t>
+							<br/>
+							<span>
+								<small>
+									Last login:
+									<span t-esc="widget.employee_data.last_login"/>
+								</small>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!--Dashboard buttons-->
+				<div class="col-md-8" style="padding-top: 16px">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-3 col-sm-6">
+								<a href="javascript:;" class="dashboard-block cash_received">
+									<div class="rotate">
+										<i class="fa fa-fw fa-calendar"/>
+									</div>
+									<div class="details">
+										<span class="title">Petty Cash Received</span>
+										<span class="sub">
+											<t t-esc="widget.employee_data.cash_dispatch_count" />
+										</span>
+									</div>
+									<!--/details-->
+									<i class="fa fa-chevron-right fa-2x more">
+									</i>
+								</a>
+								<!--/dashboard-block1-->
+							</div>
+							<div class="col-md-3 col-sm-6">
+								<a href="javascript:;" class="dashboard-block expense">
+									<div class="rotate">
+										<i class="fa fa-money">
+										</i>
+									</div>
+									<div class="details">
+										<span class="title">Petty Cash Expense</span>
+										<span class="sub">
+											<t t-esc="widget.employee_data.expense_count" />
+										</span>
+									</div>
+									<!--/details-->
+									<i class="fa fa-chevron-right fa-2x more">
+									</i>
+								</a>
+								<!--/dashboard-block2-->
+							</div>
+							<div class="col-md-3 col-sm-6">
+								<a href="javascript:;" class="dashboard-block balance">
+									<div class="rotate">
+										<i class="fa fa-clock-o">
+										</i>
+									</div>
+									<div class="details">
+										<span class="title">Petty Cash Balance</span>
+										<span class="sub">
+											<t t-esc="widget.employee_data.balance_count" />
+										</span>
+									</div>
+									<!--/details-->
+									<i class="fa fa-chevron-right fa-2x more">
+									</i>
+								</a>
+								<!--/dashboard-block3-->
+							</div>
+							<div class="col-md-3 col-sm-6">
+								<a href="javascript:;" class="dashboard-block request">
+									<div class="rotate">
+										<i class="fa fa-fw fa-book">
+										</i>
+									</div>
+									<div class="details">
+										<span class="title">Petty Cash To Request</span>
+										<span class="sub">
+											<t t-esc="widget.employee_data.request_count" />
+										</span>
+									</div>
+									<!--/details-->
+									<i class="fa fa-chevron-right fa-2x more">
+									</i>
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3 col-sm-6">
+								<a href="javascript:;" class="dashboard-block requested">
+									<div class="rotate">
+										<i class="fa fa-fw fa-book">
+										</i>
+									</div>
+									<div class="details">
+										<span class="title">Petty Cash Request</span>
+										<span class="sub">
+											<t t-esc="widget.employee_data.request_money" />
+										</span>
+									</div>
+									<!--/details-->
+									<i class="fa fa-chevron-right fa-2x more">
+									</i>
+								</a>
+							</div>
+							<div class="col-md-3 col-sm-6">
+								<a href="javascript:;" class="dashboard-block requested_reconcile">
+									<div class="rotate">
+										<i class="fa fa-fw fa-book">
+										</i>
+									</div>
+									<div class="details">
+										<span class="title">Petty Reconcile Request</span>
+										<span class="sub">
+											<t t-esc="widget.employee_data.request_reconcile" />
+										</span>
+									</div>
+									<!--/details-->
+									<i class="fa fa-chevron-right fa-2x more">
+									</i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<t t-if=" widget.employee_data.account_expense_count &gt; 0 ">
+				<div class="col-md-12">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-4">
+								<u>
+									<h3>Top 5 Expenses Account</h3>
+								</u>
+							</div>
+						</div>
+					</div>
+				</div>
+				</t>
+				<!--dashboard boxes-->
+				<div class="col-md-12">
+					<div class="container">
+						<div class="row">
+							<t t-if=" widget.employee_data.account_expense_count &gt; 0 ">
+								
+								<div class="col-md-4">
+									
+									<div class="dash-box dash-box-color-1" >
+										<div class="dash-box-icon">
+											<i class="fa fa-fw fa-calendar"/>
+										</div>
+										<div class="dash-box-body" style="height: 200px;">
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[0][1]"/>
+											</span>
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[0][0]"/>
+											</span>
+										</div>
+										
+										<div class="dash-box-action account_expense_details_top1">
+											<button>More Info</button>
+										</div>
+									</div>
+								</div>
+								
+							</t>
+							<t t-if="widget.employee_data.account_expense_count &gt; 1 ">
+								<div class="col-md-4">
+									<div class="dash-box dash-box-color-2">
+										<div class="dash-box-icon">
+											<i class="fa fa-clock-o">
+											</i>
+										</div>
+										<div class="dash-box-body" style="height: 200px;">
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[1][1]"/>
+											</span>
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[1][0]"/>
+											</span>
+										</div>
+										<div class="dash-box-action account_expense_details_top2">
+											<button>More Info</button>
+										</div>
+									</div>
+								</div>
+								
+							</t>
+							<t t-if="widget.employee_data.account_expense_count &gt; 2 ">
+								
+								<div class="col-md-4">
+									<div class="dash-box dash-box-color-3">
+										<div class="dash-box-icon">
+											<i class="fa fa-suitcase">
+											</i>
+										</div>
+										<div class="dash-box-body" style="height: 200px;">
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[2][1]"/>
+											</span>
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[2][0]"/>
+											</span>
+										</div>
+										
+										<div class="dash-box-action account_expense_details_top3">
+											<button>More Info</button>
+										</div>
+									</div>
+								</div>
+								
+							</t>
+						</div>
+						<div class="row">
+							<t t-if="widget.employee_data.account_expense_count &gt; 3 ">
+								
+								<div class="col-md-4">
+									<div class="dash-box dash-box-color-4">
+										<div class="dash-box-icon">
+											<i class="fa fa-calendar"/>
+										</div>
+										<div class="dash-box-body" style="height: 200px;">
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[3][1]"/>
+											</span>
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[3][0]"/>
+											</span>
+										</div>
+										<div class="dash-box-action account_expense_details_top4">
+											<button>More Info</button>
+										</div>
+									</div>
+								</div>
+							</t>
+							<t t-if="widget.employee_data.account_expense_count &gt; 4 ">
+								<div class="col-md-4">
+									<div class="dash-box dash-box-color-5">
+										<div class="dash-box-icon">
+											<i class="fa fa-sign-in"/>
+										</div>
+										<div class="dash-box-body" style="height: 200px;">
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[4][1]"/>
+											</span>
+											<span class="dash-box-count">
+												<t t-esc="widget.employee_data.account_expense_details[4][0]"/>
+											</span>
+										</div>
+										<div class="dash-box-action account_expense_details_top5">
+											<button>More Info</button>
+										</div>
+									</div>
+								</div>
+							</t>
+						</div>
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-4">
+									<u>
+										<h3>Yearly Analysis</h3>
+									</u>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="dash-box dash-box-color-6">
+									<div class="dash-box-icon">
+										<i class="fa fa-fw fa-calendar"/>
+									</div>
+									<div class="dash-box-body" >
+										<span class="dash-box-count">
+											<t t-esc="widget.employee_data.current_quarter_amount"/>
+										</span>
+										<span class="dash-box-count">Current Quarter</span>
+									</div>
+									
+									<div class="dash-box-action current_year_quarter">
+										<button>More Info</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="dash-box dash-box-color-3">
+									<div class="dash-box-icon">
+										<i class="fa fa-fw fa-calendar"/>
+									</div>
+									<div class="dash-box-body">
+										<span class="dash-box-count">
+											<t t-esc="widget.employee_data.last_quarter_amount"/>
+										</span>
+										<span class="dash-box-count">Last Quarter</span>
+									</div>
+									
+									<div class="dash-box-action last_year_quarter">
+										<button>More Info</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="dash-box dash-box-color-2">
+									<div class="dash-box-icon">
+										<i class="fa fa-fw fa-calendar"/>
+									</div>
+									<div class="dash-box-body">
+										<span class="dash-box-count">
+											<t t-esc="widget.employee_data.current_amount"/>
+										</span>
+										<span class="dash-box-count">Current Year</span>
+									</div>
+									
+									<div class="dash-box-action current_year">
+										<button>More Info</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="dash-box dash-box-color-4">
+									<div class="dash-box-icon">
+										<i class="fa fa-fw fa-calendar"/>
+									</div>
+									<div class="dash-box-body">
+										<span class="dash-box-count">
+											<t t-esc="widget.employee_data.last_amount"/>
+										</span>
+										<span class="dash-box-count">Last Year</span>
+									</div>
+									
+									<div class="dash-box-action last_year">
+										<button>More Info</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="main-content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-2">
+							</div>
+							<div class="col-md-8">
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 class="panel-title">Petty Cash Expenses Analysis</h3>
+									</div>
+									<div class="panel-body">
+										<canvas id="myChart" width="1000px" height="900px"/>
+										<button id="generate_petty_cash_pdf" class="btn btn-default" data-placement="bottom"
+											title="Download Pdf!">
+											<i class="fa fa-2x fa-file-pdf-o"/>
+											Download
+										</button>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+							</div>
+							<div class="col-md-8">
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 class="panel-title">Custodian Analysis</h3>
+									</div>
+									<div class="panel-body">
+										<canvas id="custodianChart" width="1000px" height="900px"/>
+										<button id="generate_custodian_pdf" class="btn btn-default" data-placement="bottom"
+											title="Download Pdf">
+											<i class="fa fa-2x fa-file-pdf-o"/>
+											Download
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h4>Expenses Details</h4>
+								<table id="expenses_details" class="display nowrap" cellspacing="0" width="100%">
+										<thead>
+										<tr>
+											<th>Particulars</th>
+											<th>Payment Date</th>
+											<th>Account Expense</th>
+											<th>Amount</th>
+											<t t-if="widget.employee_data.has_user_analytic == 'True'" >
+												<th>Account Analytic</th>
+												<th>Analytic Tags</th>
+											</t>
+										</tr>
+									</thead>
+									<tbody>
+										<tr t-foreach="widget.employee_data.expenses_table" t-as="e">
+											<td>
+												<span t-esc="e['memo']"/>
+											</td>
+											<td>
+												<span t-esc="e['date_maturity']"/>
+											</td>
+											<td>
+												<span t-esc="e['account_expense_id']"/>
+											</td>
+											<td>
+												<span t-esc="e['amount']"/>
+											</td>
+											<t t-if="widget.employee_data.has_user_analytic == 'True'" >
+											<td>
+												<span t-esc="e['analytic_account_id']"/>
+											</td>
+											<td>
+												<span  t-esc="e['analytic_tag_ids']"/>
+											</td>
+											</t>
+											
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
+</templates>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_db_backup" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.db.backup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="16"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Database Backup" data-key="db_backup">
+                    <h2>Database Backup</h2>
+                    <div class="row mt16 o_settings_container" title="Prout prout prout">
+                        <div class="col-xs-12 col-md-6 o_setting_box" title="Database Name" >
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="db_name_config"/>
+                                <div class="text-muted">
+                                    Database Name that you want to backup.
+                                </div>
+                                <div class="text-muted">
+                                    <field name="db_name_config"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" title="Path" >
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="path_config"/>
+                                <div class="text-muted">
+                                    Where you want to dump database. Example: /home/ergo/dump
+                                </div>
+                                <div class="text-muted">
+                                    <field name="path_config"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

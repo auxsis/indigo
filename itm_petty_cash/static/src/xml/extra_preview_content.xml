@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+	<templates>
+	<div t-name="ImageHTMLContent" class="o_preview_image printable" 
+		data-print-delay="10000">
+		<img class="print-content" t-att-src="url" t-att-alt="alt"  />
+	</div>
+</templates>

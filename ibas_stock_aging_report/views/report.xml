@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    	<report
+            id="action_report_stock_aging"
+            model="stock.aging.report"
+            string="Stock Aging Report"
+            report_type="qweb-pdf"
+            name="ibas_stock_aging_report.report_stock_aging"
+            file="ibas_stock_aging_report.report_stock_aging"
+            />
+
+    </data>
+</odoo>

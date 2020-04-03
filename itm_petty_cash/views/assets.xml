@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+<odoo>
+	<data>
+		
+		<template id="assets_common" inherit_id="web.assets_common">
+			<xpath expr="//link[last()]" position="after">
+				<link rel="stylesheet" href="/itm_petty_cash/static/lib/spectrum/css/spectrum.css"
+					/>
+			</xpath>
+			<xpath expr="//script[last()]" position="after">
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/spectrum/js/spectrum.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/common.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/jquery.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/files.js"/>
+			</xpath>
+		</template>
+		
+		<template id="assets_editor" name="Editor Assets" inherit_id="web_editor.assets_editor">
+			<xpath expr="//link[last()]" position="after">
+			</xpath>
+			<xpath expr="//script[last()]" position="after">
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/summernote/specialchars/summernote-ext-specialchars.js"
+					/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/summernote/emoji/summernote-ext-emoji.js"
+					/>
+			</xpath>
+		</template>
+		
+		
+		<template id="qunit_suite" inherit_id="web.qunit_suite">
+			<xpath expr="//script[last()]" position="after">
+				<script type="text/javascript" src="/itm_petty_cash/static/tests/jquery.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/tests/common.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/tests/mimetype.js"/>
+			</xpath>
+		</template>
+		
+		<!-- Petty Cash Dashboard Assests. We are making changes on assets backend -->
+		<template id="assets_backend" name="itm_petty_cash_assets" inherit_id="web.assets_backend">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" href="/itm_petty_cash/static/lib/bootstrap-switch/css/bootstrap-switch.css"
+					/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/src/css/dashboard.css"/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/lib/dataTables/datatables.min.css"/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/lib/dataTables/buttons.dataTables.min.css"/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/src/less/dms_views_documents.less"
+					/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/src/css/dashboard.css"/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/src/less/preview_widgets.less"
+					/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/src/less/preview_dialog.less"
+					/>
+				<link rel="stylesheet" href="/itm_petty_cash/static/src/less/preview_content.less"
+					/>
+				
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/bootstrap-switch/js/bootstrap-switch.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/bootstrap-notify/bootstrap-notify.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/bootbox/bootbox.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/mimetype.js"/>
+				
+				
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/preview_handler.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/preview_generator.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/preview_widgets.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/preview_dialog.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/tests/tour.js"/>
+				
+				
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/dms_utils.js" />
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/preview_helper.js"
+					/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/dms_widgets_binary.js"
+					/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/dms_widgets_size.js"
+					/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/dms_widgets_path.js"
+					/>
+				
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/petty_cash_dashboard.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/src/js/petty_cash_attachmnet_widget.js"
+					/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/charts/Chart.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/charts/Chart.bundle.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/datatables.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/dataTables.buttons.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/buttons.flash.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/buttons.html5.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/buttons.print.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/pdfmake.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/vfs_fonts.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/jszip.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/buttons.bootstrap.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/buttons.bootstrap4.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/dataTables/buttons.colVis.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/jsPdf/jspdf.min.js"/>
+				<script type="text/javascript" src="/itm_petty_cash/static/lib/jsPdf/jspdf.debug.js"/>
+				
+			</xpath>
+		</template>
+	</data>
+</odoo>

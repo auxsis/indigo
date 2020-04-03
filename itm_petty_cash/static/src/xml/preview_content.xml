@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+<templates>
+
+	<div t-name="ExcelHTMLContent" class="o_preview_excel">
+		<div class="loader excel-loader">
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--text'></div>
+		</div>
+		<div class="excel-container">
+			<div class="tab-line">
+				<ul class="nav nav-tabs"></ul>
+				<div class="tab-content"></div>
+			</div>
+		</div>
+	</div>
+	<div t-name="VideoHTMLContent" class="o_preview_video">
+		<video controls="controls">
+			<source t-att-src="url" t-att-type="type" />
+			Your browser does not support the video tag.
+		</video>
+	</div>
+	
+<div t-name="ImageHTMLContent" class="o_preview_image printable" 
+		data-print-delay="10000">
+		<img class="print-content" t-att-src="url" t-att-alt="alt" />
+	</div>
+	<div t-name="ViewerJSFrame" class="o_preview_viewerjs">
+		<iframe allowfullscreen="allowfullscreen"
+			webkitallowfullscreen="webkitallowfullscreen" 
+			t-att-src="url"  >
+		</iframe>
+	</div>
+	
+	<div t-name="PDFjsFrame" class="o_preview_pdfjs">
+		<iframe allowfullscreen="allowfullscreen" 
+			webkitallowfullscreen="webkitallowfullscreen"
+			t-att-src="url">
+		</iframe>
+	</div>
+	
+	<div t-name="UnsupportedContent" class="o_preview_unsupported">
+		<div class="o_preview_unsupported_header">
+			<h3>Unsupported File Extension</h3>
+		</div>
+		<div class="o_preview_unsupported_body">
+			<div class="col-xs-12 o_preview_unsupported_info">
+				<p>
+				This file type is currently not supported. By installing further extension via the 
+				<a href="https://www.odoo.com/apps/modules/browse?author=MuK%20IT">Odoo App Store</a>
+				it is possible to improve the Preview.
+				</p>
+			</div>
+			<div class="col-xs-3 o_preview_unsupported_icon" align="center"> 
+            	<div class="o_image" t-att-data-mimetype="mimetype" />
+            </div>
+            <div class=" col-xs-9"> 
+            	<table class="table o_preview_unsupported_table">
+            		<tbody>
+	                     <tr>
+	                       <td>Filename:</td>
+	                       <td><t t-esc="title"/></td>
+	                     </tr>
+	                     <tr>
+	                       <td>Type:</td>
+	                       <td><t t-esc="mimetype"/></td>
+	                     </tr>
+	                     <tr>
+	                       <td>Extension:</td>
+	                       <td><t t-esc="extension"/></td>
+	                     </tr>
+                   </tbody>
+            	</table>
+        	</div>
+        	<div class="col-xs-12 o_preview_unsupported_download text-center">
+        		<a class="btn btn-primary" t-att-href="url">Download</a>
+        	</div>
+		</div>
+	</div>
+</templates>

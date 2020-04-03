@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_stock_aging">
+		<t t-call="web.html_container">
+			<t t-call="ibas_stock_aging_report.external_layout_standard_stock_aging">
+				<div class="page">
+					<h3>Stock Aging Report</h3>
+					<div class="row">
+						<div class="col-xs-3">
+							<t t-if="data['company_id']"><strong>Company: </strong> <span t-esc="data['company_id'][1]"/><br/></t>
+						</div>
+						<!-- <div class="col-xs-3">
+							<t t-if="data['warehouse_id']"><strong>Warehouse</strong> <span t-esc="data['warehouse_id'][1]"/><br/></t>
+						</div> -->
+						<div class="col-xs-3">
+							<t t-if="data['period']"><strong>Period Length (days): </strong> <span t-esc="data['period']"/><br/></t>
+						</div>
+						<div class="col-xs-3">
+							<t t-if="data['date']"><strong>Start Date: </strong> <span t-esc="data['date']"/><br/></t>
+						</div>
+						<div class="col-xs-3">
+							<t t-if="data['location_id']"><strong>Location: </strong><span t-esc="data['location_id'][1]"/></t>
+						</div>
+					</div>
+					<br/>
+					<!-- <div class="row">
+						<div class="col-xs-3">
+							<t t-if="data['location_id']"><strong>Location: </strong><span t-esc="data['location_id'][1]"/></t>
+						</div>
+						<div class="col-xs-3">
+							<t t-if="data['category_id']"><strong>Product Category: </strong><span t-esc="data['category_id'][1]"/></t>
+						</div>
+					</div>
+					<br/> -->
+					<table class="table table-condensed">
+						<thead>
+							<tr class="text-center">
+								<th>Products</th>
+								<th>0 - <span t-esc="data['period']"/></th>
+								<th><span t-esc="data['period']"/> - <span t-esc="data['period'] * 2"/></th>
+								<th><span t-esc="data['period'] * 2"/> - <span t-esc="data['period'] * 3"/></th>
+								<th><span t-esc="data['period'] * 3"/> - <span t-esc="data['period'] * 4"/></th>
+								<th>+<span t-esc="data['period'] * 4"/></th>
+							</tr>
+						</thead>
+						<tr t-foreach="lines" t-as="line">
+							<td><span t-esc="line.get('product_name')"/></td>
+							<td><span t-esc="line.get('period_1') or 0"/></td>
+							<td><span t-esc="line.get('period_2') or 0"/></td>
+							<td><span t-esc="line.get('period_3') or 0"/></td>
+							<td><span t-esc="line.get('period_4') or 0"/></td>
+							<td><span t-esc="line.get('period_5') or 0"/></td>
+						</tr>
+					</table>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

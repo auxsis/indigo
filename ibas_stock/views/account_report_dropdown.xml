@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <template id="search_template_extra_options_analytic" inherit_id="account_reports.search_template_extra_options">
+          <xpath expr="//ul[@class='dropdown-menu o_filters_menu']" position="inside">
+<!--              <li title="Analytic Account" data-filter="account_analytic" class="js_account_report_bool_filter"><a>Analytic Account</a></li>-->
+              <li t-if="options.get('analytic') != None" title="Analytic Account" data-filter="analytic" class="js_account_report_bool_filter"><a>Analytic Account</a></li>
+          </xpath>
+     </template>
+</odoo>

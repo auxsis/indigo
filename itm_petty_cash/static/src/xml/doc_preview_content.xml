@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+<templates>
+	<div t-name="ExcelHTMLContent" class="o_preview_excel">
+		<div class="loader excel-loader">
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--dot'></div>
+			<div class='loader--text'></div>
+		</div>
+		<div class="excel-container">
+			<div class="tab-line">
+				<ul class="nav nav-tabs"></ul>
+				<div class="tab-content"></div>
+			</div>
+		</div>
+	</div>
+</templates>

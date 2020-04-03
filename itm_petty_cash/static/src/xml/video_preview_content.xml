@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--      
+ -*- coding: utf-8 -*-
+ Odoo, Open Source Itm Petty Cash .
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). 
+-->
+<templates>
+	<div t-name="VideoHTMLContent" class="o_preview_video">
+		<video controls="controls">
+			<source t-att-src="url" t-att-type="type" />
+			Your browser does not support the video tag.
+		</video>
+	</div>
+</templates>

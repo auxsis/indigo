@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_picking_form_extend" model="ir.ui.view">
+            <field name="name">stock.picking.form.extend</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="sale_id" readonly="1" attrs="{'invisible': [('sale_id', '=', False)]}"/>
+                    <field name="purchase_id" attrs="{'invisible': [('purchase_id', '=', False)]}"/>
+                    <field name="purchase_partner_ref" attrs="{'invisible': [('purchase_id', '=', False)]}"/>
+                    <field name="is_return" invisible="1"/>
+                    <field name="return_type" attrs="{'invisible': [('is_return', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='move_lines']" position="inside">
+                    <form string="Stock Moves">
+                        <header>
+                            <field name="state" widget="statusbar"/>
+                        </header>
+                        <field name="scrapped" invisible="1"/>
+                        <group>
+                            <group string="#Products">
+                                <field name="product_id"/>
+                                <field name="picking_type_id" invisible="1"/>
+                                <field name="group_id" invisible="1"/>
+                                <label for="product_uom_qty"/>
+                                <div>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="Unit Of Measure" groups="product.group_uom" class="oe_inline"/>
+                                </div>
+                                <field name="product_tmpl_id" invisible="1"/>
+                            </group>
+                            <group string="Locations" groups="base.group_no_one">
+                                <field name="name"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Conditions">
+                               <field name="procure_method" attrs="{'readonly': [('state', '!=', 'draft')]}" groups="stock.group_adv_location"/>
+                                <field name="create_date" invisible="1"/>
+                                <field name="date_expected"/>
+                                <field name="move_dest_ids" groups="base.group_no_one" readonly="1"/>
+                            </group>
+                            <group name="quants_grp" string="Reserved" attrs="{'invisible': [('state', '=', 'draft')]}">
+                                <field name="string_availability_info"/>
+                                <field name="is_quantity_done_editable" invisible="1"/>
+                                <field name="quantity_done" string="Done" attrs="{'readonly': [('is_quantity_done_editable', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </form>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_picking_tree_extend" model="ir.ui.view">
+            <field name="name">stock.picking.tree.extend</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="purchase_id" invisible="1"/>
+                    <field name="purchase_partner_ref" attrs="{'invisible': [('purchase_id', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- TRANSFER RETURN TYPE IN STOCK CONFIG -->
+        <record id="action_stock_picking_return_type" model="ir.actions.act_window">
+            <field name="name">Transfer Return Type</field>
+            <field name="res_model">stock.picking.return.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

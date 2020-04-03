@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_phi_pay.raw_attendance_list_officer,raw_attendance_list_officer,phil_pay.model_attendance_raw_list,hr.group_hr_user,1,1,1,1
+access_phi_pay.raw_attendance_main_officer,raw_attendance_main_officer,phil_pay.model_attendance_raw_main,hr.group_hr_user,1,1,1,1
+access_phi_pay_holidays_all,phil.pay.holidays.all,model_phil_pay_holidays,base.group_user,1,0,0,0
+access_phi_pay_holidays_hr,phil.pay.holidays.hr,model_phil_pay_holidays,hr.group_hr_user,1,1,1,1
+access_phi_pay_corrective_actions_all,phil.pay.corrective.actions.all,model_phil_pay_corrective_actions,base.group_user,1,0,0,0
+access_phi_pay_corrective_actions_hr,phil.pay.corrective.actions.hr,model_phil_pay_corrective_actions,hr.group_hr_user,1,1,1,1
+access_phi_pay_education_all,phil.pay.education.all,model_phil_pay_education,base.group_user,1,0,0,0
+access_phi_pay_education_hr,phil.pay.education.hr,model_phil_pay_education,hr.group_hr_user,1,1,1,1
+access_phi_pay_work_history_all,phil.pay.work.history.all,model_phil_pay_work_history,base.group_user,1,0,0,0
+access_phi_pay_work_history_hr,phil.pay.work.history.hr,model_phil_pay_work_history,hr.group_hr_user,1,1,1,1
+access_phi_pay_hr_employee_loans_all,phil.pay.hr.employee.loans.all,phil_pay.model_hr_employee_loans,base.group_user,1,0,0,0
+access_phi_pay_hr_employee_loans_hr,phil.pay.hr.employee.loans.hr,phil_pay.model_hr_employee_loans,hr.group_hr_user,1,1,1,1
+access_phi_pay_contribution_sss_all,phil.pay.contribution.sss.all,phil_pay.model_payroll_contribution_sss,hr_payroll.group_hr_payroll_user,1,1,1,1

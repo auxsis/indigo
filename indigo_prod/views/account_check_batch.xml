@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_batch_cheque" model="ir.ui.view">
+        <field name="name">Batch Incoming Cheque</field>
+        <field name="model">account.cheque.batch</field>
+        <field name="arch" type="xml">
+            <form string="Batch Incoming Cheque">
+                <group>
+                    <group>
+                        <field name="reference" required="1"/>
+                    </group>
+                    <group>
+                        <field name="date" string="Deposit Date" required="1"/>
+                    </group>
+                </group>                
+                <separator/>
+                <group>
+                    <group>                        
+                        <field name="journal_id" required="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>                        
+                    </group>
+                    <group>
+                        <field name="company_id" string="Company" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" />
+                        <field name="debit_account_id" required="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" invisible="1"/>
+                        <field name="credit_account_id" required="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </group>
+                <separator string="Cheque/s"/>
+                <!--
+                <field name="account_cheque_ids" widget="many2many" domain="[('status1', 'in', ['draft', 'registered']), ('account_cheque_type', '=', 'incoming')]" options="{'not_delete': True}">
+                -->
+                <field name="account_cheque_ids" widget="many2many" domain="[('status1', 'in', ['registered']), ('account_cheque_type', '=', 'incoming')]" options="{'not_delete': True}">
+                    <tree>
+                        <field name="sequence"/>
+                        <field name="cheque_number"/>
+                        <field name="amount"/>
+                        <field name="status1"/>
+                    </tree>
+                </field>                
+                <footer>                    
+                    <button name="set_batch_submit_deposit" string="Deposite Cheque/s" type="object" class="btn-primary"/>
+
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="view_batch_cheque_action"
+        name="Batch Incoming Cheque"
+        src_model="account.cheque"
+        res_model="account.cheque.batch"
+        view_type="form" view_mode="form"
+        key2="client_action_multi" target="new"
+        groups="base.group_erp_manager"/>
+
+
+    <record id="view_batch_form_cheque" model="ir.ui.view">
+        <field name="name">view.batch.form.cheque</field>
+        <field name="model">account.cheque.batch</field>
+        <field name="arch" type="xml">
+            <form string="Batch Incoming Cheque">                
+                <header>
+                    <button name="set_batch_submit_deposit" string="Deposite Cheque/s" type="object" class="btn-primary" attrs="{'invisible': [('status', 'in', ['registered','deposited'])]}"/>
+                    <field name="status" widget="statusbar"/>
+                </header>            
+                <sheet string= "Batch Incoming Cheque">
+                    <group>
+                        <group>
+                            <field name="reference" required="1" attrs="{'readonly': [('status', 'in', ['registered','deposited'])]}"/>
+                        </group>
+                        <group>
+                            <field name="date" string="Deposit Date" required="1" attrs="{'readonly': [('status', 'in', ['registered','deposited'])]}"/>
+                        </group>
+                    </group>                
+                    <separator/>
+                    <group >
+                        <group>
+                            <field name="credit_account_id" required="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" attrs="{'readonly': [('status', 'in', ['registered','deposited'])]}" invisible="1"/>
+                            <field name="journal_id" required="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" attrs="{'readonly': [('status', 'in', ['registered','deposited'])]}"/>
+                        </group>
+                        <group>
+                            <field name="debit_account_id" required="1" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" attrs="{'readonly': [('status', 'in', ['registered','deposited'])]}" invisible="1"/>
+                            <field name="company_id" string="Company" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" attrs="{'readonly': [('status', 'in', ['registered','deposited'])]}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cheque/s">
+                            <!--
+                            <field name="account_cheque_ids" widget="many2many" domain="[('status1', 'in', ['draft', 'registered']), ('account_cheque_type', '=', 'incoming')]" options="{'not_delete': True}">
+                            -->
+                            <field name="account_cheque_ids" widget="many2many" domain="[('status1', 'in', ['registered']), ('account_cheque_type', '=', 'incoming')]" options="{'not_delete': True}">
+                                <tree decoration-success="status1 in ['deposited']">
+                                    <field name="sequence"/>
+                                    <field name="cheque_number"/>
+                                    <field name="amount"/>
+                                    <field name="status1"/>
+                                </tree>
+                            </field> 
+
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="amount_total">
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total" />
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            </group>        
+                            <div class="oe_clear"/>                                                 
+                        </page>
+                    </notebook>                  
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_batch_tree_cheque" model="ir.ui.view">
+        <field name="name">view.batch.tree.cheque</field>
+        <field name="model">account.cheque.batch</field>
+        <field name="arch" type="xml">
+            <tree string="Batch Incoming Cheque">
+                <field name="currency_id" invisible="1"/>
+                <field name="date" string="Deposit Date"/>
+                <field name="reference"/>
+                <field name="credit_account_id" invisible="1"/>
+                <field name="debit_account_id" invisible="1"/>
+                <field name="journal_id"/>
+                <field name="amount_total" string="Total Amount" widget="monetary"/>                
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_batch_menu_cheque" model="ir.actions.act_window">
+        <field name="name">Batch Incoming Cheque</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.cheque.batch</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <!--<field name="view_id" ref="view_batch_tree_cheque"/>-->
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('view_batch_tree_cheque')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('view_batch_form_cheque')})]"/>
+
+        <!--
+        <field name="domain">[('account_cheque_type','=','incoming')]</field>
+        <field name="context">{'default_account_cheque_type': 'incoming'}</field>
+    -->
+    </record> 
+
+    <record id="view_account_cheque_batch_filter" model="ir.ui.view">
+        <field name="name">account.cheque.batch.select</field>
+        <field name="model">account.cheque.batch</field>
+        <field name="arch" type="xml">
+            <search string="Search Batch Incoming Cheque">
+                <field name="reference" string="Reference Number" filter_domain="[('reference', 'ilike', self)]"/>
+                <field name="credit_account_id" />
+                <field name="debit_account_id" />
+                <field name="journal_id" />
+                <filter name="draft" string="Draft" domain="[('status','=','draft')]"/>
+                <filter name="registered" string="Registered" domain="[('status','=','registered')]"/>
+                <filter name="deposited" string="Deposited" domain="[('status','=','deposited')]"/>
+                <separator/>
+                <field name="date" string="Period"/>
+                <group expand="0" string="Group By">
+                    <filter name="status" string="Status" context="{'group_by':'status'}"/>
+                    <filter string="Deposit Date" context="{'group_by':'date'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_batch_cheque" parent="bi_account_cheque.menu_account_cheque" action="action_batch_menu_cheque" sequence="3"/>
+</odoo>

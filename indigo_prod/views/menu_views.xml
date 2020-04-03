@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+	<!-- OVERRIDE -->
+	<menuitem id="account.menu_finance_payables" name="Purchases" parent="account.menu_finance" sequence="3" groups="base.group_erp_manager"/>
+	
+	<!-- NEW MENU -->
+	<!-- SALES -->
+	<menuitem id="menu_sales_invoice" name="Invoices" parent="sale.menu_sale_invoicing" sequence="100" action="indigo_prod.action_sale_invoice_tree"/>
+	<menuitem id="menu_report_sales_report" name="Sales Report By Items" parent="sale.menu_sale_report" sequence="4" action="indigo_prod.sales_report_action"/>
+	<menuitem id="menu_report_sales_report_by_invoice" name="Sales Report By Invoice" parent="sale.menu_sale_report" sequence="5" action="indigo_prod.sales_report_by_invoice_action"/>
+	<!-- <menuitem id="menu_report_sales_report_outstock_item" name="Sales Out of Stock Item" parent="sale.menu_sale_report" sequence="6" action="indigo_prod.sale_report_outstock_item_action"/> -->
+
+	<!-- INVENTORY -->
+	<menuitem id="menu_report_stock_pick_item" name="Stock Pick Item" parent="stock.menu_warehouse_report" sequence="300" action="indigo_prod.stock_pick_item_report_action"/>
+	<menuitem id="menu_config_stock_picking_return_type" name="Transfer Return Type" parent="stock.menu_stock_config_settings" groups="stock.group_stock_manager" sequence="100" action="action_stock_picking_return_type"/>
+
+	<!-- EXPENSES -->
+	<menuitem id="menu_hr_expense_all_expenses" name="All Expenses" sequence="1" parent="hr_expense.menu_hr_expense_root" groups="hr_expense.group_hr_expense_manager"/>
+    <menuitem id="menu_hr_expense_all_expenses_to_submit" name="All Expenses to Submit" sequence="1" parent="menu_hr_expense_all_expenses" action="indigo_prod.hr_expense_actions_all_unsubmitted"/>
+    <menuitem id="menu_hr_expense_sheet_my_reports_refused" name="All Refused Reports" sequence="2" parent="menu_hr_expense_all_expenses" action="indigo_prod.action_hr_expense_sheet_all_refused"/>
+    <menuitem id="menu_hr_expense_sheet_my_reports" name="All Expense Reports" sequence="3" parent="menu_hr_expense_all_expenses" action="indigo_prod.action_hr_expense_sheet_all_all"/>
+
+</data>
+</odoo>

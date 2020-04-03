@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="indigo_products" model="ir.ui.view">
+			<field name="name">indigo_prod.products_form</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_only_form_view"/>
+			<field name="arch" type="xml">
+
+				<xpath expr="//field[@name='default_code']" position="attributes">
+					<attribute name="string">Item Code</attribute>
+					<!-- <attribute name="required">1</attribute> -->
+					<attribute name="attrs">{}</attribute>
+				</xpath>
+
+				<xpath expr="//field[@name='default_code']" position="after">
+					<field name="color_type"/>
+					<field name="brand"/>
+					<field name="brand_id"/>
+					<field name="carmodel_id"/>
+					<field name="carmodel_year" widget="integer"/>
+					<field name="carmodel_group" widget="many2many_tags"/>
+					<field name="carmodel_group_id" invisible="1"/>
+					<!-- <field name="carmodel_group2_id"/> -->
+					<!-- <field name="carmodel_group3_id"/> -->
+					<field name="cartype_id"/>
+					<field name="fit"/>
+					<field name="factory_id"/>
+					<field name="country_id"/>
+				</xpath>
+
+				<xpath expr="//field[@name='list_price']" position="after">
+					<field name="foreign_cost" string="Foreign Cost" groups="base.group_erp_manager"/>
+					<field name="exchange_rate" string="Exchange Rate" groups="base.group_erp_manager"/>
+					<field name="local_cost" string="Local Cost" groups="base.group_erp_manager"/>
+					<field name="tags_ids" widget="many2many_tags" groups="base.group_erp_manager"/>
+				</xpath>
+
+				<xpath expr="//field[@name='uom_po_id']" position="after">
+					<field name="floor_location"/>
+					<field name="rack_location"/>
+				</xpath>
+
+				<xpath expr="//label[@for='standard_price']" position="attributes">
+					<attribute name="groups">base.group_erp_manager</attribute>
+				</xpath>
+				<xpath expr="//field[@name='standard_price']" position="attributes">
+					<attribute name="groups">base.group_erp_manager</attribute>
+				</xpath>
+
+				<xpath expr="//field[@name='list_price']" position="attributes">
+					<attribute name="groups">sales_team.group_sale_salesman</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="product_template_kanban_view_extend" model="ir.ui.view">
+			<field name="name">product.template.kanban.view.extend</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_kanban_view"/>
+			<field name="arch" type="xml">
+				 <xpath expr="//div[@class='oe_kanban_details']/ul/li/field[@name='lst_price']" position="attributes">
+						<attribute name="groups">sales_team.group_sale_salesman</attribute>
+					</xpath>
+			</field>
+		</record>
+
+		<record id="indigo_products_tree" model="ir.ui.view">
+			<field name="name">indigo_prod.products_tree</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_tree_view"/>
+			<field name="arch" type="xml">
+
+					<xpath expr="//field[@name='qty_available']" position="replace">
+					</xpath>
+
+					<xpath expr="//field[@name='uom_id']" position="replace">
+					</xpath>
+
+					 <xpath expr="//field[@name='standard_price']" position="replace">
+					</xpath>
+
+					<xpath expr="//field[@name='default_code']" position="attributes">
+						<attribute name="string">Item Code</attribute>
+					</xpath>
+
+					 <xpath expr="//field[@name='name']" position="replace">
+						<field name="name" string="Item Description"/>
+						<field name="color_type" string="Color/Type"/>
+						<field name="carmodel_id" string = "Model"/>
+						<field name="qty_available"/>
+						<field name="uom_id"/>
+					</xpath>
+
+					<xpath expr="//field[@name='list_price']" position="attributes">
+						<attribute name="groups">sales_team.group_sale_salesman</attribute>
+					</xpath>
+
+			</field>
+		</record>
+
+
+		<record id="indigo_products_tree_in_search" model="ir.ui.view">
+			<field name="name">indigo_prod.products_tree_in_search</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_product_tree_view"/>
+			<field name="arch" type="xml">
+
+					<xpath expr="//field[@name='barcode']" position="replace">
+					</xpath>
+
+					<xpath expr="//field[@name='uom_id']" position="replace">
+					</xpath>
+
+					<xpath expr="//field[@name='lst_price']" position="replace">
+					</xpath>
+
+					<xpath expr="//field[@name='qty_available']" position="replace">
+					</xpath>
+
+						
+					<!-- <xpath expr="//field[@name='default_code']" position="replace">
+						<field name="default_code" string="Item Code"/>
+					</xpath> -->
+					<xpath expr="//field[@name='default_code']" position="attributes">
+						<attribute name="string">Item Code</attribute>
+					</xpath>
+
+					<xpath expr="//field[@name='name']" position="attributes">
+						<attribute name="string">Item Description</attribute>
+					</xpath>
+
+					 <xpath expr="//field[@name='name']" position="after">
+						<field name="color_type" string="Color/Type"/>
+						<field name="carmodel_id" string = "Model"/>
+						<field name="qty_available"/>
+						<field name="uom_id"/>
+					</xpath>
+
+			</field>
+		</record>
+
+		<record id="indigo_prod_product_template_search_inherit" model="ir.ui.view">
+			<field name="name">indigo_prod.product.template.search.inherit</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_search_view"/>
+			<field name="arch" type="xml">
+
+				<xpath expr="//field[@name='categ_id']" position="after">
+					<field name="carmodel_group" string="Car Model Group" filter_domain="[('carmodel_group','ilike', self)]"/>
+				</xpath>
+
+				<xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+					<group expand="0" name="group_by" string="Group By">
+						<filter name="carmodel_group_id" string="Car Model Group" domain="[]" context="{'group_by' : 'carmodel_group_id'}" />
+					</group>
+				</xpath>
+
+			</field>
+		</record>
+
+	</data>
+</odoo>

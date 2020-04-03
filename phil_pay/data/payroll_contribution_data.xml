@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<record id="payroll_contribution_sss_0" model="payroll.contribution.sss">
+            <field name="range_from_amount">0</field>
+            <field name="range_to_amount">2250</field>
+            <field name="monthly_salary_credit">2000</field>
+            <field name="er_amount">160</field>
+            <field name="ee_amount">80</field>
+            <field name="total_amount">240</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_1" model="payroll.contribution.sss">
+            <field name="range_from_amount">2250</field>
+            <field name="range_to_amount">2749.99</field>
+            <field name="monthly_salary_credit">2500</field>
+            <field name="er_amount">200</field>
+            <field name="ee_amount">100</field>
+            <field name="total_amount">300</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_2" model="payroll.contribution.sss">
+            <field name="range_from_amount">2750</field>
+            <field name="range_to_amount">3249.99</field>
+            <field name="monthly_salary_credit">3000</field>
+            <field name="er_amount">240</field>
+            <field name="ee_amount">120</field>
+            <field name="total_amount">360</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_3" model="payroll.contribution.sss">
+            <field name="range_from_amount">3250</field>
+            <field name="range_to_amount">3749.99</field>
+            <field name="monthly_salary_credit">3500</field>
+            <field name="er_amount">280</field>
+            <field name="ee_amount">140</field>
+            <field name="total_amount">420</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_4" model="payroll.contribution.sss">
+            <field name="range_from_amount">3750</field>
+            <field name="range_to_amount">4249.99</field>
+            <field name="monthly_salary_credit">4000</field>
+            <field name="er_amount">320</field>
+            <field name="ee_amount">160</field>
+            <field name="total_amount">480</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_5" model="payroll.contribution.sss">
+            <field name="range_from_amount">4250</field>
+            <field name="range_to_amount">4749.99</field>
+            <field name="monthly_salary_credit">4500</field>
+            <field name="er_amount">360</field>
+            <field name="ee_amount">180</field>
+            <field name="total_amount">540</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_6" model="payroll.contribution.sss">
+            <field name="range_from_amount">4750</field>
+            <field name="range_to_amount">5249.99</field>
+            <field name="monthly_salary_credit">5000</field>
+            <field name="er_amount">400</field>
+            <field name="ee_amount">200</field>
+            <field name="total_amount">600</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_7" model="payroll.contribution.sss">
+            <field name="range_from_amount">5250</field>
+            <field name="range_to_amount">5749.99</field>
+            <field name="monthly_salary_credit">5500</field>
+            <field name="er_amount">440</field>
+            <field name="ee_amount">220</field>
+            <field name="total_amount">660</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_8" model="payroll.contribution.sss">
+            <field name="range_from_amount">5750</field>
+            <field name="range_to_amount">6249.99</field>
+            <field name="monthly_salary_credit">6000</field>
+            <field name="er_amount">480</field>
+            <field name="ee_amount">240</field>
+            <field name="total_amount">720</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_9" model="payroll.contribution.sss">
+            <field name="range_from_amount">6250</field>
+            <field name="range_to_amount">6749.99</field>
+            <field name="monthly_salary_credit">6500</field>
+            <field name="er_amount">520</field>
+            <field name="ee_amount">260</field>
+            <field name="total_amount">780</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_10" model="payroll.contribution.sss">
+            <field name="range_from_amount">6750</field>
+            <field name="range_to_amount">7249.99</field>
+            <field name="monthly_salary_credit">7000</field>
+            <field name="er_amount">560</field>
+            <field name="ee_amount">280</field>
+            <field name="total_amount">840</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_11" model="payroll.contribution.sss">
+            <field name="range_from_amount">7250</field>
+            <field name="range_to_amount">7749.99</field>
+            <field name="monthly_salary_credit">7500</field>
+            <field name="er_amount">600</field>
+            <field name="ee_amount">300</field>
+            <field name="total_amount">900</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_12" model="payroll.contribution.sss">
+            <field name="range_from_amount">7750</field>
+            <field name="range_to_amount">8249.99</field>
+            <field name="monthly_salary_credit">8000</field>
+            <field name="er_amount">640</field>
+            <field name="ee_amount">320</field>
+            <field name="total_amount">960</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_13" model="payroll.contribution.sss">
+            <field name="range_from_amount">8250</field>
+            <field name="range_to_amount">8749.99</field>
+            <field name="monthly_salary_credit">8500</field>
+            <field name="er_amount">680</field>
+            <field name="ee_amount">340</field>
+            <field name="total_amount">1020</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_14" model="payroll.contribution.sss">
+            <field name="range_from_amount">8750</field>
+            <field name="range_to_amount">9249.99</field>
+            <field name="monthly_salary_credit">9000</field>
+            <field name="er_amount">720</field>
+            <field name="ee_amount">360</field>
+            <field name="total_amount">1080</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_15" model="payroll.contribution.sss">
+            <field name="range_from_amount">9250</field>
+            <field name="range_to_amount">9749.99</field>
+            <field name="monthly_salary_credit">9500</field>
+            <field name="er_amount">760</field>
+            <field name="ee_amount">380</field>
+            <field name="total_amount">1140</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_16" model="payroll.contribution.sss">
+            <field name="range_from_amount">9750</field>
+            <field name="range_to_amount">10249.99</field>
+            <field name="monthly_salary_credit">10000</field>
+            <field name="er_amount">800</field>
+            <field name="ee_amount">400</field>
+            <field name="total_amount">1200</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_17" model="payroll.contribution.sss">
+            <field name="range_from_amount">10250</field>
+            <field name="range_to_amount">10749.99</field>
+            <field name="monthly_salary_credit">10500</field>
+            <field name="er_amount">840</field>
+            <field name="ee_amount">420</field>
+            <field name="total_amount">10260</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_18" model="payroll.contribution.sss">
+            <field name="range_from_amount">10760</field>
+            <field name="range_to_amount">11249.99</field>
+            <field name="monthly_salary_credit">11000</field>
+            <field name="er_amount">880</field>
+            <field name="ee_amount">440</field>
+            <field name="total_amount">1320</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_19" model="payroll.contribution.sss">
+            <field name="range_from_amount">11250</field>
+            <field name="range_to_amount">11749.99</field>
+            <field name="monthly_salary_credit">11500</field>
+            <field name="er_amount">920</field>
+            <field name="ee_amount">460</field>
+            <field name="total_amount">1380</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_20" model="payroll.contribution.sss">
+            <field name="range_from_amount">11750</field>
+            <field name="range_to_amount">12249.99</field>
+            <field name="monthly_salary_credit">12000</field>
+            <field name="er_amount">960</field>
+            <field name="ee_amount">480</field>
+            <field name="total_amount">1440</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_21" model="payroll.contribution.sss">
+            <field name="range_from_amount">12250</field>
+            <field name="range_to_amount">12749.99</field>
+            <field name="monthly_salary_credit">12500</field>
+            <field name="er_amount">1000</field>
+            <field name="ee_amount">500</field>
+            <field name="total_amount">1500</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_22" model="payroll.contribution.sss">
+            <field name="range_from_amount">12760</field>
+            <field name="range_to_amount">13249.99</field>
+            <field name="monthly_salary_credit">13000</field>
+            <field name="er_amount">1040</field>
+            <field name="ee_amount">520</field>
+            <field name="total_amount">1560</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_23" model="payroll.contribution.sss">
+            <field name="range_from_amount">13250</field>
+            <field name="range_to_amount">13749.99</field>
+            <field name="monthly_salary_credit">13500</field>
+            <field name="er_amount">1080</field>
+            <field name="ee_amount">540</field>
+            <field name="total_amount">1620</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_24" model="payroll.contribution.sss">
+            <field name="range_from_amount">13750</field>
+            <field name="range_to_amount">14249.99</field>
+            <field name="monthly_salary_credit">14000</field>
+            <field name="er_amount">1120</field>
+            <field name="ee_amount">560</field>
+            <field name="total_amount">1680</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_25" model="payroll.contribution.sss">
+            <field name="range_from_amount">14250</field>
+            <field name="range_to_amount">14749.99</field>
+            <field name="monthly_salary_credit">14500</field>
+            <field name="er_amount">1160</field>
+            <field name="ee_amount">580</field>
+            <field name="total_amount">1740</field>
+            <field name="ec_amount">10</field>
+        </record>
+
+        <record id="payroll_contribution_sss_26" model="payroll.contribution.sss">
+            <field name="range_from_amount">14750</field>
+            <field name="range_to_amount">15249.99</field>
+            <field name="monthly_salary_credit">15000</field>
+            <field name="er_amount">1200</field>
+            <field name="ee_amount">600</field>
+            <field name="total_amount">1800</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_27" model="payroll.contribution.sss">
+            <field name="range_from_amount">15250</field>
+            <field name="range_to_amount">15749.99</field>
+            <field name="monthly_salary_credit">15500</field>
+            <field name="er_amount">1240</field>
+            <field name="ee_amount">620</field>
+            <field name="total_amount">1860</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_28" model="payroll.contribution.sss">
+            <field name="range_from_amount">15750</field>
+            <field name="range_to_amount">16249.99</field>
+            <field name="monthly_salary_credit">16000</field>
+            <field name="er_amount">1280</field>
+            <field name="ee_amount">640</field>
+            <field name="total_amount">1920</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_29" model="payroll.contribution.sss">
+            <field name="range_from_amount">16250</field>
+            <field name="range_to_amount">16749.99</field>
+            <field name="monthly_salary_credit">16500</field>
+            <field name="er_amount">1320</field>
+            <field name="ee_amount">660</field>
+            <field name="total_amount">1980</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_30" model="payroll.contribution.sss">
+            <field name="range_from_amount">16750</field>
+            <field name="range_to_amount">17249.99</field>
+            <field name="monthly_salary_credit">17000</field>
+            <field name="er_amount">1360</field>
+            <field name="ee_amount">680</field>
+            <field name="total_amount">2040</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_31" model="payroll.contribution.sss">
+            <field name="range_from_amount">17250</field>
+            <field name="range_to_amount">17749.99</field>
+            <field name="monthly_salary_credit">17500</field>
+            <field name="er_amount">1400</field>
+            <field name="ee_amount">700</field>
+            <field name="total_amount">2100</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_32" model="payroll.contribution.sss">
+            <field name="range_from_amount">17750</field>
+            <field name="range_to_amount">18249.99</field>
+            <field name="monthly_salary_credit">18000</field>
+            <field name="er_amount">1440</field>
+            <field name="ee_amount">720</field>
+            <field name="total_amount">2160</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_33" model="payroll.contribution.sss">
+            <field name="range_from_amount">18250</field>
+            <field name="range_to_amount">18749.99</field>
+            <field name="monthly_salary_credit">18500</field>
+            <field name="er_amount">1480</field>
+            <field name="ee_amount">740</field>
+            <field name="total_amount">2220</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_34" model="payroll.contribution.sss">
+            <field name="range_from_amount">18750</field>
+            <field name="range_to_amount">19249.99</field>
+            <field name="monthly_salary_credit">19000</field>
+            <field name="er_amount">1520</field>
+            <field name="ee_amount">760</field>
+            <field name="total_amount">2280</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_35" model="payroll.contribution.sss">
+            <field name="range_from_amount">19250</field>
+            <field name="range_to_amount">19749.99</field>
+            <field name="monthly_salary_credit">19500</field>
+            <field name="er_amount">1560</field>
+            <field name="ee_amount">780</field>
+            <field name="total_amount">2340</field>
+            <field name="ec_amount">30</field>
+        </record>
+
+        <record id="payroll_contribution_sss_36" model="payroll.contribution.sss">
+            <field name="range_from_amount">19750</field>
+            <field name="range_to_amount">0</field>
+            <field name="monthly_salary_credit">20000</field>
+            <field name="er_amount">1600</field>
+            <field name="ee_amount">800</field>
+            <field name="total_amount">2400</field>
+            <field name="ec_amount">30</field>
+        </record>
+    </data>
+</odoo>

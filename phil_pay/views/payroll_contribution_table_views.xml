@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+        <record id="payroll_contribution_sss_tree" model="ir.ui.view">
+            <field name="name">payroll.contribution.sss.tree</field>
+            <field name="model">payroll.contribution.sss</field>
+            <field name="arch" type="xml">
+                <tree string="SSS Contribution Table">
+                    <field name="range_from_amount"/>
+                    <field name="range_to_amount"/>
+                    <field name="monthly_salary_credit"/>
+                    <field name="er_amount" />
+                    <field name="ee_amount" />
+                    <field name="total_amount"/>
+                    <field name="ec_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        
+        <record id="action_payroll_contribution_sss" model="ir.actions.act_window">
+            <field name="name">SSS Contribution Table</field>
+            <field name="res_model">payroll.contribution.sss</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>            
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to craete new record.
+              </p>
+            </field>
+        </record>     
+
+        <!-- MENU -->
+        <menuitem id="menu_payroll_contribution_sss" name="SSS Contribution Table" parent="hr_payroll.menu_hr_payroll_configuration" action="action_payroll_contribution_sss" sequence="99"/>           
+    
+  </data>
+</odoo>

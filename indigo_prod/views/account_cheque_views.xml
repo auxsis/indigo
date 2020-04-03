@@ -1,0 +1,60 @@
+<odoo>
+	<data>
+		
+		<record id="account_incoming_cheque_form_view_custom" model="ir.ui.view">
+			<field name="name">account.incoming.cheque.form.view.custom</field>
+			<field name="model">account.cheque</field>
+			<field name="inherit_id" ref="bi_account_cheque.account_incoming_cheque_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='bank_account_id']" position="after">
+				 <field name="bank_id"/>
+				 <field name="bank_account_number_id" domain="[('bank_id', '=', bank_id)]"/>
+				</xpath>
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="account_outgoing_cheque_form_view_custom" model="ir.ui.view">
+			<field name="name">account.outgoing.cheque.form.view.custom</field>
+			<field name="model">account.cheque</field>
+			<field name="inherit_id" ref="bi_account_cheque.account_outgoing_cheque_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='bank_account_id']" position="after">
+				 <field name="bank_id"/>
+				</xpath>
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- SEARCH/FILTER -->
+		<record id="view_account_cheque_filter" model="ir.ui.view">
+	        <field name="name">account.cheque.select.filter</field>
+	        <field name="model">account.cheque</field>
+	        <field name="arch" type="xml">
+	            <search string="Search Cheque">
+	                <field name="name" string="Name" filter_domain="[('name', 'ilike', self)]"/>
+	                <field name="cheque_number" string="Cheque Number" filter_domain="[('cheque_number', 'ilike', self)]"/>
+	                <field name="payee_user_id" string="Partner"/>
+	                <field name="bank_id" />
+	                <field name="bank_account_id" />
+	                <field name="credit_account_id" />
+	                <field name="debit_account_id" />
+	                <field name="journal_id" />
+	                <filter name="draft" string="Draft" domain="[('status1','=','draft')]"/>
+	                <filter name="registered" string="Registered" domain="[('status1','=','registered')]"/>
+	                <filter name="deposited" string="Deposited" domain="[('status1','=','deposited')]"/>
+	                <group expand="0" string="Group By">
+	                    <filter name="status1" string="Status" context="{'group_by':'status1'}"/>
+	                    <filter string="Cheque Date" context="{'group_by':'cheque_date'}"/>
+	                    <filter string="Cheque Receive Date" context="{'group_by':'cheque_receive_date'}"/>
+	                </group>
+	           </search>
+	        </field>
+	    </record>
+
+	</data>
+</odoo>

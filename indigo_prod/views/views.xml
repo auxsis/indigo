@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- explicit list view definition -->
+		
+		<record model="ir.ui.view" id="indigo_prod.carbrandlist">
+			<field name="name">Veicle Brands</field>
+			<field name="model">indigo_prod.brand</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+		
+
+		<!-- actions opening views on models -->
+		
+		<record model="ir.actions.act_window" id="indigo_prod.action_window">
+			<field name="name">Vehicle Brands</field>
+			<field name="res_model">indigo_prod.brand</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Vehicle Brands" id="indigo_prod.carbrand_menu" action="indigo_prod.action_window" parent="sale.menu_sale_config"/>
+
+
+		<record model="ir.ui.view" id="indigo_prod.carmodellist">
+			<field name="name">Vehicle Models</field>
+			<field name="model">indigo_prod.carmodel</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="year"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="indigo_prod.carmodelform">
+			<field name="name">Vehicle Models Form</field>
+			<field name="model">indigo_prod.carmodel</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<group>
+							<field name="name"/>
+						</group>
+						<group>
+							<field name="year" widget="integer"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+
+		<!-- actions opening views on models -->
+		
+		<record model="ir.actions.act_window" id="indigo_prod.vehicle_models_action_window">
+			<field name="name">Vehicle Models</field>
+			<field name="res_model">indigo_prod.carmodel</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Vehicle Models" id="indigo_prod.vehiclemodel_menu" action="indigo_prod.vehicle_models_action_window" parent="sale.menu_sale_config"/>
+
+
+
+		<!-- Partner Areas -->
+
+			<record model="ir.ui.view" id="indigo_prod.partner_area_list">
+			<field name="name">Partner Areas</field>
+			<field name="model">indigo_prod.partner_area</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+		
+
+		<!-- actions opening views on models -->
+		
+		<record model="ir.actions.act_window" id="indigo_prod.partner_area_action">
+			<field name="name">Partner Areas</field>
+			<field name="res_model">indigo_prod.partner_area</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Partner Areas" id="indigo_prod.partner_area_menu" action="indigo_prod.partner_area_action" parent="sale.menu_sale_config"/>
+
+		<!-- Car Model Group -->
+		
+		<record model="ir.actions.act_window" id="indigo_prod.product_car_model_group_action">
+			<field name="name">Car Model Group</field>
+			<field name="res_model">indigo_prod.carmodelgroup</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Car Model Group" id="indigo_prod.product_car_model_group_menu" action="indigo_prod.product_car_model_group_action" parent="sale.menu_sale_config"/>
+
+		<!-- Car Model Type -->
+		
+		<record model="ir.actions.act_window" id="indigo_prod.product_car_model_type_action">
+			<field name="name">Car Type</field>
+			<field name="res_model">indigo_prod.cartype</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Car Type" id="indigo_prod.product_car_model_type_menu" action="indigo_prod.product_car_model_type_action" parent="sale.menu_sale_config"/>
+
+		<!-- Factory -->
+		
+		<record model="ir.actions.act_window" id="indigo_prod.product_factory_action">
+			<field name="name">Factory</field>
+			<field name="res_model">indigo_prod.factory</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Factory" id="indigo_prod.product_factory_menu" action="indigo_prod.product_factory_action" parent="sale.menu_sale_config"/>
+		
+		
+ 
+
+
+
+	</data>
+</odoo>

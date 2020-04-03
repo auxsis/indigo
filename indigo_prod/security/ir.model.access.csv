@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_indigo_prod_brand_sale_all,access.indigo.prod.brand.all,model_indigo_prod_brand,,1,0,0,0
+access_indigo_prod_brand_sale_manager,access.indigo.prod.brand.sale.manager,model_indigo_prod_brand,sales_team.group_sale_manager,1,1,1,1
+access_indigo_prod_carmodel_sale_all,access.indigo.prod.carmodel.all,model_indigo_prod_carmodel,,1,0,0,0
+access_indigo_prod_carmodel_sale_manager,access.indigo.prod.carmodel.sale.manager,model_indigo_prod_carmodel,sales_team.group_sale_manager,1,1,1,1
+access_indigo_prod_partner_area_sale_all,access.indigo.prod.partner.area.all,model_indigo_prod_partner_area,,1,0,0,0
+access_indigo_prod_partner_area_sale_manager,access.indigo.prod.partner.area.sale.manager,model_indigo_prod_partner_area,sales_team.group_sale_manager,1,1,1,1
+access_indigo_prod_carmodelgroup_sale_all,access.indigo.prod.carmodelgroup.all,model_indigo_prod_carmodelgroup,,1,0,0,0
+access_indigo_prod_carmodelgroup_sale_manager,access.indigo.prod.carmodelgroup.sale.manager,model_indigo_prod_carmodelgroup,sales_team.group_sale_manager,1,1,1,1
+access_indigo_prod_cartype_sale_all,access.indigo.prod.cartype.all,model_indigo_prod_cartype,,1,0,0,0
+access_indigo_prod_cartype_sale_manager,access.indigo.prod.cartype.sale.manager,model_indigo_prod_cartype,sales_team.group_sale_manager,1,1,1,1
+access_indigo_prod_factory_sale_all,access.indigo.prod.factory.all,model_indigo_prod_factory,,1,0,0,0
+access_indigo_prod_factory_sale_manager,access.indigo.prod.factory.sale.manager,model_indigo_prod_factory,sales_team.group_sale_manager,1,1,1,1
+access_disciplinary_action_discipline_category_user,access.disciplinary.action.discipline.category.user,hr_disciplinary_tracking.model_discipline_category,base.group_user,1,0,0,0
+access_disciplinary_action_category_user,access.disciplinary.action.category.user,hr_disciplinary_tracking.model_action_category,base.group_user,1,0,0,0
+access_stock_picking_return_type_user,access.stock.picking.return.type.user,model_stock_picking_return_type,base.group_user,1,0,0,0
+access_account_cheque_batch_billing,access.account.cheque.batch,model_account_cheque_batch,account.group_account_invoice,1,1,1,1

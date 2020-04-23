@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
+		<record id="indigo_products_main" model="ir.ui.view">
+			<field name="name">indigo_prod.products_main_form</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="stock_account.view_stock_product_tree2"/>
+			<field name="arch" type="xml">		
+				<xpath expr="//field[@name='qty_at_date']" position="replace">
+					<field name="qty_at_date" sum='total_qty_at_date'/>
+				</xpath>
+			</field>
+		</record>
 
 		<record id="indigo_products" model="ir.ui.view">
 			<field name="name">indigo_prod.products_form</field>
@@ -40,6 +50,14 @@
 				<xpath expr="//field[@name='uom_po_id']" position="after">
 					<field name="floor_location"/>
 					<field name="rack_location"/>
+				</xpath>
+				
+				<xpath expr="//field[@name='rack_location']" position="after">
+					<field name='value'/>
+					<field name='incoming_qty'/>
+					<field name='outgoing_qty'/>
+					<field name='most_recent'/>
+					<field name='qty_received'/>
 				</xpath>
 
 				<xpath expr="//label[@for='standard_price']" position="attributes">

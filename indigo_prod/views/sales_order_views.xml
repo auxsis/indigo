@@ -25,6 +25,9 @@
 				<xpath expr="//field[@name='confirmation_date']" position="attributes">
 					<attribute name="attrs">{}</attribute>
 				</xpath>
+				<xpath expr="//field[@name='partner_shipping_id']" position="after">
+					<field name="print_count" readonly="1"/>
+				</xpath>
 			</field>
 		</record>
 

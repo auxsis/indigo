@@ -9,6 +9,9 @@ class IndigoProductsMain(models.Model):
     qty_at_date = fields.Float('Quantity', compute='_compute_stock_value',
                                default=0.0, digits=dp.get_precision('Product Unit of Measure'), store=True)
 
+    stock_value = fields.Float(
+        'Value', compute='_compute_stock_value', store=True)
+
 
 class IndigoProducts(models.Model):
     _inherit = 'product.template'

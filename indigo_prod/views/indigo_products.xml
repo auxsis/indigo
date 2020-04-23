@@ -9,6 +9,9 @@
 				<xpath expr="//field[@name='qty_at_date']" position="replace">
 					<field name="qty_at_date" sum='total_qty_at_date'/>
 				</xpath>
+				<xpath expr="//field[@name='stock_value']" position="replace">
+					<field name="stock_value" sum='total_stock_value'/>
+				</xpath>
 			</field>
 		</record>
 

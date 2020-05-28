@@ -170,6 +170,7 @@ class AccountCheque(models.Model):
             }
             move_lines.append((0, 0, credit_vals))
             account_move.write({'line_ids' : move_lines})
+            account_move.post()
             self.status1 = 'registered'
         else:
             vals = {

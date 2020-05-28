@@ -16,7 +16,6 @@ class AccountInvoice(models.Model):
     
     exchange_rate = fields.Float(string='Exchange Rate')
     convert_currency = fields.Boolean(compute='_is_convert_currency')
-        #date_due = fields.Date(string='Date Due')
     due_date = fields.Char(string="Date Due", strore=True)
 
     @api.onchange('date_due')
@@ -25,10 +24,9 @@ class AccountInvoice(models.Model):
             if record.date_due:
                 record.due_date = fields.Date.from_string(
                     record.date_due).strftime('%m/%d/%Y')
-
             else:
                 record.due_date = '0'  # datetime.now().strftime('%m/%d/%Y')
-
+        
     @api.multi
     def action_invoice_open2(self):
         for rec in self:
@@ -102,3 +100,4 @@ class AccountInvoiceLine(models.Model):
         self.price_unit = price_unit
         self.orig_price_unit = orig_price_unit
         return result
+      

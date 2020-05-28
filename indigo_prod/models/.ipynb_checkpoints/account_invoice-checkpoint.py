@@ -1,8 +1,7 @@
-from odoo import models, fields, api, _
-from datetime import datetime
+from odoo import models, fields, api, _ 
+
 import logging
 _logger = logging.getLogger(__name__)
-
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
@@ -16,27 +15,6 @@ class AccountInvoice(models.Model):
     
     exchange_rate = fields.Float(string='Exchange Rate')
     convert_currency = fields.Boolean(compute='_is_convert_currency')
-    due_date = fields.Char(string="Date Due", strore=True)
-
-    @api.onchange('date_due')
-    def _convert_date(self):
-        for record in self:
-            if record.date_due:
-                record.due_date = fields.Date.from_string(
-                    record.date_due).strftime('%m/%d/%Y')
-            else:
-                record.due_date = '0'  # datetime.now().strftime('%m/%d/%Y')
-        
-    @api.multi
-    def action_invoice_open2(self):
-        for rec in self:
-            if rec.date_due:
-                self.due_date = fields.Date.from_string(
-                    rec.date_due).strftime('%m/%d/%Y')
-            else:
-                self.due_date = fields.Date.from_string(
-                    rec.date_invoice).strftime('%m/%d/%Y')
-        self.action_invoice_open()
     
     # OVERRIDE TO SET INVOICE DATE BASED ON SALES CONFIRMATION DATE / TO BE REMOVED AFTER DATA ENCODING
     @api.model
@@ -100,4 +78,3 @@ class AccountInvoiceLine(models.Model):
         self.price_unit = price_unit
         self.orig_price_unit = orig_price_unit
         return result
-      

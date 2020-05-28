@@ -38,7 +38,24 @@
             <field name="search_view_id" ref="account.view_account_invoice_filter_inherit_invoices"/>
             <field name="view_id" ref="sale_invoice_tree"/>
         </record>
-
+        
+        <!--VENDOR BILL-->
+        <record id="invoice_supplier_form_custom" model="ir.ui.view">
+          <field name="name">account.invoice.form.custom</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_supplier_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//field[@name='currency_id']" position="after">
+                  <field name="convert_currency"/>
+                  <field name="company_currency_id" groups="base.group_multi_currency" attrs="{'invisible': [('convert_currency','=',False)]}"/>
+                  <field name="exchange_rate" groups="base.group_multi_currency" attrs="{'invisible': [('convert_currency','=',False)]}"/>
+              </xpath>
+              <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                  <field name="orig_price_unit"/>
+              </xpath>
+          </field>
+        </record>
+        
         <record id="view_account_invoice_form_inherit" model="ir.ui.view">
             <field name="name">account.invoice.view.form.inherit</field>
             <field name="model">account.invoice</field>
@@ -90,6 +107,7 @@
                     <field name="due_date" invisible='1'/>
                 </xpath>
             </field>
-        </record>      
+        </record>     
+    
 	</data>
 </odoo>

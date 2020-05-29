@@ -69,12 +69,17 @@ class AccountInvoiceLine(models.Model):
         currency = self.invoice_id.currency_id
         type = self.invoice_id.type
         exchange_rate = self.invoice_id.exchange_rate
-        price_unit = self.product_id.lst_price
-        orig_price_unit = self.product_id.lst_price
+        
+        price_unit = self.product_id.standard_price
+        orig_price_unit = self.product_id.standard_price
+        if self.purchase_line_id:
+            orig_price_unit = self.purchase_line_id.price_unit
+            price_unit = self.purchase_line_id.price_unit
+            
         if self.product_id and type in ('in_invoice', 'in_refund'):
             if company and currency:
                 if company.currency_id != currency and exchange_rate:
-                    price_unit = self.product_id.lst_price * exchange_rate
+                    price_unit = price_unit * exchange_rate
         self.price_unit = price_unit
         self.orig_price_unit = orig_price_unit
         result = super(AccountInvoiceLine, self)._compute_price()
@@ -89,13 +94,17 @@ class AccountInvoiceLine(models.Model):
         type = self.invoice_id.type
         exchange_rate = self.invoice_id.exchange_rate
         
-        orig_price_unit = self.product_id.lst_price
-        price_unit = self.product_id.lst_price
-     
+        orig_price_unit = self.product_id.standard_price
+        price_unit = self.product_id.standard_price
+        
+        if self.purchase_line_id:
+            orig_price_unit = self.purchase_line_id.price_unit
+            price_unit = self.purchase_line_id.price_unit
+         
         if self.product_id and type in ('in_invoice', 'in_refund'):
             if company and currency:
                 if company.currency_id != currency and exchange_rate:
-                    price_unit = self.product_id.lst_price * exchange_rate
+                    price_unit = price_unit * exchange_rate
                     
         self.price_unit = price_unit
         self.orig_price_unit = orig_price_unit

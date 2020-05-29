@@ -11,6 +11,8 @@ class IBASSaleIndigo(models.Model):
         for rec in self:
             if rec.purchase_price > 0:
                 rec.margin_percent = ((rec.price_unit - rec.purchase_price) / rec.purchase_price) * 100
+            elif rec.purchase_price == 0 and product_id.standard_price >  0 :
+                rec.margin_percent = ((rec.price_unit - rec.product_id.standard_price) / rec.product_id.standard_price) * 100
             else:
                 rec.margin_percent = 100
 

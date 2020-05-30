@@ -9,6 +9,12 @@ _logger = logging.getLogger(__name__)
 
 class Partners(models.Model):
     _inherit = 'res.partner'
+    
+    @api.multi
+    def _get_invoice_count(self):
+        for record in self:
+            invoice_count = len(record.invoice_ids)
+            record.invoice_count = invoice_count
 
     partner_area_id = fields.Many2one(
         'indigo_prod.partner_area',
@@ -18,7 +24,8 @@ class Partners(models.Model):
     primary_contact_person = fields.Char(
         string='Contact Person',
     )
-
+    
+    invoice_count = fields.Integer(string='# of Invoices', compute='_get_invoice_count')
 
 
 class PartnerArea(models.Model):

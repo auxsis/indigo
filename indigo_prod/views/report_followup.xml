@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <template id="followup_search_template_custom">
+            <div class="btn-group o_dropdown o_account_reports_followup-filter">
+                <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="fa fa-filter"/> Partners:
+                    <t t-if="options.get('type_followup', '') == 'action'">
+                        In Need of Action
+                    </t>
+                    <t t-if="options.get('type_followup', '') != 'action'">
+                        With Overdue Invoices
+                    </t>
+                    <span class="caret"/>
+                </a>
+                <ul class="dropdown-menu o_filters_menu" role="menu">
+                    <li title="In Need of Action" data-filter="type_followup" data-id="action" class="js_account_reports_one_choice_filter"><a>In Need of Action</a></li>
+                    <li title="With Overdue Invoices" data-filter="type_followup" data-id="all" class="js_account_reports_one_choice_filter"><a>With Overdue Invoices</a></li>
+                </ul>
+            </div>
+            <div class="btn-group o_dropdown o_account_reports_followup-filter">
+                <a type="button" class="dropdown-toggle customer_statement_partner_filter" data-toggle="dropdown">
+                    <span class="fa fa-folder-open"/> Customer: 
+                    <span class="caret"/>
+                </a>
+                <ul class="dropdown-menu o_filters_menu" role="menu">
+                    <li style='margin-left: 10px; margin-right: 10px;'>
+                        <select class="js_customer_statement_partner_auto_complete" data-filter="account_partners" multiple="multiple" style="min-width: 100px;">
+                            <t t-foreach="account_partners" t-as="a">
+                                <option t-att-value="a[0]"><t t-esc="a[1]" /></option>
+                            </t>
+                        </select>
+                    </li>
+                    <li class="divider"></li>
+                </ul>
+            </div>
+        </template>
+        
+    </data>
+</odoo>

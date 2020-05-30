@@ -17,7 +17,7 @@ class AccountInvoice(models.Model):
     exchange_rate = fields.Float(string='Exchange Rate')
     convert_currency = fields.Boolean(compute='_is_convert_currency')
     due_date = fields.Char(string="Date Due", strore=True)
-
+    
     @api.onchange('date_due')
     def _convert_date(self):
         for record in self:
@@ -54,6 +54,9 @@ class AccountInvoice(models.Model):
     def _get_currency_rate(self):
         self._is_convert_currency()
         self.exchange_rate = self.currency_id.rate
+        
+    def action_view_customer_statement(self):
+        return True
     
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'

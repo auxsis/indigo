@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+	<!-- UPDATE MENUS -->
+	<record model="ir.ui.menu" id="sale.menu_sale_report">
+		<field name="groups_id" eval="[(6,0,[ref('sales_team.group_sale_manager')])]"/>
+	</record> 
+	<record model="ir.ui.menu" id="sale.menu_sale_config">
+		<field name="groups_id" eval="[(6,0,[ref(base.group_erp_manager')])]"/>
+	</record> 	
+</data>
+</odoo>

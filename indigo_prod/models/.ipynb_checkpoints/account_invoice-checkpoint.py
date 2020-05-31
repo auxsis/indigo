@@ -54,6 +54,27 @@ class AccountInvoice(models.Model):
     def _get_currency_rate(self):
         self._is_convert_currency()
         self.exchange_rate = self.currency_id.rate
+        
+    def action_view_customer_statement(self):
+    # return self.partner_id.open_action_followup()
+        self.ensure_one()
+        ctx = self.env.context.copy()
+        # partners_data = self.get_partners_in_need_of_action_and_update()
+        _logger.info("HALO")
+        _logger.info(self._context.get('active_ids'))
+        partners_data = self.partner_id.get_partners_in_customer_statement_list(self.ids)
+        ctx = self.env.context.copy()
+        ctx.update({
+            'model': 'account.followup.report', 
+            'lang': self.partner_id.lang,
+            'followup_line_id': partners_data.get(self.id) and partners_data[self.id][0] or False,
+        })
+        return {
+                'type': 'ir.actions.client',
+                'tag': 'account_report_followup',
+                'context': ctx,
+                'options': {'partner_id': self.partner_id.id},
+            }
     
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'

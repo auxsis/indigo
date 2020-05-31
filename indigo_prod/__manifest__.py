@@ -23,7 +23,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'r2d2', 'product', 'stock', 'stock_picking_batch', 'delivery', 'hr_disciplinary_tracking', 'bi_account_cheque', 'hr_expense'],
+    'depends': ['base', 'sale', 'r2d2', 'product', 'stock', 'stock_picking_batch', 'delivery', 'hr_disciplinary_tracking', 'bi_account_cheque', 'hr_expense', 'account_reports', 'account_reports_followup'],
 
     # always loaded
     'data': [
@@ -32,6 +32,7 @@
         # 'data/menu_data.xml',
         'data/report_paperformat_data.xml',
         'data/report_data.xml',
+        'views/assets.xml',
         'views/views.xml',
         'views/templates.xml',
         'views/indigo_products.xml',
@@ -48,6 +49,9 @@
         'views/account_cheque_views.xml',
         'views/stock_picking_batch_views.xml',
         'views/stock_move_views.xml',
+        'views/report_followup.xml',
+        'views/account_check_batch.xml',
+        'views/account_customer_statement.xml',
         'report/report_saleorder.xml',
         'report/cheque_deposit_slip.xml',
         'wizard/sales_report_export_view.xml',
@@ -56,7 +60,6 @@
         'wizard/sales_report_outstock_item_view.xml',
         'wizard/stock_picking_return_views.xml',
         'views/menu_views.xml',
-        'views/account_check_batch.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

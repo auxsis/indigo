@@ -1,5 +1,8 @@
 from odoo import models, fields, api, _
 from datetime import datetime
+
+from odoo.exceptions import UserError
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -36,12 +39,11 @@ class AccountInvoice(models.Model):
     def action_invoice_open2(self):
         for rec in self:
             if rec.date_due:
-                self.due_date = fields.Date.from_string(
-                    rec.date_due).strftime('%m/%d/%Y')
+                rec.due_date = fields.Date.from_string(rec.date_due).strftime('%m/%d/%Y')
             else:
-                self.due_date = fields.Date.from_string(
-                    rec.date_invoice).strftime('%m/%d/%Y')
-        self.action_invoice_open()
+                if rec.date_invoice:
+                    rec.due_date = fields.Date.from_string(rec.date_invoice).strftime('%m/%d/%Y')
+            rec.action_invoice_open()
     
     # OVERRIDE TO SET INVOICE DATE BASED ON SALES CONFIRMATION DATE / TO BE REMOVED AFTER DATA ENCODING
     @api.model
@@ -88,6 +90,17 @@ class AccountInvoice(models.Model):
         result = super(AccountInvoice, self).purchase_order_change()
         self._is_convert_currency()
         return result
+    
+
+#     @api.multi
+#     def action_invoice_open(self):
+#         for record in self:
+#             if record.type in ['in_invoice','in_refund'] and not record.date_invoice:
+#                 raise UserError(_("Please input bill date before you validate the vendor bill."))
+        
+#         result = super(AccountInvoice, self).action_invoice_open()
+        
+#         return result
     
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'

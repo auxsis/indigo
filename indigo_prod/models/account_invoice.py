@@ -26,7 +26,7 @@ class AccountInvoice(models.Model):
                     record.date_due).strftime('%m/%d/%Y')
             else:
                 record.due_date = '0'  # datetime.now().strftime('%m/%d/%Y')
-
+        
     @api.multi
     def action_invoice_open2(self):
         for rec in self:
@@ -130,3 +130,4 @@ class AccountInvoiceLine(models.Model):
         self.price_unit = price_unit
         self.orig_price_unit = orig_price_unit
         return result
+      

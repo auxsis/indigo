@@ -90,7 +90,7 @@ class AccountInvoice(models.Model):
         result = super(AccountInvoice, self).purchase_order_change()
         self._is_convert_currency()
         return result
-    
+
 #     @api.multi
 #     def action_invoice_open(self):
 #         for record in self:
@@ -101,6 +101,7 @@ class AccountInvoice(models.Model):
         
 #         return result
     
+
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
     

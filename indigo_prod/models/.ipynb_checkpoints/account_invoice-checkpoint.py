@@ -91,6 +91,7 @@ class AccountInvoice(models.Model):
         self._is_convert_currency()
         return result
     
+
 #     @api.multi
 #     def action_invoice_open(self):
 #         for record in self:

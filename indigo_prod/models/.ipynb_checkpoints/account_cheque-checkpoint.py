@@ -24,3 +24,12 @@ class AccountCheque(models.Model):
                     for line in move.line_ids:
                         line.remove_move_reconcile()
                     move.button_cancel()
+                    
+    # UNPOST ENTRIES / UNRECONCILE
+    @api.multi
+    def post_cheque_entries(self):
+        for record in self:
+            account_move_ids = self.env['account.move'].search([('account_cheque_id','=',record.id)])
+            for move in account_move_ids:
+                if move.state == 'draft':
+                    move.post()

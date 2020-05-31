@@ -9,15 +9,20 @@ class AccountInvoice(models.Model):
     
     def _is_convert_currency(self):
         convert_currency = False
-        if self.company_id and self.currency_id:
-            if self.company_id.currency_id != self.currency_id:
+        if self.purchase_currency_id and self.currency_id:
+            if self.purchase_currency_id != self.currency_id:
                 convert_currency = True
+        else:
+            if self.purchase_id:
+                if self.purchase_id.currency_id != self.purchase_id.company_id.currency_id:
+                    convert_currency = True
         self.convert_currency = convert_currency
     
+    purchase_currency_id = fields.Many2one('res.currency', string='Purchase Currency')
     exchange_rate = fields.Float(string='Exchange Rate')
     convert_currency = fields.Boolean(compute='_is_convert_currency')
     due_date = fields.Char(string="Date Due", strore=True)
-
+    
     @api.onchange('date_due')
     def _convert_date(self):
         for record in self:
@@ -50,13 +55,13 @@ class AccountInvoice(models.Model):
         
         return result
     
-    @api.onchange('currency_id')
+    @api.onchange('purchase_currency_id')
     def _get_currency_rate(self):
         self._is_convert_currency()
-        self.exchange_rate = self.currency_id.rate
+        self.exchange_rate = self.purchase_currency_id.rate
         
     def action_view_customer_statement(self):
-    # return self.partner_id.open_action_followup()
+        # return self.partner_id.open_action_followup()
         self.ensure_one()
         ctx = self.env.context.copy()
         # partners_data = self.get_partners_in_need_of_action_and_update()
@@ -76,6 +81,14 @@ class AccountInvoice(models.Model):
                 'options': {'partner_id': self.partner_id.id},
             }
     
+    @api.onchange('purchase_id')
+    def purchase_order_change(self):
+        if not self.purchase_currency_id:
+            self.purchase_currency_id = self.purchase_id.currency_id
+        result = super(AccountInvoice, self).purchase_order_change()
+        self._is_convert_currency()
+        return result
+    
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
     
@@ -84,9 +97,10 @@ class AccountInvoiceLine(models.Model):
     @api.one
     @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
         'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id', 'invoice_id.company_id',
-        'invoice_id.date_invoice','invoice_id.exchange_rate')
+        'invoice_id.date_invoice','invoice_id.exchange_rate','invoice_id.purchase_currency_id')
     def _compute_price(self):
-        company = self.invoice_id.company_id
+        # company = self.invoice_id.company_id
+        purchase_currency_id = self.invoice_id.purchase_currency_id
         currency = self.invoice_id.currency_id
         type = self.invoice_id.type
         exchange_rate = self.invoice_id.exchange_rate
@@ -98,8 +112,8 @@ class AccountInvoiceLine(models.Model):
             price_unit = self.purchase_line_id.price_unit
             
         if self.product_id and type in ('in_invoice', 'in_refund'):
-            if company and currency:
-                if company.currency_id != currency and exchange_rate:
+            if purchase_currency_id and currency:
+                if purchase_currency_id != currency and exchange_rate:
                     price_unit = price_unit * exchange_rate
         self.price_unit = price_unit
         self.orig_price_unit = orig_price_unit
@@ -110,7 +124,8 @@ class AccountInvoiceLine(models.Model):
     def _onchange_product_id(self):
         result = super(AccountInvoiceLine, self)._onchange_product_id()
         
-        company = self.invoice_id.company_id
+        # company = self.invoice_id.company_id
+        purchase_currency_id = self.invoice_id.purchase_currency_id
         currency = self.invoice_id.currency_id
         type = self.invoice_id.type
         exchange_rate = self.invoice_id.exchange_rate
@@ -123,8 +138,8 @@ class AccountInvoiceLine(models.Model):
             price_unit = self.purchase_line_id.price_unit
          
         if self.product_id and type in ('in_invoice', 'in_refund'):
-            if company and currency:
-                if company.currency_id != currency and exchange_rate:
+            if purchase_currency_id and currency:
+                if purchase_currency_id != currency and exchange_rate:
                     price_unit = price_unit * exchange_rate
                     
         self.price_unit = price_unit

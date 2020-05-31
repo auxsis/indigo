@@ -17,3 +17,5 @@ from . import account_cheque
 from . import hr
 
 from . import account_cheque_batch
+
+from . import account_followup_report

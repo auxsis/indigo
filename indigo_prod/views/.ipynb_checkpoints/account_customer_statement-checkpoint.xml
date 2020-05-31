@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <tree string="Customer Statement List">
                     <field name="partner_id"/>
+                    <field name="number"/>
                     <field name="date_invoice"/>
                     <field name="date_due"/>
                     <field name="residual"/>

@@ -97,8 +97,8 @@ class IndigoProducts(models.Model):
     @api.depends('type')
     def _compute_most_recent(self):
         for rec in self:
-            move = self.env['stock.move.line'].search(
-                [('state', '=', 'done'), ('product_id', '=', rec.id)])[-1]
+            move = self.env['stock.move.line'].search([('state', '=', 'done'), ('product_id', '=', rec.id)])[-1]
+            # move = self.env['stock.move.line'].search([('state', '=', 'done'), ('product_id', '=', rec.id)])
             for m in move:
                 rec.most_recent = m.date
                 rec.qty_received = m.qty_done
@@ -117,6 +117,27 @@ class IndigoProducts(models.Model):
     @api.onchange('factory_id')
     def get_country(self):
         self.country_id = self.factory_id.country_id
+        
+    @api.multi
+    def action_view_sales(self):
+        self.ensure_one()
+        action = self.env.ref('indigo_prod.action_product_sale_order_list')
+        product_ids = self.with_context(active_test=False).product_variant_ids.ids
+        
+        sale_line = self.env['sale.order.line'].search([('product_id','in',product_ids),('state', 'in', ['sale', 'done'])])
+        sale_ids = sale_line.mapped('order_id').ids
+
+        return {
+            'name': action.name,
+            'help': action.help,
+            'type': action.type,
+            'view_type': action.view_type,
+            'view_mode': action.view_mode,
+            'target': action.target,
+            # 'context': "{'default_product_id': " + str(product_ids[0]) + "}",
+            'res_model': action.res_model,
+            'domain': [('id', 'in', sale_ids)],
+        }
 
 
 class VehicleTags(models.Model):

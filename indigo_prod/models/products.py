@@ -114,6 +114,7 @@ class IndigoProducts(models.Model):
             rec.most_recent = most_recent
             rec.qty_received = qty_received
 
+
     @api.depends('standard_price', 'qty_available')
     def _compute_value(self):
         for rec in self:

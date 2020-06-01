@@ -89,19 +89,31 @@ class IndigoProducts(models.Model):
 
     value = fields.Float(compute='_compute_value', string='value')
     most_recent = fields.Date(
-        compute='_compute_most_recent', string='Most recent reception date')
+        compute='_compute_most_recent', string='Most Recent Reception Date')
     qty_received = fields.Float(
-        compute='_compute_most_recent', string='Qty received during recent reception date')
+        compute='_compute_most_recent', string='Qty Received During Recent Reception Date')
     #stock_ml_ids = fields.Many2one('stock.move.line')
 
     @api.depends('type')
     def _compute_most_recent(self):
         for rec in self:
-            move = self.env['stock.move.line'].search([('state', '=', 'done'), ('product_id', '=', rec.id)])[-1]
+            # move = self.env['stock.move.line'].search([('state', '=', 'done'), ('product_id', '=', rec.id)])[-1]
             # move = self.env['stock.move.line'].search([('state', '=', 'done'), ('product_id', '=', rec.id)])
-            for m in move:
-                rec.most_recent = m.date
-                rec.qty_received = m.qty_done
+            product_ids = rec.with_context(active_test=False).product_variant_ids.ids
+            move_lines = self.env['stock.move.line'].search([('state', '=', 'done'), ('product_id', 'in', product_ids)], order='id desc')
+            move_id = False
+            most_recent = False
+            qty_received = 0
+            for move in move_lines:
+                if move.location_id.usage == 'supplier' and move.location_dest_id.usage == 'internal':
+                    if not move_id:
+                        move_id = move
+            if move_id:
+                most_recent = move_id.date
+                qty_received = move_id.qty_done
+            rec.most_recent = most_recent
+            rec.qty_received = qty_received
+
 
     @api.depends('standard_price', 'qty_available')
     def _compute_value(self):

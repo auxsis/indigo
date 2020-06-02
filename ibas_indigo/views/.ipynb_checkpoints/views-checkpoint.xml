@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="ibas_indigo.list">
+      <field name="name">ibas_indigo list</field>
+      <field name="model">ibas_indigo.ibas_indigo</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="ibas_indigo.action_window">
+      <field name="name">ibas_indigo window</field>
+      <field name="res_model">ibas_indigo.ibas_indigo</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="ibas_indigo.action_server">
+      <field name="name">ibas_indigo server</field>
+      <field name="model_id" ref="model_ibas_indigo_ibas_indigo"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="ibas_indigo" id="ibas_indigo.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="ibas_indigo.menu_1" parent="ibas_indigo.menu_root"/>
+    <menuitem name="Menu 2" id="ibas_indigo.menu_2" parent="ibas_indigo.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="ibas_indigo.menu_1_list" parent="ibas_indigo.menu_1"
+              action="ibas_indigo.action_window"/>
+    <menuitem name="Server to list" id="ibas_indigo" parent="ibas_indigo.menu_2"
+              action="ibas_indigo.action_server"/>
+    -->
+  </data>
+</odoo>

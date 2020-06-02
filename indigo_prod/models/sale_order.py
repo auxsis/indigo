@@ -3,6 +3,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, AccessError
 
+import logging
+_logger = logging.getLogger(__name__)
 
 class IndySaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -12,6 +14,15 @@ class IndySaleOrder(models.Model):
         carrier_id = self.env['delivery.carrier'].search(
             [('default', '=', True)], limit=1)
         return carrier_id
+    
+    @api.multi
+    def _compute_purchase_price(self):
+        for record in self:
+            total_purchase_price = 0
+            for line in record.order_line:
+                total_purchase_price += line.purchase_price
+            record.total_purchase_price = total_purchase_price
+                
 
     partner_id = fields.Many2one('res.partner', string='Customer', readonly=False, states={
     }, required=True, change_default=True, index=True, track_visibility='always')
@@ -31,9 +42,8 @@ class IndySaleOrder(models.Model):
     confirmation_date = fields.Datetime(string='Confirmation Date', readonly=False, index=True,
                                         help="Date on which the sales order is confirmed.", oldname="date_confirm")
 
-    print_count = fields.Integer(
-        string='Print Count',
-    )
+    print_count = fields.Integer(string='Print Count',)
+    total_purchase_price = fields.Float(compute='_compute_purchase_price', string='Total Cost')
 
     @api.multi
     def print_quotation(self):
@@ -78,3 +88,28 @@ class IndySaleOrder(models.Model):
         })
 
         return result
+    
+    @api.multi
+    def action_update_cost(self):
+        for record in self:
+            for line in record.order_line:
+                line._compute_purchase_price()
+
+class IndySaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+    
+    @api.model
+    def _compute_purchase_price(self):
+        _logger.info("OLA")
+        
+        frm_cur = self.env.user.company_id.currency_id
+        to_cur = self.order_id.currency_id
+        purchase_price = self.product_id.standard_price
+        _logger.info(purchase_price)
+        if self.product_uom != self.product_id.uom_id:
+            purchase_price = self.product_id.uom_id._compute_price(purchase_price, self.product_uom)
+        ctx = self.env.context.copy()
+        ctx['date'] = self.order_id.date_order
+        price = frm_cur.with_context(ctx).compute(purchase_price, to_cur, round=False)
+        _logger.info(price)
+        self.write({'purchase_price': price})

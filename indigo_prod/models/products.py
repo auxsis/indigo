@@ -2,6 +2,8 @@ from odoo import models, fields, api, _
 from datetime import datetime
 from odoo.addons import decimal_precision as dp
 
+import logging
+_logger = logging.getLogger(__name__)
 
 class IndigoProductsMain(models.Model):
     _inherit = 'product.product'
@@ -15,11 +17,14 @@ class IndigoProductsMain(models.Model):
     @api.multi
     def action_view_sales(self):
         self.ensure_one()
+        _logger.info("OLA")
         action = self.env.ref('indigo_prod.action_product_sale_order_list')
         product_ids = self.with_context(active_test=False).ids
         
         sale_line = self.env['sale.order.line'].search([('product_id','in',product_ids),('state', 'in', ['sale', 'done'])])
         sale_ids = sale_line.mapped('order_id').ids
+        
+        _logger.info(sale_ids)
 
         return {
             'name': action.name,

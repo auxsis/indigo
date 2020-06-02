@@ -36,8 +36,14 @@
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="sale.view_order_form"/>
 			<field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+					<button name="action_update_cost" string="Update Cost" type="object"/>
+				</xpath>
 				<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
 					<field name="product_model"/>
+				</xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+					<field name="total_purchase_price"/>
 				</xpath>
 			</field>
 		</record>
@@ -51,6 +57,11 @@
 				<xpath expr="//field[@name='name']" position="after">
 					<field name="legacy_number"/>
 				</xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="margin" groups="ibas_indigo.group_margin_check"/>
+                    <field name="total_margin_percent" groups="ibas_indigo.group_margin_check"/>
+                    <field name="total_purchase_price" groups="ibas_indigo.group_margin_check"/>
+				</xpath>
 			</field>
 		</record>
 
@@ -62,6 +73,11 @@
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='name']" position="after">
 					<field name="legacy_number"/>
+				</xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="margin" groups="ibas_indigo.group_margin_check"/>
+                    <field name="total_margin_percent" groups="ibas_indigo.group_margin_check"/>
+                    <field name="total_purchase_price" groups="ibas_indigo.group_margin_check"/>
 				</xpath>
 			</field>
 		</record>
@@ -85,6 +101,19 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[('state', 'in', ['sale', 'done'])]</field>
         </record>
+        
+        <record id="product_form_view_sale_order_button_extend" model="ir.ui.view">
+			<field name="name">product.product.sale.order.extend</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="sale.product_form_view_sale_order_button"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='%(sale.action_product_sale_list)d']" position="replace">
+                    <button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-usd">
+                        <field string="Sales" name="sales_count" widget="statinfo" />
+                    </button>
+				</xpath>
+			</field>
+		</record>
 
 	</data>
 </odoo>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="product_updater_view_form" model="ir.ui.view">
+			<field name="name">product.updater.form</field>
+			<field name="model">product.updater</field>
+			<field name="arch" type="xml">
+				<form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated"/>
+					<button name="action_validate"  string="Validate"  type="object" 
+                    class="oe_highlight oe_read_only" groups="sales_team.group_sale_manager"
+                    attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    
+                </header>
+                <sheet>
+					<group>
+                        <group>
+                            <field name="name" />
+                            <field name="responsible"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <field name="lines" nolabel="1">
+                            <tree string="Line" editable="bottom">
+                                <field name="product_id"/>
+                                <field name="cost"/>
+                                <field name="sale_price"/>
+                            </tree>
+                        </field>
+					</group>
+                    </sheet>
+                    <div class="oe_chatter" style="display:block;">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record id="product_updater_tree_view" model="ir.ui.view">
+			<field name="name">product.updater.tree</field>
+			<field name="model">product.updater</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="date"/>
+                    <field name="responsible"/>
+				</tree>
+			</field>
+		</record>	
+
+        <record id="action_product_updater" model="ir.actions.act_window">
+			<field name="name">Product Updater</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.updater</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem action="action_product_updater" 
+			id="id_product_updater" 
+			parent="sale.menu_sale_config" 
+			sequence="10"/>
+
+        <record id="product_updater_line_view_form" model="ir.ui.view">
+			<field name="name">product.updater.line.form</field>
+			<field name="model">product.updater.line</field>
+			<field name="arch" type="xml">
+				<form>
+                <sheet>
+					<group>
+                        <group>
+                            <field name="product_id" />
+                            <field name="cost"/>
+                        </group>
+                        <group>
+                            <field name="sale_price"/>
+                        </group>
+					</group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+
+</odoo>

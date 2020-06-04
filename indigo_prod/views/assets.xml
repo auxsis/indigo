@@ -5,6 +5,7 @@
         <template id="account_reports_backend_custom" inherit_id="web.assets_backend" active="True">
             <xpath expr="." position="inside">
                 <script type="text/javascript" src="/indigo_prod/static/src/js/account_reports.js"></script>
+                <script type="text/javascript" src="/indigo_prod/static/src/js/web_tree_dynamic_colored_field.js"></script>
             </xpath>
         </template>
         

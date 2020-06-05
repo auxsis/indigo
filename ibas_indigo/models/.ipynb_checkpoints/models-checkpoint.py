@@ -11,21 +11,22 @@ class IBASSaleIndigo(models.Model):
     
     # Margin % = (Selling Price - Cost) / Selling Price
     # w/ Discount: Margin % = (Selling Price*(100% - Discount%) - Cost) / Selling Price*(100% - Discount%)
-    @api.depends('price_unit','purchase_price')
+    @api.depends('price_unit','purchase_price','discount')
     def _compute_margin_percent(self):
         for rec in self:
+            discount = (100 - rec.discount) / 100
             if rec.purchase_price > 0:
-                if rec.discount:
-                    discount = (100 - rec.discount) / 100
-                    rec.margin_percent = ((rec.price_unit * discount - rec.purchase_price) / (rec.price_unit * discount)) * 100
-                else:
-                    rec.margin_percent = ((rec.price_unit - rec.purchase_price) / rec.purchase_price) * 100
+                #if rec.discount > 0:
+                    #discount = (100 - rec.discount) / 100
+                rec.margin_percent = ((rec.price_unit * discount - rec.purchase_price) / (rec.price_unit * discount)) * 100
+                #else:
+                    #rec.margin_percent = ((rec.price_unit - rec.purchase_price) / rec.purchase_price) * 100
             elif rec.purchase_price == 0 and rec.product_id.standard_price >  0 :
-                if rec.discount:
-                    discount = (100 - rec.discount) / 100
-                    rec.margin_percent = ((rec.price_unit * discount - rec.product_id.standard_price) / (rec.price_unit * discount)) * 100
-                else:
-                    rec.margin_percent = ((rec.price_unit - rec.product_id.standard_price) / rec.product_id.standard_price) * 100
+                #if rec.discount > 0:
+                    #discount = (100 - rec.discount) / 100
+                rec.margin_percent = ((rec.price_unit * discount - rec.product_id.standard_price) / (rec.price_unit * discount)) * 100
+                #else:
+                    #rec.margin_percent = ((rec.price_unit - rec.product_id.standard_price) / rec.product_id.standard_price) * 100
             else:
                 rec.margin_percent = 100
 

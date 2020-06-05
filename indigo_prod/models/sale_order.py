@@ -20,7 +20,8 @@ class IndySaleOrder(models.Model):
         for record in self:
             total_purchase_price = 0
             for line in record.order_line:
-                total_purchase_price += line.purchase_price
+                purchase_price = line.purchase_price * line.product_uom_qty
+                total_purchase_price += purchase_price
             record.total_purchase_price = total_purchase_price
                 
 

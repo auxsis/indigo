@@ -1,5 +1,4 @@
-8<odoo>
- 0
+<odoo>
     <data>
        <record id="sale_order_ibas_view_form" model="ir.ui.view">
            <field name="name">sale.order.view.form</field>

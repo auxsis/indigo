@@ -60,7 +60,7 @@
                 <xpath expr="//field[@name='amount_total']" position="after">
                     <field name="total_purchase_price" groups="ibas_indigo.group_margin_check"/>
                     <field name="margin" groups="ibas_indigo.group_margin_check"/>
-                    <field name="total_margin_percent" groups="ibas_indigo.group_margin_check" options='{"bg_color": "#7AFE77: total_margin_percent &gt; 0; #DB6E71: total_margin_percent &lt; 0"}'/>
+                    <field name="total_margin_percent" groups="ibas_indigo.group_margin_check" options='{"bg_color": "#7AFE77: total_margin_percent &gt; 0; #DB6E71: total_margin_percent &lt; 0"}' widget="Percent"/>
 				</xpath>
 			</field>
 		</record>
@@ -77,7 +77,7 @@
                 <xpath expr="//field[@name='amount_total']" position="after">
                     <field name="total_purchase_price" groups="ibas_indigo.group_margin_check"/>
                     <field name="margin" groups="ibas_indigo.group_margin_check"/>
-                    <field name="total_margin_percent" groups="ibas_indigo.group_margin_check" options='{"bg_color": "#7AFE77: total_margin_percent &gt; 0; #DB6E71: total_margin_percent &lt; 0"}'/>
+                    <field name="total_margin_percent" groups="ibas_indigo.group_margin_check" options='{"bg_color": "#7AFE77: total_margin_percent &gt; 0; #DB6E71: total_margin_percent &lt; 0"}' widget="Percent"/>
 				</xpath>
 			</field>
 		</record>

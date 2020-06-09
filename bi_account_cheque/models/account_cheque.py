@@ -55,19 +55,19 @@ class AccountCheque(models.Model):
         
     def open_payment_matching_screen(self):
         # Open reconciliation view for customers/suppliers
-#         move_line_id = False
-#         account_move_line_ids = self.env['account.move.line'].search([('partner_id','=',self.payee_user_id.id)])
-#         for move_line in account_move_line_ids:
-#             if move_line.account_id.reconcile:
-#                 move_line_id = move_line.id
-#                 break;
+        move_line_id = False
+        account_move_line_ids = self.env['account.move.line'].search([('partner_id','=',self.payee_user_id.id)])
+        for move_line in account_move_line_ids:
+            if move_line.account_id.reconcile:
+                move_line_id = move_line.id
+                break;
         action_context = {'company_ids': [self.company_id.id], 'partner_ids': [self.payee_user_id.id]}
         if self.account_cheque_type == 'incoming':
             action_context.update({'mode': 'customers'})
         elif self.account_cheque_type == 'outgoing':
             action_context.update({'mode': 'suppliers'})
-#         if account_move_line_ids:
-#             action_context.update({'move_line_id': move_line_id})
+        if account_move_line_ids:
+            action_context.update({'move_line_id': move_line_id})
         return {
             'type': 'ir.actions.client',
             'tag': 'manual_reconciliation_view',
@@ -382,7 +382,7 @@ class AccountCheque(models.Model):
             account_move = account_move_obj.create(vals)
             debit_vals = {
                     'partner_id' : self.payee_user_id.id,
-                    'account_id' : self.credit_account_id.id, 
+                    'account_id' : self.debit_account_id.id, 
                     'debit' : self.amount,
                     'date_maturity' : datetime.now(),
                     'move_id' : account_move.id,
@@ -391,7 +391,7 @@ class AccountCheque(models.Model):
             move_lines.append((0, 0, debit_vals))
             credit_vals = {
                     'partner_id' : self.payee_user_id.id,
-                    'account_id' : self.debit_account_id.id, 
+                    'account_id' : self.credit_account_id.id, 
                     'credit' : self.amount,
                     'date_maturity' : datetime.now(),
                     'move_id' : account_move.id,

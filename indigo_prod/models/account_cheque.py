@@ -25,12 +25,12 @@ class AccountCheque(models.Model):
             for move in account_move_ids:
                 if move.state == 'posted':
                     for line in move.line_ids:
-#                         if line.matched_debit_ids:
-#                             for debit in line.matched_debit_ids:
-#                                 debit.debit_move_id.remove_move_reconcile()
-#                         if line.matched_credit_ids:
-#                             for credit in line.matched_debit_ids:
-#                                 credit.credit_move_id.remove_move_reconcile()
+                        if line.matched_debit_ids:
+                            for debit in line.matched_debit_ids:
+                                debit.debit_move_id.remove_move_reconcile()
+                        if line.matched_credit_ids:
+                            for credit in line.matched_debit_ids:
+                                credit.credit_move_id.remove_move_reconcile()
                         line.remove_move_reconcile()
                     move.button_cancel()
                     

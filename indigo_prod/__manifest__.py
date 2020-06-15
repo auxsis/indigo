@@ -52,6 +52,7 @@
         'views/report_followup.xml',
         'views/account_check_batch.xml',
         'views/account_customer_statement.xml',
+        'views/account_move_views.xml',
         'report/report_saleorder.xml',
         'report/cheque_deposit_slip.xml',
         'wizard/sales_report_export_view.xml',

@@ -11,6 +11,7 @@ class AccountMove(models.Model):
     def action_compute_residual(self):
         for line in self.line_ids:
             line._amount_residual()
+        return True
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'

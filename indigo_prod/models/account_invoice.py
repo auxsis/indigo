@@ -112,49 +112,50 @@ class AccountInvoiceLine(models.Model):
         'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id', 'invoice_id.company_id',
         'invoice_id.date_invoice','invoice_id.exchange_rate','invoice_id.purchase_currency_id')
     def _compute_price(self):
-        # company = self.invoice_id.company_id
-        purchase_currency_id = self.invoice_id.purchase_currency_id
-        currency = self.invoice_id.currency_id
-        type = self.invoice_id.type
-        exchange_rate = self.invoice_id.exchange_rate
-        
-        price_unit = self.product_id.standard_price
-        orig_price_unit = self.product_id.standard_price
-        if self.purchase_line_id:
-            orig_price_unit = self.purchase_line_id.price_unit
-            price_unit = self.purchase_line_id.price_unit
-            
-        if self.product_id and type in ('in_invoice', 'in_refund'):
-            if purchase_currency_id and currency:
-                if purchase_currency_id != currency and exchange_rate:
-                    price_unit = price_unit * exchange_rate
-        self.price_unit = price_unit
-        self.orig_price_unit = orig_price_unit
+        if self.invoice_id.convert_currency:
+            # company = self.invoice_id.company_id
+            purchase_currency_id = self.invoice_id.purchase_currency_id
+            currency = self.invoice_id.currency_id
+            type = self.invoice_id.type
+            exchange_rate = self.invoice_id.exchange_rate
+
+            price_unit = self.product_id.standard_price
+            orig_price_unit = self.product_id.standard_price
+            if self.purchase_line_id:
+                orig_price_unit = self.purchase_line_id.price_unit
+                price_unit = self.purchase_line_id.price_unit
+
+            if self.product_id and type in ('in_invoice', 'in_refund'):
+                if purchase_currency_id and currency:
+                    if purchase_currency_id != currency and exchange_rate:
+                        price_unit = price_unit * exchange_rate
+            self.price_unit = price_unit
+            self.orig_price_unit = orig_price_unit
         result = super(AccountInvoiceLine, self)._compute_price()
         return result
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
         result = super(AccountInvoiceLine, self)._onchange_product_id()
-        
-        # company = self.invoice_id.company_id
-        purchase_currency_id = self.invoice_id.purchase_currency_id
-        currency = self.invoice_id.currency_id
-        type = self.invoice_id.type
-        exchange_rate = self.invoice_id.exchange_rate
-        
-        orig_price_unit = self.product_id.standard_price
-        price_unit = self.product_id.standard_price
-        
-        if self.purchase_line_id:
-            orig_price_unit = self.purchase_line_id.price_unit
-            price_unit = self.purchase_line_id.price_unit
-         
-        if self.product_id and type in ('in_invoice', 'in_refund'):
-            if purchase_currency_id and currency:
-                if purchase_currency_id != currency and exchange_rate:
-                    price_unit = price_unit * exchange_rate
-                    
-        self.price_unit = price_unit
-        self.orig_price_unit = orig_price_unit
+        if self.invoice_id.convert_currency:
+            # company = self.invoice_id.company_id
+            purchase_currency_id = self.invoice_id.purchase_currency_id
+            currency = self.invoice_id.currency_id
+            type = self.invoice_id.type
+            exchange_rate = self.invoice_id.exchange_rate
+
+            orig_price_unit = self.product_id.standard_price
+            price_unit = self.product_id.standard_price
+
+            if self.purchase_line_id:
+                orig_price_unit = self.purchase_line_id.price_unit
+                price_unit = self.purchase_line_id.price_unit
+
+            if self.product_id and type in ('in_invoice', 'in_refund'):
+                if purchase_currency_id and currency:
+                    if purchase_currency_id != currency and exchange_rate:
+                        price_unit = price_unit * exchange_rate
+
+            self.price_unit = price_unit
+            self.orig_price_unit = orig_price_unit
         return result

@@ -45,6 +45,7 @@ class AccountReportFollowup(models.AbstractModel):
     _inherit = "account.followup.report"
     
     def get_lines(self, options, line_id=None):
+        invoice_ids = self._context.get('invoice_ids', [])
         
         # Get date format for the lang
         partner = options.get('partner_id') and self.env['res.partner'].browse(options['partner_id']) or False
@@ -61,6 +62,9 @@ class AccountReportFollowup(models.AbstractModel):
                 continue
             # FILTER ENTRIES FROM CHEQUE
             if "CHK" in l.move_id.name:
+                continue
+            # FILTER ENTRIES FROM CUSTOMER STATEMENT LIST
+            if invoice_ids and l.invoice_id.id not in invoice_ids:
                 continue
             currency = l.currency_id or l.company_id.currency_id
             if currency not in res:

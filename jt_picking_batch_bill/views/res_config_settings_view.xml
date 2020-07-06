@@ -1,0 +1,20 @@
+<odoo>
+	<record id="res_config_default_vendor_batch_bill" model="ir.ui.view">
+        <field name="name">Set Default vendor for batch picking Bill</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='stock']/div[1]/div[@id='warning_info']" position="after">
+                <div class="col-xs-12 col-md-6 o_setting_box" title="Put your products in packs (e.g. parcels, boxes) and track them">
+                    <div class="o_setting_right_pane">
+                        <label for="default_vendor_id"/>
+                        <field name="default_vendor_id"/>
+                        <div class="text-muted">
+                            Select your default vendor for vendor bills
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

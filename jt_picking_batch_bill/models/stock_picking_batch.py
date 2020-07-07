@@ -24,7 +24,6 @@
 from odoo import fields, models, api
 from datetime import datetime
 
-
 class StockPickingBatch(models.Model):
 
     _inherit = 'stock.picking.batch'
@@ -36,6 +35,26 @@ class StockPickingBatch(models.Model):
             return product.categ_id.property_account_expense_categ_id.id
         else:
             raise Warning(_("One of product does not has configured expense account!"))
+
+
+    def _get_invoice_account(self, partner_id):
+
+        partner = self.env['res.partner'].browse(partner_id)
+
+        if partner.property_account_payable_id:
+            return partner.property_account_payable_id.id
+        else:
+            raise Warning(_("Accounts are not configures inside vendor!"))
+
+
+    def _product_unit_price(self, product_id, picking):
+
+        if picking and picking.purchase_id:
+            for purchase_line in picking.purchase_id.order_line:
+                if purchase_line.product_id.id == product_id.id:
+                    return purchase_line.price_unit
+        else:
+            return product_id.standard_price
 
     def create_bill(self):
         origin_list = []
@@ -49,23 +68,23 @@ class StockPickingBatch(models.Model):
                 False
             vals = {
                 'partner_id': int(partner_id),
-                'account_id': 20,
+                'account_id': self._get_invoice_account(partner_id),
                 'type': 'in_invoice',
                 'date_invoice': datetime.today(),
                 'origin': ', '.join(origin_list) or False,
                 'reference': self.name,
             }
         invoice_id = invoice_obj.create(vals)
-        for records in self.picking_ids:
-            for line in records.move_lines:
+        for picking in self.picking_ids:
+            for line in picking.move_lines:
                 line_vals = {
                     'invoice_id': invoice_id.id,
                     'product_id': line.product_id.id,
                     'quantity': line.quantity_done,
                     'name': line.product_id.name,
                     'account_id': self._get_account(line.product_id),
-                    'price_unit': line.product_id.standard_price,
-                    'purchase_id': records.origin or False,
+                    'price_unit': self._product_unit_price(line.product_id, picking),
+                    'purchase_id': picking.origin or False,
                 }
                 invoice_line_obj.create(line_vals)
         return {

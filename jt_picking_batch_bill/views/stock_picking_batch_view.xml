@@ -1,0 +1,12 @@
+<odoo>
+	<record id="stock_picking_batch_form_inh" model="ir.ui.view">
+        <field name="name">stock picking batch Form View Inherited</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <button name='cancel_picking' position='after'>
+            	<button name='create_bill' type='object' class='oe_highlight' string='Create Bill' attrs="{'invisible': [('state', '!=', 'done')]}"/>
+            </button>
+        </field>
+    </record>
+</odoo>

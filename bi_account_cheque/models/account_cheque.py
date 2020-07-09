@@ -202,6 +202,7 @@ class AccountCheque(models.Model):
             }
             move_lines.append((0, 0, credit_vals))
             account_move.write({'line_ids' : move_lines})
+            account_move.post()
             self.status = 'registered'
         return account_move
 
@@ -381,7 +382,7 @@ class AccountCheque(models.Model):
             account_move = account_move_obj.create(vals)
             debit_vals = {
                     'partner_id' : self.payee_user_id.id,
-                    'account_id' : self.credit_account_id.id, 
+                    'account_id' : self.debit_account_id.id, 
                     'debit' : self.amount,
                     'date_maturity' : datetime.now(),
                     'move_id' : account_move.id,
@@ -390,7 +391,7 @@ class AccountCheque(models.Model):
             move_lines.append((0, 0, debit_vals))
             credit_vals = {
                     'partner_id' : self.payee_user_id.id,
-                    'account_id' : self.debit_account_id.id, 
+                    'account_id' : self.credit_account_id.id, 
                     'credit' : self.amount,
                     'date_maturity' : datetime.now(),
                     'move_id' : account_move.id,

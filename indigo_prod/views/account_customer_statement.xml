@@ -29,6 +29,8 @@
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Partner" name='partner' context="{'group_by':'partner_id'}"/>
+                        <filter string="Invoice Date" name='csl_invoice_date' context="{'group_by':'date_invoice'}"/>
+                        <filter string="Date Due" name='csl_due_date' context="{'group_by':'date_due'}"/>
                     </group>
                </search>
             </field>

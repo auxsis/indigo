@@ -23,7 +23,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'r2d2', 'product', 'stock', 'stock_picking_batch', 'delivery', 'hr_disciplinary_tracking', 'bi_account_cheque', 'hr_expense', 'account_reports', 'account_reports_followup', 'purchase', 'ibas_indigo'],
+    'depends': ['base', 'sale', 'r2d2', 'product', 'stock', 'stock_picking_batch', 'delivery', 'hr_disciplinary_tracking', 'bi_account_cheque', 'hr_expense', 'account_reports', 'account_reports_followup', 'purchase', 'ibas_indigo', 'bank_reconciliation'],
 
     # always loaded
     'data': [
@@ -52,6 +52,7 @@
         'views/report_followup.xml',
         'views/account_check_batch.xml',
         'views/account_customer_statement.xml',
+        'views/account_move_views.xml',
         'report/report_saleorder.xml',
         'report/cheque_deposit_slip.xml',
         'wizard/sales_report_export_view.xml',

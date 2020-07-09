@@ -95,6 +95,7 @@ class IndySaleOrder(models.Model):
         for record in self:
             for line in record.order_line:
                 line._compute_purchase_price()
+            record._compute_total_margin_percent()
 
 class IndySaleOrderLine(models.Model):
     _inherit = 'sale.order.line'

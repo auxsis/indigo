@@ -35,7 +35,11 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 						<t t-if="o.property_payment_term_id">
 							<b>Credit Term </b><span t-esc="o.property_payment_term_id.name"/>
 						</t>
-					</div>
+                        <p>
+                        <strong><span>From : </span></strong><span t-esc="date_from"/>
+						<strong><span>To : </span></strong><span t-esc="date_to"/>
+						</p>	
+                </div>
 				</div>
 				<t t-set="get_lines" t-value="get_lines(o)"/>
 				<div class="mt16 mb16"/>
@@ -156,4 +160,5 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 
 
 </odoo>
+
 

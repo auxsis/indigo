@@ -19,6 +19,8 @@ class customer_statement(models.TransientModel):
     aging_by = fields.Selection([('inv_date','Invoice Date'),('due_date','Due Date')],string='Ageing By', default='due_date', required="1")
     
     date_upto = fields.Date('Upto Date',required="1", default=fields.Datetime.now)
+    date_from = fields.Date('Date From', default=fields.Datetime.now)
+    date_to = fields.Date('Date To')
     is_privious_year = fields.Boolean('Print Previous Year')
 
     @api.onchange('month','is_privious_year')
@@ -42,7 +44,9 @@ class customer_statement(models.TransientModel):
         if partner_ids:
             partner_ids.write({'overdue_date':self.date_upto,'aging_by':self.aging_by})
         datas = {
-		        'form': partner_ids.ids
+		        'form': partner_ids.ids,
+                'date_from':self.date_from,
+                'date_to':self.date_to,
 		    }
         return self.env.ref('dev_customer_account_statement.report_customer_statement').report_action(self, data=datas)
     
@@ -50,3 +54,4 @@ class customer_statement(models.TransientModel):
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

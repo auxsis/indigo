@@ -12,6 +12,10 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
            <form string="Customer Statement">
                 <group>
                     <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
                         <field name="month" required="1"/>
                         <field name="is_privious_year"/>
                         <field name="date_upto" string="Date As on" invisible="1"/>
@@ -28,7 +32,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
             </form>
         </field>
     </record>
-    <act_window name="Customer Statement"
+    <act_window name="Customer Statement Ranged Filter"
             res_model="customer.statement"
             src_model="res.partner"
             view_mode="form"
@@ -39,4 +43,5 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
                 
 
 </odoo>
+
 

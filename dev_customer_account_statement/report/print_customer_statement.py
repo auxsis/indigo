@@ -184,9 +184,12 @@ class print_customer_statement(models.AbstractModel):
             'doc_ids': docs.ids,
             'doc_model': 'res.partner',
             'docs': docs,
+            'date_from':data['date_from'],
+            'date_to':data['date_to'],
             'get_lines':self.get_lines,
             'set_ageing':self.set_ageing,
             'set_amount':self.set_amount,
         }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

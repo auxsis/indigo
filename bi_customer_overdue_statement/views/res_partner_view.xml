@@ -30,16 +30,21 @@
 						<separator string="Customer Statements Filter By Date"/>
 						<group>
 							<div>
-								<div class="oe_left">
-									<label for="statement_from_date" />
-									<field name="statement_from_date" />
+							  <div class="oe_left">
+									<label for="today_date"/>
+									<field name="today_date"/>
 								</div>
 								<div class="oe_left">
-									<label for="statement_to_date" />
-									<field name="statement_to_date" />
+									<label for="statement_from_date"/>
+									<field name="statement_from_date"/>
+								</div>
+								<div class="oe_left">
+									<label for="statement_to_date"/>
+									<field name="statement_to_date"/>
 								</div>
 
 							</div>
+
 
 						</group>
 						
@@ -214,3 +219,4 @@
 
 	</data>
 </odoo>
+

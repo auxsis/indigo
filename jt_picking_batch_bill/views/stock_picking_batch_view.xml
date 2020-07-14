@@ -9,4 +9,44 @@
             </button>
         </field>
     </record>
+
+    <record id="stock_move_tree_view_inherit_batch" model="ir.ui.view">
+        <field name="name">Stock Move Tree view2</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="value"/>
+                <field name="remaining_qty"/>
+                <field name="remaining_value"/>
+            </field>
+        </field>
+    </record>
+
+     <record id="stock_move_form_view_inherit_batch" model="ir.ui.view">
+        <field name="name">Stock Move Form view2</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <group name="origin_grp" position="replace">
+                <group name="origin_grp" colspan="4">
+                    <group name="origin_grp" string="Origin" >
+                        <field name="origin"/>
+                        <field name="group_id"/>
+                        <field name="procure_method" attrs="{'readonly': [('state', '!=', 'draft')]}" groups="stock.group_adv_location"/>
+                    </group>
+                    <group>
+                        <field name="value"/>
+                        <field name="remaining_qty"/>
+                        <field name="remaining_value"/>
+                    </group>
+                </group>
+            </group>
+        </field>
+    </record>
+
+
 </odoo>
+
+
+    

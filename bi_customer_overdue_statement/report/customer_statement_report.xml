@@ -2,31 +2,44 @@
 <openerp>
 	<data>
 		<template id="report_customer_statement">
-        			<t t-call="web.external_layout">
+        	        	<t t-call="web.external_layout">
 				<t t-set="doc" t-value="doc.with_context({'lang':doc.lang})"/>
 				<div class="page">
-					
-					<div class="oe_structure"/>
-					<div class="row">
-						<div class="text-right" style="margin-right: 15em;">
-							<p style="font-size:12px;"><strong><span t-esc="doc.name"/></strong><br/>	
-							<span t-esc="doc.street"/><br/>
-							<span t-esc="doc.street2"/><br/>
-							<span t-esc="doc.city"/>
-							<span t-esc="doc.state_id.name"/>
-							<span t-esc="doc.zip"/><br/>
-							<span t-esc="doc.country_id.name"/>
-							</p>
-							<br/>
-							<p>
-							<strong><span>Date : </span></strong><span t-field="doc.today_date"/>
-							<br/>
-							<strong><span>From : </span></strong><span t-field="doc.statement_from_date"/>
-							<strong><span>To : </span></strong><span t-field="doc.statement_to_date"/>
-							</p>
-						</div>
+                    <div class="oe_structure"/>
+                    	<div class="row">
 
+                        <table style="border: none;">
+                        <tr>
+                        <td style="border-right: white; padding-left: 50px;">
+                        <div style="float:left">
+                            <p style="font-size:12px;">
+                            <strong><span t-esc="doc.name"/></strong>
+                                <br/>	
+                                <span t-esc="doc.street"/><br/>
+                                <span t-esc="doc.street2"/><br/>
+                                <span t-esc="doc.city"/>
+                                <span t-esc="doc.state_id.name"/>
+                                <span t-esc="doc.zip"/><br/>
+                                <span t-esc="doc.country_id.name"/>
+							</p>
+                        </div>
+                        </td>
+                        <td style="background: white; border-right: white;padding-left: 450px;">
+                        <div style="float:right;padding-bottom: 32px;">
+          							<p>
+          							<strong><span>Date : </span></strong><span t-field="doc.today_date"/>
+          							<br/>
+          							<strong><span>From : </span></strong><span t-field="doc.statement_from_date"/>
+          							<strong><span>To : </span></strong><span t-field="doc.statement_to_date"/>
+          							</p>
+                        </div>
+                        </td>
+                        
+                        </tr>
+                        </table>
+                    
 						<br/><br/>
+                    
 						<t t-set="i" t-value="0.0"/>
 						<t t-set="j" t-value="0.0"/>
 						<t t-set="k" t-value="0.0"/>
@@ -41,7 +54,7 @@
 							<thead>
 								<tr class="text-center">
 									<th>Date</th>
-									<th>Invoice Number</th>
+									<th>SO Number</th>
 									<th>Account</th>
 									<th>Ref</th>
 									<th>Invoices/Debit</th>

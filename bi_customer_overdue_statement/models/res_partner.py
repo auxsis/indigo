@@ -124,7 +124,7 @@ class Res_Partner(models.Model):
 	
 	statement_from_date = fields.Date('From Date')
 	statement_to_date = fields.Date('To Date')
-	today_date = fields.Date(default=fields.Date.today())
+	today_date = fields.Date(default=fields.Date.today(),string="Statement Date")
 	vendor_statement_from_date = fields.Date('From Date')
 	vendor_statement_to_date = fields.Date('To Date')
 
@@ -327,6 +327,7 @@ class Res_Partner(models.Model):
 							'date_invoice':invoice.date_invoice,
 							'date_due':invoice.date_due,
 							'number':invoice.number or '',
+                            'origin':invoice.origin or '',
 							'result':invoice.result or 0.0,
 							'name':invoice.name or '',
 							'amount_total':invoice.amount_total or 0.0,

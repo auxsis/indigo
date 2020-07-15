@@ -124,7 +124,7 @@ class Res_Partner(models.Model):
 	
 	statement_from_date = fields.Date('From Date')
 	statement_to_date = fields.Date('To Date')
-	today_date = fields.Date(default=fields.Date.today())
+	today_date = fields.Date(default=fields.Date.today(),string="Statement Date")
 	vendor_statement_from_date = fields.Date('From Date')
 	vendor_statement_to_date = fields.Date('To Date')
 

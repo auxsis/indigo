@@ -24,8 +24,14 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 					    <h3> Statement Of Account</h3>
 					</div>
 					<div class="col-xs-6">
-						<address t-esc="o"
-                            t-options='{"widget": "contact", "fields": ["address", "name","phone"], "no_marker": True}' />
+						<p style="font-size:13px;"><strong><span t-esc="o.name"/></strong><br/>	
+							<span t-esc="o.street"/><br/>
+							<span t-esc="o.street2"/><br/>
+							<span t-esc="o.city"/>
+							<span t-esc="o.state_id.name"/>
+							<span t-esc="o.zip"/><br/>
+							<span t-esc="o.country_id.name"/>
+							</p>
 					</div>
 					<div class="col-xs-1">
 						
@@ -41,21 +47,21 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 						</p>	
                 </div>
 				</div>
-				<t t-set="get_lines" t-value="get_lines(o)"/>
+				<t t-set="get_lines" t-value="get_lines(o,date_from,date_to)"/>
 				<div class="mt16 mb16"/>
 				<div class="row">
 					<div class="col-xs-12" style="font-size: 12px" t-if="get_lines">
 						<table class="table table-condensed col-xs-12">
 			            	<thead>
 			                    <tr>
-			                        <th class="text-center">Description</th>
+<!-- 			                        <th class="text-center">Description</th> -->
 			                        <t t-if="o.aging_by == 'inv_date'">
 			                            <th class="text-center">Invoice Date</th>
 			                        </t>
 			                        <t t-if="o.aging_by == 'due_date'">
 			                            <th class="text-center">Due Date</th>
 			                        </t>
-			                        <th class="text-center">Invoice #</th>
+			                        <th class="text-center">SO #</th>
 			                        <th class="text-right">Invoice Amt</th>
 			                        <th class="text-right">Payment Amt</th>
 			                        <th class="text-right">Balance Due</th>
@@ -67,9 +73,9 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 		                        <t t-set="l_total" t-value="0" />
 			                	<t t-foreach="get_lines" t-as="l" >
 			                		<tr>
-				                        <td class="text-center">
+<!-- 				                        <td class="text-center">
 				                            <span t-esc="l.get('desc')"/>
-				                        </td>
+				                        </td> -->
 				                        <t t-if="o.aging_by == 'inv_date'">
 				                            <td class="text-center">
 				                            	<span t-esc="time.strftime('%d-%m-%Y',time.strptime(l.get('date'),'%Y-%m-%d'))"/>
@@ -81,7 +87,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				                            </td>
 				                        </t>
 				                        <td class="text-center">
-				                            <span t-esc="l.get('ref')"/>
+				                            <span t-esc="l.get('origin')"/>
 				                        </td>
 				                        <td class="text-right">
 				                            <t t-set="l_debit" t-value="l_debit + l.get('debit')" />
@@ -98,7 +104,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				                    </tr>
 			                	</t>
 			                	<tr style="background:#e0e0e0;">
-		                            <td style="border-top:1px solid black" colspan="2"></td>
+		                            <td style="border-top:1px solid black" colspan="1"></td>
 		                            <td style="border-top:1px solid black"><strong>Sub-Total :</strong></td>
 		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="set_amount(l_debit)"/></td>
 		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="set_amount(l_credit)"/></td>
@@ -115,8 +121,8 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 		                </p>
 					</div>
 				</div>
-				<div class="mt16 mb16"/>
-				<div class="row" t-if="get_lines">
+<!-- 				<div class="mt16 mb16"/> -->
+<!-- 				<div class="row" t-if="get_lines">
 					<div class="col-xs-12">
 						<t t-set="aging" t-value="set_ageing(o)"/>
 						<table class="col-xs-12 aging_table" t-if="aging">
@@ -144,7 +150,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 							
 						</table>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</t>
 	</template>

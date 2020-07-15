@@ -127,17 +127,19 @@ class print_customer_statement(models.AbstractModel):
             },[f1,d1,d2,d3,d4]]
             
 
-    def _lines_get(self, partner):
+    def _lines_get(self,partner,date_from,date_to):
         moveline_obj = self.env['account.move.line']
-        movelines = moveline_obj.search([('partner_id', '=', partner.id),
-                                         ('date','<=',partner.overdue_date),
-                                         ('account_id.user_type_id.type', '=', 'receivable'),
-                                         ('move_id.state', '<>', 'draft')])
+        domain = [('partner_id', '=', partner.id),('account_id.user_type_id.type', '=', 'receivable'),('move_id.state', '=', 'posted')]
+        if partner.aging_by == 'inv_date':
+            domain += [('date', '>=', date_from),('date', '<=', date_to)]
+        if partner.aging_by == 'due_date':
+            domain += [('date_maturity', '>=', date_from),('date_maturity', '<=', date_to)]
+        movelines = moveline_obj.search(domain)
                                          
         return movelines
 
-    def get_lines(self,partner):
-        move_lines=self._lines_get(partner)
+    def get_lines(self,partner,date_from,date_to):
+        move_lines=self._lines_get(partner,date_from,date_to)
         res=[]
         if move_lines:
             for line in move_lines:
@@ -168,6 +170,7 @@ class print_customer_statement(models.AbstractModel):
                                 'date':line.date,
                                 'desc':line.ref or '/',
                                 'ref':line.move_id.name or '',
+                                'origin':line.invoice_id.origin,
                                 'date_maturity':line.date_maturity,
                                 'debit':float(inv_amt),
                                 'credit':float(paid_amt),

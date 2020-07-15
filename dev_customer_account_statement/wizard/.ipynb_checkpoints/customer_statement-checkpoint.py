@@ -10,6 +10,8 @@
 from odoo import api, fields, models, _
 import datetime
 import calendar
+from datetime import date
+from dateutil.relativedelta import relativedelta
      
 
 class customer_statement(models.TransientModel):
@@ -23,18 +25,24 @@ class customer_statement(models.TransientModel):
     date_to = fields.Date('Date To')
     is_privious_year = fields.Boolean('Print Previous Year')
 
-    @api.onchange('month','is_privious_year')
+#     @api.onchange('month','is_privious_year')
+#     def onchange_month(self):
+#         if self.month:
+#             a= self.month
+#             a = int(a)
+#             date=datetime.datetime.now()
+#             if self.is_privious_year:
+#                 month_end_date=datetime.datetime(date.year-1,a,1) + datetime.timedelta(days=calendar.monthrange(date.year-1,a)[1] - 1)
+#                 self.date_upto = month_end_date
+#             else:
+#                 month_end_date=datetime.datetime(date.year,a,1) + datetime.timedelta(days=calendar.monthrange(date.year,a)[1] - 1)
+#                 self.date_upto = month_end_date
+    @api.onchange('is_privious_year')
     def onchange_month(self):
-        if self.month:
-            a= self.month
-            a = int(a)
-            date=datetime.datetime.now()
-            if self.is_privious_year:
-                month_end_date=datetime.datetime(date.year-1,a,1) + datetime.timedelta(days=calendar.monthrange(date.year-1,a)[1] - 1)
-                self.date_upto = month_end_date
-            else:
-                month_end_date=datetime.datetime(date.year,a,1) + datetime.timedelta(days=calendar.monthrange(date.year,a)[1] - 1)
-                self.date_upto = month_end_date
+        if self.is_privious_year:
+            self.date_to=datetime.datetime.now()
+            self.date_from=date.today() + relativedelta(months=-12)
+            
 
     @api.multi
     def print_statement(self):

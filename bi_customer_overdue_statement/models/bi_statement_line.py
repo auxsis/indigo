@@ -17,6 +17,7 @@ class bi_statement_line(models.Model):
     date_invoice = fields.Date('Invoice Date')
     date_due = fields.Date('Due Date')
     number = fields.Char('Number')
+    origin = fields.Char(string='Source Document', help="Reference of the document that generated this sales order request.")
     result = fields.Float("Balance")
     amount_total = fields.Float("Invoices/Debits")
     credit_amount = fields.Float("Payments/Credits")

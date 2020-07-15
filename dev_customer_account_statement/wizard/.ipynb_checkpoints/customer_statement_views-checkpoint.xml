@@ -12,11 +12,11 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
            <form string="Customer Statement">
                 <group>
                     <group>
-                        <field name="date_from"/>
-                        <field name="date_to"/>
+                        <field name="date_from" attrs="{'invisible':[('is_privious_year', '=', True)],'required':[('is_privious_year', '=', False)]}"/>
+                        <field name="date_to" attrs="{'invisible':[('is_privious_year', '=', True)],'required':[('is_privious_year', '=', False)]}"/>
                     </group>
                     <group>
-                        <field name="month" required="1"/>
+                        <field name="month" invisible="1"/>
                         <field name="is_privious_year"/>
                         <field name="date_upto" string="Date As on" invisible="1"/>
                     </group>

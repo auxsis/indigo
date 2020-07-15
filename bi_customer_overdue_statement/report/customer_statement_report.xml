@@ -25,7 +25,7 @@
                         </div>
                         </td>
                         <td style="background: white; border-right: white;padding-left: 450px;">
-                        <div style="float:right">
+                        <div style="float:right;padding-bottom: 32px;">
           							<p>
           							<strong><span>Date : </span></strong><span t-field="doc.today_date"/>
           							<br/>

@@ -35,7 +35,7 @@ class IBASSaleOrder(models.Model):
 
     total_margin_percent = fields.Float(compute='_compute_total_margin_percent', string='Total Margin %', 
     store=True,digits=(12,2))
-    
+   
     # Total Margin % = (Total - Total Cost) / Total
     @api.depends('amount_total')
     def _compute_total_margin_percent(self):
@@ -48,6 +48,18 @@ class IBASSaleOrder(models.Model):
             if total_cost > 0:
                 # rec.total_margin_percent = total_cost / len(rec.order_line)
                 rec.total_margin_percent = ((rec.amount_total - total_cost) / rec.amount_total) * 100
+    
+    is_invoice = fields.Boolean(string='Is this an invoice?')
+    vat = fields.Float(compute='_compute_VAT', string='VAT',  store=True,digits=(12,2))
+    
+    @api.depends('amount_total', 'is_invoice')
+    def _compute_VAT(self):
+        for rec in self:
+            if rec.is_invoice:
+                rec.vat = (rec.amount_total - (rec.amount_total / 1.12))
+            else:
+                rec.vat = 0;
+        
 
 
 # class ibas_indigo(models.Model):

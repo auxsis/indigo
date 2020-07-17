@@ -10,11 +10,27 @@
                     <field name="margin_percent" groups="ibas_indigo.group_margin_check" options='{"bg_color": "#7AFE77: margin_percent &gt; 0; #DB6E71: margin_percent &lt; 0"}' widget="Percent"/>
                 </xpath>
 
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="is_invoice" />
+                </xpath>
+
                 <xpath expr="//field[@name='margin']" position="replace">
                     <field name="margin" groups="ibas_indigo.group_margin_check"/>
                     <field name="total_margin_percent" groups="ibas_indigo.group_margin_check" attrs="{'invisible':['|',('total_margin_percent', '&lt;', '0'),('total_margin_percent', '&gt;', '0')]}" widget="Percent"/>
                     <field name="total_margin_percent" groups="ibas_indigo.group_margin_check" style="background:#7AFE77;" attrs="{'invisible':[('total_margin_percent', '&lt;=', '0')]}" widget="Percent"/>
                     <field name="total_margin_percent" groups="ibas_indigo.group_margin_check" style="background:#DB6E71;" attrs="{'invisible':[('total_margin_percent', '&gt;=', '0')]}" widget="Percent"/>
+                    <field name="vat" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_ibas_listview_form" model="ir.ui.view">
+            <field name="name">sale.order.list.view.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="vat" widget="monetary" />
                 </xpath>
             </field>
         </record>

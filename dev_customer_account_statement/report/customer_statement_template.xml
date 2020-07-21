@@ -24,26 +24,26 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 					    <h3> Statement Of Account</h3>
 					</div>
 					<div class="col-xs-6">
-						<p style="font-size:13px;"><strong><span t-esc="o.name"/></strong><br/>	
-							<span t-esc="o.street"/><br/>
-							<span t-esc="o.street2"/><br/>
-							<span t-esc="o.city"/>
-							<span t-esc="o.state_id.name"/>
-							<span t-esc="o.zip"/><br/>
-							<span t-esc="o.country_id.name"/>
+						<p><strong><span style="font-size:16px;" t-esc="o.name"/></strong><br/>	
+							<span style="font-size:14px;" t-esc="o.street"/><br/>
+							<span style="font-size:14px;" t-esc="o.street2"/><br/>
+							<span style="font-size:14px;" t-esc="o.city"/>
+							<span style="font-size:14px;" t-esc="o.state_id.name"/>
+							<span style="font-size:14px;" t-esc="o.zip"/><br/>
+							<span style="font-size:14px;" t-esc="o.country_id.name"/>
 							</p>
 					</div>
 					<div class="col-xs-1">
 						
 					</div>
 					<div class="col-xs-5" style="font-size:12px">
-						<b>As of <span t-esc="time.strftime('%d-%m-%Y',time.strptime(o.overdue_date,'%Y-%m-%d'))"/></b><br/>
+						<b style="font-size:14px;">As of <span t-esc="datetime.datetime.strptime(o.overdue_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/></b><br/>
 						<t t-if="o.property_payment_term_id">
 							<b>Credit Term </b><span t-esc="o.property_payment_term_id.name"/>
 						</t>
-                        <p>
-                        <strong><span>From : </span></strong><span t-esc="date_from"/>
-						<strong><span>To : </span></strong><span t-esc="date_to"/>
+                        <p style="font-size:14px;">
+                        <strong><span>From : </span></strong><span t-esc="datetime.datetime.strptime(date_from, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
+						<strong><span>To : </span></strong><span t-esc="datetime.datetime.strptime(date_to, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
 						</p>	
                 </div>
 				</div>
@@ -67,7 +67,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 			                        <th class="text-right">Balance Due</th>
 			                    </tr>
 			                </thead>
-			                <tbody class="invoice_tbody">
+			                <tbody style="font-size:14px;" class="invoice_tbody">
 			                	<t t-set="l_debit" t-value="0" />
 		                        <t t-set="l_credit" t-value="0" />
 		                        <t t-set="l_total" t-value="0" />
@@ -112,7 +112,43 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 		                        </tr>
 			                </tbody>
             			</table>
+						<div class="row" name="total">
+							<div class="col-xs-4 pull-right">
+								<table class="table table-condensed" style="font-size:14px;">
+									<tr class="border-black">
+										<td>
+											<strong>Total Amount Due :</strong>
+										</td>
+										<td class="text-right">
+											<strong>
+												<span t-esc="set_amount(l_total)"/>
+											</strong>
+										</td>
+									</tr>
+									<!--<tr class="border-black">
+										<td>
+											<strong>Balance Due :</strong>
+										</td>
+										<td class="text-right">
+											<strong>
+												<span t-field="doc.payment_amount_due_amt" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: res_company.currency_id}"/>
+											</strong>
+										</td>
+									</tr> -->
+								</table>
+							</div>
+						</div>
+						<br/>
+						<br/>
+						<br/>
+						
 					</div>
+				</div>
+				<div class="col-xs-6 pull-right">
+					<p style="font-size:14px;">
+						<strong>Certified by :</strong>
+						<strong>___________________________</strong>
+					</p>
 				</div>
 				<div class="row" t-if="not get_lines">
 					<div class="col-xs-12">

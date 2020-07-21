@@ -22,12 +22,12 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
         <field name="page_height">297</field>
         <field name="page_width">210</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">45</field>
+        <field name="margin_top">37</field>
         <field name="margin_bottom">28</field>
         <field name="margin_left">7</field>
         <field name="margin_right">7</field>
         <field name="header_line" eval="False" />
-        <field name="header_spacing">42</field>
+        <field name="header_spacing">32</field>
         <field name="dpi">90</field>
     </record>
     

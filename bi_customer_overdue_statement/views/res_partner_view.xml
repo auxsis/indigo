@@ -108,6 +108,7 @@
 								<field name="date_due" readonly="True" />
 								<field name="amount_total" readonly="True" string="Invoices/Debits" />
 								<field name="credit_amount" readonly="True" string="Payments/Credits" />
+								<field name="excluded" string="Excluded" />
 								<field name="result" readonly="True" string="Balance" />
 							</tree>
 						</field>

@@ -7,7 +7,16 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree/field[@name='purchase_price']" position="replace">
                     <field name="purchase_price" groups="ibas_indigo.group_margin_check"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="cost_per_line_item" groups="ibas_indigo.group_margin_check"/>
                     <field name="margin_percent" groups="ibas_indigo.group_margin_check" options='{"bg_color": "#7AFE77: margin_percent &gt; 0; #DB6E71: margin_percent &lt; 0"}' widget="Percent"/>
+                    <field name="gross_profit" groups="ibas_indigo.group_margin_check"/>
+                </xpath>
+
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="gross_profit_total" groups="base.group_user"/>
                 </xpath>
 
                 <xpath expr="//field[@name='payment_term_id']" position="after">

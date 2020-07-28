@@ -82,9 +82,11 @@
 								<t t-set="sub_total" t-value="0.0"/>
 								<tr t-foreach="doc.balance_invoice_ids.sorted(key=lambda r: r.number)" t-as="line">
 									<t t-set="bal" t-value="bal +sub_total "/>
-									<t t-if="line.account_id.internal_type=='receivable'">
+									<!-- <t t-if="line.account_id.internal_type=='receivable'"> -->
+									<t t-if="line.excluded== false and line.account_id.internal_type=='receivable'">
 										<td>
-											<span t-esc="line.date_invoice"/>
+											<span t-esc="time.strftime('%m/%d/%Y',time.strptime(line.date_invoice,'%Y-%m-%d'))"/>
+											<!--<span t-esc="line.date_invoice"/> -->
 										</td>
 										<td>
 											<span t-esc="line.origin"/>

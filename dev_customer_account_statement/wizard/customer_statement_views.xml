@@ -18,6 +18,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
                     <group>
                         <field name="month" invisible="1"/>
                         <field name="is_privious_year"/>
+                        <field name="as_of_date"/>
                         <field name="date_upto" string="Date As on" invisible="1"/>
                     </group>
                     <group>

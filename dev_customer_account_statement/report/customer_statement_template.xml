@@ -37,7 +37,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 						
 					</div>
 					<div class="col-xs-5" style="font-size:12px">
-						<b style="font-size:14px;">As of <span t-esc="datetime.datetime.strptime(o.overdue_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/></b><br/>
+						<b style="font-size:14px;">As of <span t-esc="datetime.datetime.strptime(as_of_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/></b><br/>
 						<t t-if="o.property_payment_term_id">
 							<b>Credit Term </b><span t-esc="o.property_payment_term_id.name"/>
 						</t>
@@ -78,12 +78,12 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				                        </td> -->
 				                        <t t-if="o.aging_by == 'inv_date'">
 				                            <td class="text-center">
-				                            	<span t-esc="time.strftime('%d-%m-%Y',time.strptime(l.get('date'),'%Y-%m-%d'))"/>
+				                            	<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.get('date'),'%Y-%m-%d'))"/>
 				                            </td>
 				                        </t>
 				                        <t t-if="o.aging_by == 'due_date'">
 				                            <td class="text-center">
-				                            	<span t-esc="time.strftime('%d-%m-%Y',time.strptime(l.get('date_maturity'),'%Y-%m-%d'))"/>
+				                            	<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.get('date_maturity'),'%Y-%m-%d'))"/>
 				                            </td>
 				                        </t>
 				                        <td class="text-center">
@@ -146,6 +146,10 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				</div>
 				<div class="col-xs-6 pull-right">
 					<p style="font-size:14px;">
+						<strong>Payment should be made by :</strong>
+						<strong>_________________</strong>
+						<br/>
+						<br/>
 						<strong>Certified by :</strong>
 						<strong>___________________________</strong>
 					</p>

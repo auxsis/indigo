@@ -73,8 +73,9 @@
 									
 								</tr>
 								
-
+								
 								<tr t-foreach="doc.customer_statement_line_ids" t-as="line">
+									<t t-if="line.excluded== false">
 										<t t-set="bal" t-value="bal +sub_total "/>
 										<td>
 											<span t-esc="line.date_invoice" />
@@ -109,6 +110,7 @@
 													t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
 											</td>
 										</t>
+									</t>
 								</tr>
 								<tr>
 									<td></td>

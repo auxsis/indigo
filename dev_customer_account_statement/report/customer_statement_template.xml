@@ -20,33 +20,48 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				}
 				</style>
 				<div class="row">
-					<div class="col-xs-12 text-center">
-					    <h3> Statement Of Account</h3>
-					</div>
-					<div class="col-xs-6">
-						<p><strong><span style="font-size:16px;" t-esc="o.name"/></strong><br/>	
-							<span style="font-size:14px;" t-esc="o.street"/><br/>
-							<span style="font-size:14px;" t-esc="o.street2"/><br/>
-							<span style="font-size:14px;" t-esc="o.city"/>
-							<span style="font-size:14px;" t-esc="o.state_id.name"/>
-							<span style="font-size:14px;" t-esc="o.zip"/><br/>
-							<span style="font-size:14px;" t-esc="o.country_id.name"/>
-							</p>
-					</div>
-					<div class="col-xs-1">
-						
-					</div>
-					<div class="col-xs-5" style="font-size:12px">
-						<b style="font-size:14px;">As of <span t-esc="datetime.datetime.strptime(as_of_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/></b><br/>
-						<t t-if="o.property_payment_term_id">
-							<b>Credit Term </b><span t-esc="o.property_payment_term_id.name"/>
-						</t>
-                        <p style="font-size:14px;">
-                        <strong><span>From : </span></strong><span t-esc="datetime.datetime.strptime(date_from, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
-						<strong><span>To : </span></strong><span t-esc="datetime.datetime.strptime(date_to, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
-						</p>	
-                </div>
+						<div class="col-xs-12 text-center">
+							<h3> Statement Of Account</h3>
+						</div>
+						<div class="col-xs-6">
+							<!--<p><strong><span style="font-size:16px;" t-esc="o.name"/></strong><br/>	
+								<span style="font-size:14px;" t-esc="o.street"/><br/>
+								<span style="font-size:14px;" t-esc="o.street2"/><br/>
+								<span style="font-size:14px;" t-esc="o.city"/>
+								<span style="font-size:14px;" t-esc="o.state_id.name"/>
+								<span style="font-size:14px;" t-esc="o.zip"/><br/>
+								<span style="font-size:14px;" t-esc="o.country_id.name"/>
+								</p>-->
+						</div>
+						<div class="col-xs-1">
+							
+						</div>
+						<div class="col-xs-5" style="font-size:12px">
+							<b style="font-size:14px;">As of <span t-esc="datetime.datetime.strptime(as_of_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/></b><br/>
+							<t t-if="o.property_payment_term_id">
+								<b>Credit Term </b><span t-esc="o.property_payment_term_id.name"/>
+							</t>
+							<p style="font-size:14px;">
+							<strong><span>From : </span></strong><span t-esc="datetime.datetime.strptime(date_from, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
+							<strong><span>To : </span></strong><span t-esc="datetime.datetime.strptime(date_to, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
+							</p>	
+						</div>
 				</div>
+				<br/>
+					<div class="row">
+						<div class="col-xs-8">
+							<p><strong><span style="font-size:16px;" t-esc="o.name"/></strong><br/>	
+								<span style="font-size:14px;" t-esc="o.street"/>
+								<span style="font-size:14px;" t-esc="o.street2"/>
+								<span style="font-size:14px;" t-esc="o.city"/>
+								<span style="font-size:14px;" t-esc="o.state_id.name"/>
+								<span style="font-size:14px;" t-esc="o.zip"/>
+								<span style="font-size:14px;" t-esc="o.country_id.name"/>
+								</p>
+						</div>
+					</div>
+						
+				
 				<t t-set="get_lines" t-value="get_lines(o,date_from,date_to)"/>
 				<div class="mt16 mb16"/>
 				<div class="row">

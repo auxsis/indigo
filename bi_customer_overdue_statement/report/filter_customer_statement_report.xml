@@ -3,41 +3,29 @@
 	<data>
 		<template id="filter_report_customer_statement">
 			<t t-call="web.external_layout">
-				
-				<!--<div class="text-right" style="margin-right: 15em;">
-							<p><span t-esc="doc.name" /><br/>
-							<span t-esc="doc.street" /><br/>
-							<span t-esc="doc.street2" /><br/>
-							<span t-esc="doc.city" />
-							<span t-esc="doc.state_id.name" />
-							<span t-esc="doc.zip" /><br/>
-							<span t-esc="doc.country_id.name" />
-						</p>
-						<br/>
-				</div> -->
 				<div class="page">
 
 						<div class="row">
 							<div class="col-xs-12 text-center">
 								<h3> Statement Of Account</h3>
 							</div>
-							<div class="col-xs-6">
+							<div class="col-xs-7">
 								<t t-set="doc" t-value="doc.with_context({'lang':doc.lang})" />
 								<p><strong><span style="font-size:16px;" t-esc="doc.name"/></strong><br/>	
-									<span style="font-size:14px;" t-esc="doc.street"/><br/>
-									<span style="font-size:14px;" t-esc="doc.street2"/><br/>
+									<span style="font-size:14px;" t-esc="doc.street"/>
+									<span style="font-size:14px;" t-esc="doc.street2"/>
 									<span style="font-size:14px;" t-esc="doc.city"/>
 									<span style="font-size:14px;" t-esc="doc.state_id.name"/>
-									<span style="font-size:14px;" t-esc="doc.zip"/><br/>
+									<span style="font-size:14px;" t-esc="doc.zip"/>
 									<span style="font-size:14px;" t-esc="doc.country_id.name"/>
 									</p>
 							</div>
 							<div class="col-xs-1">
 								
 							</div>
-							<div class="col-xs-5" style="font-size:12px">		
+							<div class="col-xs-4" style="font-size:12px">		
 								
-								<strong style="font-size:14px;"><span>Date : </span><span t-esc="datetime.datetime.now().strftime('%m/%d/%Y')"/> </strong>
+								<strong style="font-size:14px;"><span>Date : </span><span t-esc="datetime.datetime.strptime(doc.today_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/> </strong>
 								<p style="font-size:14px;">
 								<strong><span>From : </span></strong><span t-esc="datetime.datetime.strptime(doc.statement_from_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
 								<strong><span>To : </span></strong><span t-esc="datetime.datetime.strptime(doc.statement_to_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
@@ -45,6 +33,7 @@
 							</div>
 						</div>
 						<br/>
+						
 
 					
 					<!--<div class="container" style="margin:5px 0 0 1px;">
@@ -78,7 +67,13 @@
 						<table class="table table-condensed" name="filter_line_table">
 							<thead>
 								<tr>
-									<th class="text-center">DUE DATE</th>
+									<!--<th class="text-center">DUE DATE</th>-->
+									<t t-if="doc.aging_by == 'inv_date'">
+			                            <th class="text-center">INVOICE DATE</th>
+			                        </t>
+			                        <t t-if="doc.aging_by == 'due_date'">
+			                            <th class="text-center">DUE DATE</th>
+			                        </t>
 									<th class="text-center">SO #</th>
 									<!--<th>Ref</th>-->
 									<th class="text-right">INVOICE AMT</th>
@@ -181,15 +176,25 @@
 		                        <t t-set="l_credit" t-value="0" />
 		                        <t t-set="l_total" t-value="0" />
 			                	<t t-foreach="doc.customer_statement_line_ids" t-as="l" >
+								<t t-if="l.excluded== false">
 			                		<tr>
 <!-- 				                        <td class="text-center">
 				                            <span t-esc="l.get('desc')"/>
 				                        </td> -->
-	
+										<t t-if="doc.aging_by == 'inv_date'">
+				                            <td class="text-center">
+				                            	<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_invoice,'%Y-%m-%d'))"/>
+				                            </td>
+				                        </t>
+				                        <t t-if="doc.aging_by == 'due_date'">
+				                            <td class="text-center">
+				                            	<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_due,'%Y-%m-%d'))"/>
+				                            </td>
+				                        </t>
 				                        
-										<td class="text-center">
+										<!--<td class="text-center">
 											<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_due,'%Y-%m-%d'))"/>
-										</td>
+										</td>-->
 				                        
 				                        <td class="text-center">
 				                            <span t-esc="l.origin"/>
@@ -211,6 +216,7 @@
 				                        </td>
 				                    </tr>
 			                	</t>
+								</t>
 			                	<tr style="background:#e0e0e0;">
 		                            <td style="border-top:1px solid black" colspan="1"></td>
 		                            <td style="border-top:1px solid black"><strong>Sub-Total :</strong></td>

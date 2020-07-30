@@ -345,6 +345,7 @@ class Res_Partner(models.Model):
                         'date_due': invoice.date_due,
                         'number': invoice.number or '',
                         'origin': invoice.origin or '',
+                        'note': invoice.name or '',
                         'legacy_number': invoice.legacy_number or '',
                         'result': invoice.result or 0.0,
                         'name': invoice.name or '',

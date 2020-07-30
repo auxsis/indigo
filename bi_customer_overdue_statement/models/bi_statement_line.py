@@ -19,6 +19,7 @@ class bi_statement_line(models.Model):
     origin = fields.Char(string='Source Document',
                          help="Reference of the document that generated this sales order request.")
     legacy_number = fields.Char(string="Legacy Number")
+    note = fields.Char(string='Note')
     result = fields.Float("Balance")
     amount_total = fields.Float("Invoices/Debits")
     credit_amount = fields.Float("Payments/Credits")

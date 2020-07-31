@@ -23,15 +23,6 @@ class IndySaleOrder(models.Model):
             [('default', '=', True)], limit=1)
         return carrier_id
 
-    @api.multi
-    def _compute_purchase_price(self):
-        for record in self:
-            total_purchase_price = 0
-            for line in record.order_line:
-                purchase_price = line.purchase_price * line.product_uom_qty
-                total_purchase_price += purchase_price
-            record.total_purchase_price = total_purchase_price
-
     partner_id = fields.Many2one('res.partner', string='Customer', readonly=False, states={
     }, required=True, change_default=True, index=True, track_visibility='always')
     legacy_number = field_name = fields.Char()
@@ -51,8 +42,6 @@ class IndySaleOrder(models.Model):
                                         help="Date on which the sales order is confirmed.", oldname="date_confirm")
 
     print_count = fields.Integer(string='Print Count',)
-    total_purchase_price = fields.Float(
-        compute='_compute_purchase_price', string='Total Cost')
 
     @api.multi
     def print_quotation(self):

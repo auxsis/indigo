@@ -15,7 +15,7 @@
                     <field name="gross_profit" groups="ibas_indigo.group_margin_check"/>
                 </xpath>
 
-                <xpath expr="//field[@name='amount_total']" position="after">
+                <xpath expr="//field[@name='margin']" position="before">
                     <field name="gross_profit_total" groups="base.group_user"/>
                 </xpath>
 

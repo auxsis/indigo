@@ -45,8 +45,8 @@
 				<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
 					<field name="product_model"/>
 				</xpath>
-				<xpath expr="//field[@name='gross_profit_total']" position="before">
-					<field name="total_purchase_price" groups="ibas_indigo.group_margin_check"/>
+				<xpath expr="//field[@name='amount_total']" position="after">
+					<field name="total_purchase_price" groups="base.group_user"/>
 				</xpath>
 			</field>
 		</record>

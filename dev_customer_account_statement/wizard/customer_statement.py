@@ -20,7 +20,7 @@ class customer_statement(models.TransientModel):
     month = fields.Selection([('1', 'JAN'), ('2', 'FEB'), ('3', 'MAR'), ('4', 'APR'), ('5', 'MAY'), (
         '6', 'JUN'), ('7', 'JUL'), ('8', 'AUG'), ('9', 'SEP'), ('10', 'OCT'), ('11', 'NOV'), ('12', 'DEC')])
     aging_by = fields.Selection([('inv_date', 'Invoice Date'), (
-        'due_date', 'Due Date')], string='Ageing By', default='due_date', required="1")
+        'due_date', 'Due Date')], string='Ageing By', default='inv_date', required="1")
 
     date_upto = fields.Date('Upto Date', required="1",
                             default=fields.Datetime.now)

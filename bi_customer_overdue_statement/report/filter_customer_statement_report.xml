@@ -25,7 +25,8 @@
 							</div>
 							<div class="col-xs-4" style="font-size:12px">		
 								
-								<strong style="font-size:14px;"><span>Date : </span><span t-esc="datetime.datetime.strptime(doc.today_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/> </strong>
+								<strong style="font-size:14px;"><span>Date : </span><span t-esc="datetime.datetime.strptime(doc.today_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/> </strong><br/>
+								<strong style="font-size:14px;"><span>Credit Terms:</span><span t-esc="doc.property_payment_term_id.name"/></strong>
 								<p style="font-size:14px;">
 								<strong><span>From : </span></strong><span t-esc="datetime.datetime.strptime(doc.statement_from_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
 								<strong><span>To : </span></strong><span t-esc="datetime.datetime.strptime(doc.statement_to_date, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
@@ -75,102 +76,13 @@
 			                            <th class="text-center">DUE DATE</th>
 			                        </t>
 									<th class="text-center">SO #</th>
-									<!--<th>Ref</th>-->
+									<th class="text-center">REF</th>
 									<th class="text-right">INVOICE AMT</th>
 									<th class="text-right">PAYMENT AMT</th>
 									<th class="text-right">BALANCE DUE</th>
 								</tr>
 							</thead>
-							<!--<tbody>
-								<t t-set="grand_total" t-value="0.0" />    
-								<t t-set="bal" t-value="0.0" />
-								<t t-set="sub_total" t-value="0.0" />
-								<tr>
-									<td></td>
-									<td><b>Initial Balance</b></td>
-									<td></td>	
-									<td></td>
-									<td></td>
-									<td class="text-right">
-										<t t-set="k" t-value="k+doc.initial_bal" />
-										<b><span t-esc="doc.initial_bal" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></b>
-									</td>
-									
-								</tr>
-								
-								
-								<tr t-foreach="doc.customer_statement_line_ids" t-as="line">
-									<t t-if="line.excluded== false">
-										<t t-set="bal" t-value="bal +sub_total "/>
-										<td>
-										
-											<span t-esc="datetime.datetime.strptime(line.date_invoice, '%Y-%m-%d').strftime('%m/%d/%Y')"/>
-										</td>
-										<td>
-											<span t-esc="line.number" />
-										</td>
-										<td>
-											<span t-esc="line.name" />
-										</td>
-										<td class="text-right">
-											<span t-esc="line.amount_total_signed"
-												t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
-										</td>
-										<td class="text-right">
-											<span t-esc="line.credit_amount"
-												t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
-										</td>
-										<t t-if="line.invoice_id">
-										<td class="text-right">
-											<t t-set="sub_total" t-value="line.amount_total_signed-line.credit_amount" />
-											<t t-set="grand_total" t-value="sub_total + bal"/>
-											<span t-esc="sub_total + bal"
-												t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
-										</td>
-										</t>
-										<t t-if="line.payment_id">
-											<td class="text-right">
-												<t t-set="sub_total" t-value="line.amount_total-line.credit_amount" />
-												<t t-set="grand_total" t-value="sub_total + bal"/>
-												<span t-esc="sub_total + bal"
-													t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" />
-											</td>
-										</t>
-									</t>
-								</tr>
-								<tr>
-									<td></td>
-									<td>
-										<b>Ending Balance</b>
-									</td>
-									<td>
-										
-									</td>
-									<td></td>
-									<td></td>
-									<td class="text-right">
-										<b><span t-esc="grand_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></b>
-									</td>
-									
-								</tr>
-								<tr>
-									<td class="text-right">
-									</td>
-									<td>
-									</td>
-									<td>
-									</td>
-									<td class="text-right">
-										<span t-esc="i" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-									</td>
-									<td class="text-right">
-										<span t-esc="j" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-									</td>
-									<td class="text-right">
-										<span t-esc="k" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-									</td>
-								</tr>
-							</tbody>-->
+						
 							<tbody style="font-size:14px;" class="invoice_tbody">
 			                	<t t-set="l_debit" t-value="0" />
 		                        <t t-set="l_credit" t-value="0" />
@@ -192,37 +104,37 @@
 				                            </td>
 				                        </t>
 				                        
-										<!--<td class="text-center">
-											<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_due,'%Y-%m-%d'))"/>
-										</td>-->
-				                        
 				                        <td class="text-center">
 				                            <span t-esc="l.origin"/>
+				                        </td>
+										<td class="text-center">
+				                            <span t-esc="l.legacy_number"/>
 				                        </td>
 				                        <td class="text-right">
 				                            <t t-set="l_debit" t-value="l_debit + l.amount_total" />
 				                            <!--<span t-esc="set_amount(l.get('debit'))"/>-->
-				                            <span t-esc="l.amount_total"/>
+											<t t-esc="'{0:,.2f}'.format(int(l.amount_total))" />
 				                        </td>
 				                        <td class="text-right">
 				                            <t t-set="l_credit" t-value="l_credit + l.credit_amount" />
 				                            <!--<span t-esc="set_amount(l.get('credit'))"/>-->
-				                            <span t-esc="l.credit_amount"/>
+											<t t-esc="'{0:,.2f}'.format(int(l.credit_amount))" />
 				                        </td>
 				                        <td class="text-right">
 			                                <t t-set="l_total" t-value="l_total+ l.result" />
 			                                <!--<span t-esc="set_amount(l.get('total'))"/>-->
-			                                <span t-esc="l.result"/>
+											<t t-esc="'{0:,.2f}'.format(int(l.result))" />
 				                        </td>
 				                    </tr>
 			                	</t>
 								</t>
 			                	<tr style="background:#e0e0e0;">
 		                            <td style="border-top:1px solid black" colspan="1"></td>
+		                            <td style="border-top:1px solid black" colspan="1"></td>
 		                            <td style="border-top:1px solid black"><strong>Sub-Total :</strong></td>
-		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="l_debit"/></td>
-		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="l_credit"/></td>
-		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="l_total"/></td>
+		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="'{0:,.2f}'.format(int(l_debit))" /></td>
+		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="'{0:,.2f}'.format(int(l_credit))" /> </td>
+		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="'{0:,.2f}'.format(int(l_total))" /></td>
 		                        </tr>
 			                </tbody>
 
@@ -236,7 +148,8 @@
 										</td>
 										<td class="text-right">
 											<strong>
-												<span t-esc="l_total"/>
+												<!--<span t-esc="l_total"/>-->
+												<t t-esc="'{0:,.2f}'.format(int(l_total))" />
 											</strong>
 										</td>
 									</tr>

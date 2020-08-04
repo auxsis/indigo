@@ -77,6 +77,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 			                            <th class="text-center">Due Date</th>
 			                        </t>
 			                        <th class="text-center">SO #</th>
+			                        <th class="text-center">REF</th>
 			                        <th class="text-right">Invoice Amt</th>
 			                        <th class="text-right">Payment Amt</th>
 			                        <th class="text-right">Balance Due</th>
@@ -104,6 +105,9 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				                        <td class="text-center">
 				                            <span t-esc="l.get('origin')"/>
 				                        </td>
+										  <td class="text-center">
+				                            <span t-esc="l.get('legacy_number')"/>
+				                        </td>
 				                        <td class="text-right">
 				                            <t t-set="l_debit" t-value="l_debit + l.get('debit')" />
 				                            <span t-esc="set_amount(l.get('debit'))"/>
@@ -119,6 +123,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				                    </tr>
 			                	</t>
 			                	<tr style="background:#e0e0e0;">
+		                            <td style="border-top:1px solid black" colspan="1"></td>
 		                            <td style="border-top:1px solid black" colspan="1"></td>
 		                            <td style="border-top:1px solid black"><strong>Sub-Total :</strong></td>
 		                            <td style="border-top:1px solid black" class="text-right"><span t-esc="set_amount(l_debit)"/></td>

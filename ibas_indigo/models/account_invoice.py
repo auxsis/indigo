@@ -36,19 +36,20 @@ class ibASAccountInvoice(models.Model):
     def action_invoice_open(self):
        
         for rec in self:
-            for line in rec.invoice_line_ids:
-                try:
-                    line.product_id.standard_price = line.price_unit
-                    line.purchase_line_id.move_ids[0].value = line.price_unit * line.quantity
-                    line.purchase_line_id.move_ids[0].remaining_value = line.price_unit * line.quantity
+            if rec.type == "in_invoice":    
+                for line in rec.invoice_line_ids:
+                    try:
+                        line.product_id.standard_price = line.price_unit
+                        line.purchase_line_id.move_ids[0].value = line.price_unit * line.quantity
+                        line.purchase_line_id.move_ids[0].remaining_value = line.price_unit * line.quantity
+                        
+                        _logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                    except:
+                        _logger.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                        pass
                     
-                    _logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-                except:
-                    _logger.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-                    pass
-                
-            for shipment in rec.shipment_ids:
-                shipment.bill_status = 'paid'
+                for shipment in rec.shipment_ids:
+                    shipment.bill_status = 'paid'
         
         super(ibASAccountInvoice, self).action_invoice_open()
     

@@ -181,6 +181,7 @@ class print_customer_statement(models.AbstractModel):
                         'date': line.date,
                         'desc': line.ref or '/',
                         'ref': line.move_id.name or '',
+                        'legacy_number': line.invoice_id.legacy_number,
                         'origin': line.invoice_id.origin,
                         'date_maturity': line.date_maturity,
                         'debit': float(inv_amt),

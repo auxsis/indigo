@@ -43,6 +43,11 @@
 									<field name="statement_to_date"/>
 								</div>
 
+								<div class="oe_left">
+									<label for="aging_by" string="Aging By"/>
+									<field name="aging_by" required="1"/>
+								</div>
+
 							</div>
 
 
@@ -71,7 +76,9 @@
 								<button name="do_send_statement_filter" type="object" string="Send Filter Statement"
 								groups="account.group_account_user"
 								help="Send Filter Statement Report From Filtered Lines" />
+								
 							</div>
+							
 						</group>
 
 						<field name="customer_statement_line_ids">
@@ -81,6 +88,8 @@
 								<field name="date_invoice" readonly="True" />
 								<field name="number" string="Invoice Number" readonly="True" />
                                 <field name="origin" string="SO Number" readonly="True"/>
+								<field name="note" string="Credit Note" readonly="True" />
+								<field name="legacy_number" string="Legacy Number" readonly="True" />
 								<field name="company_id" readonly="True"
 									groups="base.group_multi_company" />
 								<field name="date_due" readonly="True" />
@@ -88,6 +97,7 @@
 									sum="Total Debits " />
 								<field name="credit_amount" readonly="True" string="Payments/Credits"
 									sum="Total Credits" />
+								<field name="excluded"/>
 								<field name="result" readonly="True" string="Balance"
 									sum="Total Balance" />
 								<field name="amount_total_signed" invisible="1" />
@@ -103,6 +113,9 @@
 								<field name="date_invoice" readonly="True" />
 								<field name="state" readonly="True" invisible="1" />
 								<field name="number" string="Invoice Number" readonly="True" />
+								<field name="origin" string="SO Number" readonly="True" />
+								<field name="name" string="Credit Note" readonly="True" />
+								<field name="legacy_number" string="Legacy Number" readonly="True" />
 								<field name="company_id" readonly="True"
 									groups="base.group_multi_company" />
 								<field name="date_due" readonly="True" />

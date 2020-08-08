@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 from datetime import datetime
+import math
 
 from odoo.exceptions import UserError
 
@@ -139,6 +140,8 @@ class AccountInvoiceLine(models.Model):
                 if purchase_currency_id and currency:
                     if purchase_currency_id != currency and exchange_rate:
                         price_unit = price_unit * exchange_rate
+#                         _logger.info([math.floor(price_unit * 10 ** i) / 10 ** i for i in range(3)])
+                        price_unit = [math.floor(price_unit * 10 ** i) / 10 ** i for i in range(3)][2]
             self.price_unit = price_unit
             self.orig_price_unit = orig_price_unit
         result = super(AccountInvoiceLine, self)._compute_price()
@@ -164,7 +167,7 @@ class AccountInvoiceLine(models.Model):
             if self.product_id and type in ('in_invoice', 'in_refund'):
                 if purchase_currency_id and currency:
                     if purchase_currency_id != currency and exchange_rate:
-                        price_unit = price_unit * exchange_rate
+                        price_unit = [math.floor(price_unit * 10 ** i) / 10 ** i for i in range(3)][2]
 
             self.price_unit = price_unit
             self.orig_price_unit = orig_price_unit

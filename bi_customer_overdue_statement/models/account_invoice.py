@@ -24,4 +24,3 @@ class account_invoice(models.Model):
     # 'balance' field is not the same
     result = fields.Float(compute='_get_result',   string="Balance")
     excluded = fields.Boolean(string='Excluded')
-    legacy_number = fields.Char("Legacy Number")

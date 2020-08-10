@@ -62,8 +62,11 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_info']/group/group[2]/field[@name='origin']" position="replace">
+                    <field name="origin" groups="base.group_user" attrs="{'invisible': [('origin', '=', False)]}" readonly="1"/>
+                </xpath>
                 <xpath expr="//page[@name='other_info']/group/group[2]/field[@name='origin']" position="after">
-                    <field name="legacy_number" groups="base.group_user" attrs="{'invisible': [('origin', '=', False)], 'readonly': [('state', 'not in', ['draft'])]}"/>
+                    <field name="legacy_number" groups="base.group_user"/>
                 </xpath>
                 <xpath expr="//button[@name='action_invoice_open']" position="replace">
                     <button name="action_invoice_open2" type="object" states="draft" string="Validate" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/>

@@ -1,0 +1,34 @@
+ <odoo>
+    <data>
+      
+      <!-- UNION OUTGOING CHEQUE -->
+      <report
+      id="rpt_shoot_to_print_check_union_solo"
+      model="account.cheque"
+      string="Outgoing Cheque (UB)"
+      report_type="qweb-pdf"
+      name="indigo_prod.rpt_shoot_to_print_check_union_template_solo"
+      file="indigo_prod.rpt_shoot_to_print_check_union_template_solo"
+      print_report_name="'Cheque - %s' % (object.name)"
+      attachment_use="False"
+      paperformat="indigo_prod.paperformat_chk_union"/>
+
+      <template id="rpt_shoot_to_print_check_union_template_solo">
+          <t t-call="web.html_container">
+            
+              <t t-foreach="docs" t-as="o">
+                <div class="page article" style="top:0in;left:0in;position:relative;font-size:11pt;width:8.5in">
+                    
+                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b %Y')" style="top: 25mm;left: 210mm;position:relative;width:100%;"/>
+                    <span id="amount" t-field="o.amount" style="top: 35mm;left: 185mm;position:relative;width:100%;"/>
+                    
+                    <span id="company_info" t-field="o.payee_user_id" style="top: 35mm;left: 25mm;position:absolute;width:100%;"/>
+                    <span id="check_amount_in_words" t-field="o.check_amount_in_words" style="top: 45mm;left: 25mm;position:absolute;width:100%;"/>
+                    
+                </div>
+              </t>                   
+            
+          </t>
+      </template>      
+    </data>
+</odoo>

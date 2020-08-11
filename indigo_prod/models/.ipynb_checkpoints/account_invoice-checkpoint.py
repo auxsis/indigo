@@ -167,7 +167,7 @@ class AccountInvoiceLine(models.Model):
                 if purchase_currency_id and currency:
                     if purchase_currency_id != currency and exchange_rate:
                         price_unit = price_unit * exchange_rate
-                        price_unit = [math.floor(round(price_unit,3) * 10 ** i) / 10 ** i for i in range(4)][2]
+                        price_unit = [math.floor(round(price_unit,3) * 10 ** i) / 10 ** i for i in range(3)][2]
 
             self.price_unit = price_unit
             self.orig_price_unit = orig_price_unit

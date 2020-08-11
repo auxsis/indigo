@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _ 
+from num2words import num2words
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -9,9 +10,15 @@ class AccountCheque(models.Model):
     # NEW FIELDS
     bank_id = fields.Many2one('res.bank', string='Bank')
     bank_account_number_id = fields.Many2one('res.partner.bank', string='Bank Account Number')
+    check_amount_in_words = fields.Char(string="Amount in Words")
     
     # OVERRIDE
     name = fields.Char(string="Name", required=False, related='sequence')
+    
+    @api.onchange('amount')
+    def _onchange_amount(self):
+        whole = num2words(int(self.amount))
+        self.check_amount_in_words = whole.upper() + " ONLY"
     
     @api.onchange('sequence')
     def set_name(self):

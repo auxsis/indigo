@@ -10,8 +10,6 @@ _logger = logging.getLogger(__name__)
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    legacy_number = fields.Char("Legacy Number")
-
     def _is_convert_currency(self):
         convert_currency = False
         if self.purchase_currency_id and self.currency_id:

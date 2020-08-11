@@ -10,6 +10,8 @@ class account_invoice(models.Model):
     _inherit = 'account.invoice'
     _order = 'date_due'
 
+    legacy_number = fields.Char("Legacy Number")
+
     @api.multi
     def _get_result(self):
         for aml in self:

@@ -34,3 +34,8 @@ class account_invoice(models.Model):
             legacy_number = record.mapped('invoice_line_ids').mapped('sale_line_ids').mapped('order_id').mapped('legacy_number')
             if legacy_number:
                 record.legacy_number = legacy_number[0]
+    
+    @api.multi
+    def check_legacy_number(self):
+        for record in self:
+            record._get_legacy_number()

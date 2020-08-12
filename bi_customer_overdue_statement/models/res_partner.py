@@ -338,6 +338,8 @@ class Res_Partner(models.Model):
             payments = account_payment_obj.search(domain_payment)
             if invoices:
                 for invoice in invoices.sorted(key=lambda r: r.number):
+                    # ADDED BY RCS FOR CHECKING OF LEGACY NUMBER
+                    invoice.check_legacy_number()
                     vals = {
                         'partner_id': invoice.partner_id.id or False,
                         'state': invoice.state or False,

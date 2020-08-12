@@ -103,6 +103,12 @@ class IndySaleOrder(models.Model):
             for line in record.order_line:
                 line._compute_purchase_price()
             record._compute_total_margin_percent()
+    
+    @api.multi
+    @api.onchange('legacy_number')
+    def onchange_legacy_number(self):
+        for invoice in self.invoice_ids:
+            invoice.legacy_number = self.legacy_number
 
 
 class IndySaleOrderLine(models.Model):

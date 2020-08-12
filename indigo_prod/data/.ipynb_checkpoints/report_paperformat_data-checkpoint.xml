@@ -32,6 +32,38 @@
                 <field name="header_spacing">0</field>
                 <field name="dpi">95</field>
             </record>
+        
+            <record id="paperformat_chk_depo_slp_union" model="report.paperformat">
+                <field name="name">Union Bank Check Deposit Slip</field>
+                <field name="default" eval="False"/>
+                <field name="format">custom</field>
+                <field name="page_height">90</field>
+                <field name="page_width">210</field>
+                <field name="orientation">Portrait</field>
+                <field name="margin_top">0</field>
+                <field name="margin_bottom">0</field>
+                <field name="margin_left">0</field>
+                <field name="margin_right">0</field>
+                <field name="header_line" eval="False"/>
+                <field name="header_spacing">0</field>
+                <field name="dpi">95</field>
+            </record>
+        
+            <record id="paperformat_chk_union" model="report.paperformat">
+                <field name="name">Union Bank Check Print</field>
+                <field name="default" eval="False"/>
+                <field name="format">custom</field>
+                <field name="page_height">75</field>
+                <field name="page_width">198</field>
+                <field name="orientation">Portrait</field>
+                <field name="margin_top">0</field>
+                <field name="margin_bottom">0</field>
+                <field name="margin_left">0</field>
+                <field name="margin_right">0</field>
+                <field name="header_line" eval="False"/>
+                <field name="header_spacing">0</field>
+                <field name="dpi">95</field>
+            </record>
 
 	</data>
 </odoo>

@@ -1,0 +1,288 @@
+ <odoo>
+    <data>
+      <!-- BDO BATCH INCOMING CHEQUE -->
+      <report
+      id="rpt_shoot_to_print_check_depo_bdo"
+      model="account.cheque.batch"
+      string="Cheque Deposit Slip (BDO)"
+      report_type="qweb-pdf"
+      name="indigo_prod.rpt_shoot_to_print_check_depo_bdo_template"
+      file="indigo_prod.rpt_shoot_to_print_check_depo_bdo_template"
+      print_report_name="(object.status in ('draft') and 'Draft Cheque Deposit Slip - %s' % (object.reference)) or 'Cheque Deposit Slip - %s' % (object.reference)"
+      
+      attachment_use="False"
+      paperformat="paperformat_chk_depo_slp_bdo"/>
+
+      <template id="rpt_shoot_to_print_check_depo_bdo_template">
+          <t t-call="web.html_container">
+            
+              <t t-foreach="docs" t-as="o">
+                <t t-set="page_lists" t-value="o.getPages()"/>
+                <t t-foreach="page_lists" t-as="page_list">
+                  <t t-if="len(page_lists[page_list][1]) &gt; 0">
+                      <div class="page article" style="top:0in;left:0in;position:relative;font-size:11pt;width:8.5in">
+                          <span id="deposit_date" t-field="page_lists[page_list][0].date" style="top: 9mm;left: 217mm;position:relative;width:100%;" t-options='{"format": "dd MMM yyyy"}'/>
+
+                          <span id="company_info" t-field="page_lists[page_list][0].company_id" style="top: 18mm;left: 35mm;position:absolute;width:100%;"/>
+                          
+                          <table class="table table-bordered table-condensed" style="top: 23mm;left:35mm;position:relative;">
+                            <t t-set="total" t-value="0.0"/>
+                            <tbody>
+                                  <t t-foreach="page_lists[page_list][1]" t-as="account_cheque_id">
+                                      <tr>
+                                          <td style="border:1px solid white;font-size:90%;width:55%;">
+                                              <span id="account_no" t-field="account_cheque_id.bank_account_number_id.acc_number"/>
+                                              <!-- <span id="account_no" t-field="account_cheque_id.journal_id.bank_acc_number"/> -->
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:17%;" colspan="2">
+                                              <span id="bank" t-field="account_cheque_id.bank_id.name"/>
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:13%;" class="text-left">
+                                              <span id="cheque_number" t-field="account_cheque_id.cheque_number"/>
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:10%;" class="text-left">
+                                              <span id="amount" t-field="account_cheque_id.amount"/>
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
+                                          </td>
+                                      </tr>
+                                      <t t-set="total" t-value="total + account_cheque_id.amount"/>
+                                  </t>
+                            </tbody>
+                          </table>
+                        <span t-esc="'{0:,.2f}'.format(total)" style="top: 101mm; left: 216mm; position:absolute;"/>  
+                      </div>
+                  </t>
+                </t>
+                <!--
+                <div class="page article" style="top:0in;left:0in;position:relative;font-size:10pt;width:8.5in">
+
+                    <span id="company_info" t-field="o.company_id" style="top: 18mm;left: 35mm;position:absolute;"/>
+
+                    <span id="deposit_date" t-field="o.date" style="top: 9mm;left: 160mm;position:absolute;" t-options='{"format": "dd MMM yyyy"}'/>
+                    
+                    <table class="table table-bordered table-condensed" style="top: 30mm;left:120mm;position:relative;width:3.5in">
+                      <t t-set="total" t-value="0.0"/>
+                      <tbody>
+                            <t t-foreach="o.account_cheque_ids" t-as="account_cheque_id">
+                                <tr>
+                                    <td style="border:1px solid white;font-size:85%" colspan="2">
+                                        <span id="bank" t-field="account_cheque_id.bank_id.name"/>
+                                    </td>
+                                    <td style="border:1px solid white;font-size:85%" class="text-left">
+                                        <span id="cheque_number" t-field="account_cheque_id.cheque_number"/>
+                                    </td>
+                                    <td style="border:1px solid white;font-size:85%" class="text-left">
+                                        <span id="amount" t-field="account_cheque_id.amount"/>
+                                    </td>
+                                </tr>
+                                <t t-set="total" t-value="total + account_cheque_id.amount"/>
+                            </t>
+                      </tbody>
+                    </table>
+
+                  <span t-esc="'{0:,.2f}'.format(total)" style="top: 88mm; left: 187mm; position:absolute;"/>                   
+                  
+
+                </div>
+              -->
+              </t>                   
+            
+          </t>
+      </template>
+
+
+      <!-- BDO INCOMING CHEQUE -->
+      <report
+      id="rpt_shoot_to_print_check_depo_bdo_solo"
+      model="account.cheque"
+      string="Incoming Cheque Deposit Slip (BDO)"
+      report_type="qweb-pdf"
+      name="indigo_prod.rpt_shoot_to_print_check_depo_bdo_template_solo"
+      file="indigo_prod.rpt_shoot_to_print_check_depo_bdo_template_solo"
+      print_report_name="'Cheque Deposit- %s' % (object.name)"
+      attachment_use="False"
+      paperformat="paperformat_chk_depo_slp_bdo"/>
+
+      <template id="rpt_shoot_to_print_check_depo_bdo_template_solo">
+          <t t-call="web.html_container">
+            
+              <t t-foreach="docs" t-as="o">
+                <div class="page article" style="top:0in;left:0in;position:relative;font-size:11pt;width:8.5in">
+                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b %Y')" style="top: 9mm;left: 217mm;position:relative;width:100%;"/>
+
+                    <span id="company_info" t-field="o.company_id" style="top: 18mm;left: 35mm;position:absolute;width:100%;"/>
+
+                    <!-- <span id="account_no" t-field="o.bank_account_number_id.acc_number" style="top: 28mm;left: 35mm;position:absolute;width:100%;"/> -->
+
+                       
+
+                    <table class="table table-bordered table-condensed" style="top: 23mm;left:35mm;position:relative;">
+                      <t t-set="total" t-value="0.0"/>
+                      <tbody>
+                            <tr>
+                                <td style="border:1px solid white;width:55%;">
+                                  <span id="account_no" t-field="o.bank_account_number_id.acc_number"/>
+                                </td>
+                                <td style="border:1px solid white;width:17%;" colspan="2">
+                                    <br/>
+                                </td>
+                                <td style="border:1px solid white;width:13%;" class="text-left">
+                                    <br/>
+                                </td>
+                                <td style="border:1px solid white;width:10%;" class="text-left">
+                                    <br/>
+                                </td>
+                                <td style="border:1px solid white;width:5%;" class="text-left">
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid white;font-size:90%;width:55%;">
+                                  <br/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:17%;" colspan="2">
+                                    <span id="bank" t-field="o.bank_id.name"/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:13%;" class="text-left">
+                                    <span id="cheque_number" t-field="o.cheque_number"/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:10%;" class="text-left">
+                                    <span id="amount" t-field="o.amount"/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
+                                </td>
+                            </tr>
+                            <t t-set="total" t-value="total + o.amount"/>
+                      </tbody>
+                    </table>
+                  <span t-esc="'{0:,.2f}'.format(total)" style="top: 101mm; left: 216mm; position:absolute;"/>                                   
+                </div>
+              </t>                   
+            
+          </t>
+      </template>      
+        
+     <!-- UNION BATCH INCOMING CHEQUE -->
+      <report
+      id="rpt_shoot_to_print_check_depo_union"
+      model="account.cheque.batch"
+      string="Cheque Deposit Slip (UB)"
+      report_type="qweb-pdf"
+      name="indigo_prod.rpt_shoot_to_print_check_depo_union_template"
+      file="indigo_prod.rpt_shoot_to_print_check_depo_union_template"
+      print_report_name="(object.status in ('draft') and 'Draft Cheque Deposit Slip - %s' % (object.reference)) or 'Cheque Deposit Slip - %s' % (object.reference)"
+      
+      attachment_use="False"
+      paperformat="paperformat_chk_depo_slp_union"/>
+
+      <template id="rpt_shoot_to_print_check_depo_union_template">
+          <t t-call="web.html_container">
+            
+              <t t-foreach="docs" t-as="o">
+                <t t-set="page_lists" t-value="o.getPages()"/>
+                <t t-foreach="page_lists" t-as="page_list">
+                  <t t-if="len(page_lists[page_list][1]) &gt; 0">
+                      <div class="page article" style="top:0in;left:0in;position:relative;font-size:11pt;width:8.5in">
+                          
+                          <span id="deposit_date" t-field="page_lists[page_list][0].date" style="top: 23mm;left: 18mm;position:relative;width:100%;" t-options='{"format": "MMMM d, Y"}'/>
+                          
+                          <span id="account_no" t-field="page_lists[page_list][1][0].bank_account_number_id.acc_number" style="top: 40mm;left: 18mm;position:absolute;width:100%;"/>
+                          <!-- <span id="company_info" t-field="page_lists[page_list][0].company_id" style="top: 40mm;left: 10mm;position:absolute;width:100%;"/> -->
+                          
+                          <div class="col-xs-3" style="top: 55mm;left: 15mm;position:absolute;">
+                              <span id="company_info" t-field="page_lists[page_list][0].company_id"/>
+                          </div>
+                          
+                          <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">
+                            <t t-set="total" t-value="0.0"/>
+                            <tbody>
+                                  <t t-foreach="page_lists[page_list][1]" t-as="account_cheque_id">
+                                      <tr>
+                                          <td style="border:1px solid white;font-size:90%;width:55%;">
+                                              <br/>
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:17%;" colspan="2">
+                                              <span id="bank" t-field="account_cheque_id.bank_id.name"/>
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:13%;" class="text-left">
+                                              <span id="cheque_number" t-field="account_cheque_id.cheque_number"/>
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:10%;" class="text-right">
+                                              <span id="amount" t-field="account_cheque_id.amount"/>
+                                          </td>
+                                          <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
+                                          </td>
+                                      </tr>
+                                      <t t-set="total" t-value="total + account_cheque_id.amount"/>
+                                  </t>
+                            </tbody>
+                          </table>
+                        <span t-esc="'{0:,.2f}'.format(total)" style="top: 116mm; left: 265mm; position:absolute;"/>  
+                      </div>
+                  </t>
+                </t>
+              </t>                   
+            
+          </t>
+      </template>
+
+
+      <!-- UNION INCOMING CHEQUE -->
+      <report
+      id="rpt_shoot_to_print_check_depo_union_solo"
+      model="account.cheque"
+      string="Incoming Cheque Deposit Slip (UB)"
+      report_type="qweb-pdf"
+      name="indigo_prod.rpt_shoot_to_print_check_depo_union_template_solo"
+      file="indigo_prod.rpt_shoot_to_print_check_depo_union_template_solo"
+      print_report_name="'Cheque Deposit- %s' % (object.name)"
+      attachment_use="False"
+      paperformat="paperformat_chk_depo_slp_union"/>
+
+      <template id="rpt_shoot_to_print_check_depo_union_template_solo">
+          <t t-call="web.html_container">
+            
+              <t t-foreach="docs" t-as="o">
+                <div class="page article" style="top:0in;left:0in;position:relative;font-size:11pt;width:8.5in">
+                    
+                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y')" style="top: 23mm;left: 18mm;position:relative;width:100%;"/>
+                    
+                    <span id="account_no" t-field="o.bank_account_number_id.acc_number" style="top: 40mm;left: 18mm;position:absolute;width:100%;"/>
+                    
+<!--                     <span id="company_info" t-field="o.company_id" style="top: 55mm;left: 15mm;position:absolute;width:50%;"/> -->
+                    <div class="col-xs-3" style="top: 55mm;left: 15mm;position:absolute;">
+                        <span id="company_info" t-field="o.company_id"/>
+                    </div>
+
+
+                    <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">
+                      <t t-set="total" t-value="0.0"/>
+                      <tbody>
+                            <tr>
+                                <td style="border:1px solid white;font-size:90%;width:55%;">
+                                  <br/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:17%;" colspan="2">
+                                    <span id="bank" t-field="o.bank_id.name"/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:13%;" class="text-left">
+                                    <span id="cheque_number" t-field="o.cheque_number"/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:10%;" class="text-right">
+                                    <span id="amount" t-field="o.amount"/>
+                                </td>
+                                <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
+                                </td>
+                            </tr>
+                            <t t-set="total" t-value="total + o.amount"/>
+                      </tbody>
+                    </table>
+                  <span t-esc="'{0:,.2f}'.format(total)" style="top: 116mm; left: 265mm; position:absolute;"/>                                   
+                </div>
+              </t>                   
+            
+          </t>
+      </template>      
+    </data>
+</odoo>

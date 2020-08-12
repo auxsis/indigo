@@ -43,6 +43,16 @@ class IndySaleOrder(models.Model):
 
     print_count = fields.Integer(string='Print Count',)
 
+    def write(self, vals):
+        res = super(IndySaleOrder, self).write(vals)
+        invoice = self.env['account.invoice'].search(
+            [('origin', '=', self.name)])
+
+        for inv in invoice:
+            inv.update({'legacy_number': self.legacy_number})
+
+        return res
+
     @api.multi
     def print_quotation(self):
         self.filtered(lambda s: s.state == 'draft').write({'state': 'sent'})

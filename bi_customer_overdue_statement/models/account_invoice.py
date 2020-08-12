@@ -10,6 +10,8 @@ class account_invoice(models.Model):
     _inherit = 'account.invoice'
     _order = 'date_due'
 
+    legacy_number = fields.Char("Legacy Number")
+
     @api.multi
     def _get_result(self):
         for aml in self:
@@ -24,4 +26,3 @@ class account_invoice(models.Model):
     # 'balance' field is not the same
     result = fields.Float(compute='_get_result',   string="Balance")
     excluded = fields.Boolean(string='Excluded')
-    legacy_number = fields.Char("Legacy Number")

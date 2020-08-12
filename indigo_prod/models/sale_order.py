@@ -43,6 +43,16 @@ class IndySaleOrder(models.Model):
 
     print_count = fields.Integer(string='Print Count',)
 
+    def write(self, vals):
+        res = super(IndySaleOrder, self).write(vals)
+        invoice = self.env['account.invoice'].search(
+            [('origin', '=', self.name)])
+
+        for inv in invoice:
+            inv.update({'legacy_number': self.legacy_number})
+
+        return res
+
     @api.multi
     def print_quotation(self):
         self.filtered(lambda s: s.state == 'draft').write({'state': 'sent'})
@@ -93,6 +103,12 @@ class IndySaleOrder(models.Model):
             for line in record.order_line:
                 line._compute_purchase_price()
             record._compute_total_margin_percent()
+    
+    @api.multi
+    @api.onchange('legacy_number')
+    def onchange_legacy_number(self):
+        for invoice in self.invoice_ids:
+            invoice.legacy_number = self.legacy_number
 
 
 class IndySaleOrderLine(models.Model):

@@ -21,7 +21,7 @@ class CustomerStatementMonthly(models.TransientModel):
 
     month = fields.Selection([('1', 'JANUARY'), ('2', 'FEBRUARY'), ('3', 'MARCH'), ('4', 'APRIL'), ('5', 'MAY'), (
         '6', 'JUNE'), ('7', 'JULY'), ('8', 'AUGUST'), ('9', 'SEPTEMBER'), ('10', 'OCTOBER'), ('11', 'NOVEMBER'), ('12', 'DECEMBER')], required=True)
-    year = fields.Selection([(num, str(num)) for num in range(1900, (datetime.now().year)+1 )], string='Year', required=True)
+    year = fields.Selection([(num, str(num)) for num in range(1999, (datetime.now().year)+1 )], string='Year', required=True)
     aging_by = fields.Selection([('inv_date', 'Invoice Date'), ('due_date', 'Due Date')], string='Ageing By', default='inv_date', required="1")
 
 #     date_upto = fields.Date('Upto Date', required="1",default=fields.Datetime.now)

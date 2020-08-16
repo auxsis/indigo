@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
     
-    legacy_number = fields.Char("Legacy Number", compute='_get_legacy_number', store=True)
+#     legacy_number = fields.Char("Legacy Number", compute='_get_legacy_number', store=True)
 
     def _is_convert_currency(self):
         convert_currency = False
@@ -30,13 +30,13 @@ class AccountInvoice(models.Model):
     convert_currency = fields.Boolean(compute='_is_convert_currency')
     due_date = fields.Char(string="Date Due", strore=True)
     
-    @api.multi
-    @api.depends('invoice_line_ids')
-    def _get_legacy_number(self):
-        for record in self:
-            legacy_number = record.mapped('invoice_line_ids').mapped('sale_line_ids').mapped('order_id').mapped('legacy_number')
-            if legacy_number:
-                record.legacy_number = legacy_number[0]
+#     @api.multi
+#     @api.depends('invoice_line_ids')
+#     def _get_legacy_number(self):
+#         for record in self:
+#             legacy_number = record.mapped('invoice_line_ids').mapped('sale_line_ids').mapped('order_id').mapped('legacy_number')
+#             if legacy_number:
+#                 record.legacy_number = legacy_number[0]
     
     @api.multi
     def check_legacy_number(self):

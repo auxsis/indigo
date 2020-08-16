@@ -12,10 +12,10 @@
             menu='False'
         />
 
-		<report id="report_customer_monthly_print" string="Customer Monthly Statement"
+<!-- 		<report id="report_customer_monthly_print" string="Customer Monthly Statement"
 			model="res.partner" report_type="qweb-pdf"
 			file="bi_customer_overdue_statement.monthly_customer_statement"
-			name="bi_customer_overdue_statement.monthly_customer_statement" />
+			name="bi_customer_overdue_statement.monthly_customer_statement" /> -->
 	
 	
 		<report id="report_customert_print" string="Customer Statement"

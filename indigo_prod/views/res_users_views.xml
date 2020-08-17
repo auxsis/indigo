@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ibas_res_users_view_form" model="ir.ui.view">
+        <field name="name">ibas.res.users.view.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='access_rights']/group[1]" position="after">
+                <group string="Journals">
+                    <field name="journal_ids" widget="many2many_tags" string="Journal" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>        
+                </group>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

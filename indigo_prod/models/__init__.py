@@ -20,3 +20,5 @@ from . import hr
 from . import account_cheque_batch
 
 from . import account_followup_report
+
+from . import res_users

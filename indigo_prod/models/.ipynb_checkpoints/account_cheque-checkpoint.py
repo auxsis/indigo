@@ -50,6 +50,11 @@ class AccountCheque(models.Model):
                 if move.state == 'draft':
                     move.post()
                     
+    @api.multi
+    def update_amount_words(self):
+        for record in self:
+            record._onchange_amount()
+        return True
                     
     # OVERRIDE
 #     def open_payment_matching_screen(self):

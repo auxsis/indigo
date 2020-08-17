@@ -1,0 +1,20 @@
+<odoo>
+	<data>
+
+		<record id="view_employee_form_extend" model="ir.ui.view">
+			<field name="name">hr.employee.extend</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='address_home_id']" position="attributes">
+					<attribute name="string">Current Address</attribute>
+				</xpath>
+				<xpath expr="//field[@name='address_home_id']" position="after">
+					<field name="address_provincial_id" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>
+

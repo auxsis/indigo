@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_customer_statement_extend" inherit_id="bi_customer_overdue_statement.report_customer_statement">
+		<xpath expr="//span[@t-esc='line.name']" position="replace">
+			<span t-esc="line.legacy_number"/>
+		</xpath>
+	</template>
+
+</odoo>

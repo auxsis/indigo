@@ -42,7 +42,7 @@ class AccountInvoice(models.Model):
     def check_legacy_number(self):
         for record in self:
             record._get_legacy_number()
-        return
+        return True
 
     @api.onchange('date_due')
     def _convert_date(self):

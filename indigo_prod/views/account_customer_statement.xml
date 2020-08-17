@@ -50,6 +50,21 @@
               </p>
             </field>
         </record>
+        
+        <!-- BI CUSTOMER OVERDUE STATEMENT -->
+        <record id="view_partner_inherit_followup_form_custom" model="ir.ui.view">
+			<field name="name">res.partner.followup.custom</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="bi_customer_overdue_statement.view_partner_inherit_followup_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='customer_statement_line_ids']/tree/field[@name='note']" position="after">
+                    <field name="legacy_number" string="Legacy Number" readonly="True" />
+				</xpath>
+				<xpath expr="//field[@name='balance_invoice_ids']/tree/field[@name='name']" position="after">
+                    <field name="legacy_number" string="Legacy Number" readonly="True" />
+				</xpath>
+			</field>
+		</record>
 
 	</data>
 </odoo>

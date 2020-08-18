@@ -23,7 +23,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'r2d2', 'product', 'stock', 'stock_picking_batch', 'delivery', 'hr_disciplinary_tracking', 'bi_account_cheque', 'hr_expense', 'account_reports', 'account_reports_followup', 'purchase', 'ibas_indigo', 'bank_reconciliation', 'dev_customer_account_statement', 'bi_customer_overdue_statement'],
+    'depends': ['base', 'sale', 'r2d2', 'product', 'stock', 'stock_picking_batch', 'delivery', 'hr_disciplinary_tracking', 'bi_account_cheque', 'hr_expense', 'account', 'account_reports', 'account_reports_followup', 'purchase', 'ibas_indigo', 'bank_reconciliation', 'dev_customer_account_statement', 'bi_customer_overdue_statement'],
 
     # always loaded
     'data': [

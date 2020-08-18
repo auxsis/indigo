@@ -52,6 +52,7 @@
                   <field name="exchange_rate" groups="base.group_multi_currency" attrs="{'invisible': [('convert_currency','=',False)]}"/>
               </xpath>
               <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+                  <field name="price_unit_decimal" invisible="1"/>
                   <field name="orig_price_unit"/>
               </xpath>
           </field>

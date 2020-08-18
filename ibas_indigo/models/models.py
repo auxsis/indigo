@@ -53,7 +53,7 @@ class IBASSaleIndigo(models.Model):
 class IBASSaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.multi
+    @api.depends('amount_total')
     def _compute_purchase_price(self):
         for record in self:
             total_purchase_price = 0
@@ -63,7 +63,7 @@ class IBASSaleOrder(models.Model):
             record.total_purchase_price = total_purchase_price
 
     total_purchase_price = fields.Float(
-        compute='_compute_purchase_price', string='Total Cost')
+        compute='_compute_purchase_price', store=True, string='Total Cost')
 
     total_margin_percent = fields.Float(compute='_compute_total_margin_percent', string='Total Margin %',
                                         store=True, digits=(12, 2))

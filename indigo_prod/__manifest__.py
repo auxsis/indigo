@@ -57,11 +57,13 @@
         'report/report_saleorder.xml',
         'report/report_cheque_deposit_slip.xml',
         'report/report_cheque_print.xml',
+        'report/report_customer_statement.xml',
         'wizard/sales_report_export_view.xml',
         'wizard/sales_report_export_by_invoice_view.xml',
         'wizard/stock_pick_item_report_view.xml',
         'wizard/sales_report_outstock_item_view.xml',
         'wizard/stock_picking_return_views.xml',
+        'wizard/customer_statement_views.xml',
         'views/menu_views.xml',
     ],
     # only loaded in demonstration mode

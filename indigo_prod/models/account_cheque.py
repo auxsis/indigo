@@ -24,7 +24,13 @@ class AccountCheque(models.Model):
             self.bank_id = bank_number[0].bank_id.id
         else:
             self.bank_account_number_id = None
-            self.self.bank_id = None
+            self.bank_id = None
+
+    @api.multi
+    def update_bank_id(self):
+        for record in self:
+            record._onchange_bank_account_id()
+        return True
 
     # @api.onchange('bank_id')
     # def _onchange_bank_id(self):

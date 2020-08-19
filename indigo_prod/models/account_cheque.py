@@ -14,15 +14,27 @@ class AccountCheque(models.Model):
         'res.partner.bank', string='Bank Account Number')
     check_amount_in_words = fields.Char(string="Amount in Words")
 
-    @api.onchange('bank_id')
-    def _onchange_bank_id(self):
-        bank_number = self.env['res.partner.bank'].search(
-            [('bank_id', '=', self.bank_id.id)])
+    @api.onchange('bank_account_id')
+    def _onchange_bank_account_id(self):
+        bank_number = self.env['account.journal'].search(
+            [('default_debit_account_id', '=', self.bank_account_id.id)])
 
         if bank_number:
-            self.bank_account_number_id = bank_number[0].id
+            self.bank_account_number_id = bank_number[0].bank_account_id.id
+            self.bank_id = bank_number[0].bank_id.id
         else:
-            self.bank_account_number_id = False
+            self.bank_account_number_id = None
+            self.self.bank_id = None
+
+    # @api.onchange('bank_id')
+    # def _onchange_bank_id(self):
+    #    bank_number = self.env['res.partner.bank'].search(
+    #        [('bank_id', '=', self.bank_id.id)])
+
+    #    if bank_number:
+    #        self.bank_account_number_id = bank_number[0].id
+    #    else:
+    #        self.bank_account_number_id = False
     # OVERRIDE
     name = fields.Char(string="Name", required=False, related='sequence')
 

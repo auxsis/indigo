@@ -33,8 +33,6 @@ class CustomerStatementMonthly(models.TransientModel):
     @api.onchange('month','year')
     def onchange_month_year(self):
         if self.month and self.year:
-            _logger.info("HOW")
-
             month = int(self.month)
             date = datetime.now()
             date_from = datetime(year=self.year, month=month, day=1)
@@ -50,9 +48,7 @@ class CustomerStatementMonthly(models.TransientModel):
             self.date_from = date.today() + relativedelta(months=-12)
 
     @api.multi
-    def print_statement(self):
-        _logger.info("YOW")
-        
+    def print_statement(self):        
         partner = self.env['res.partner']
         part_ids = self._context.get('active_ids')
         partner_ids = partner.browse(part_ids)
@@ -65,7 +61,6 @@ class CustomerStatementMonthly(models.TransientModel):
             'date_to': self.date_to,
             'as_of_date': self.as_of_date,
         }
-        _logger.info(datas)
         return self.env.ref('dev_customer_account_statement.report_customer_statement').report_action(self, data=datas)
 
 

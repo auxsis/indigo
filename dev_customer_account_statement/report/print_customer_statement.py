@@ -188,7 +188,8 @@ class print_customer_statement(models.AbstractModel):
                         'credit': float(paid_amt),
                         'total': float(total),
                     })
-
+            if res:
+                res.sort(key=lambda rec: rec.get('date'))
         return res
 
     @api.multi

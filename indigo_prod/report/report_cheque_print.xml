@@ -22,8 +22,8 @@
                     <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y')" style="top: 12mm;left: 200mm;position:relative;width:100%;"/>
                     <span id="amount" t-field="o.amount" style="top: 22mm;left: 175mm;position:relative;width:100%;"/>
                     
-                    <span id="company_info" style="top: 22mm;left: 25mm;position:absolute;width:100%;text-transform: uppercase;"><span  t-field="o.payee_user_id" style="text-transform: uppercase;"/>***</span>
-                    <span id="check_amount_in_words" style="top: 32mm;left: 25mm;position:absolute;width:100%;"><span t-field="o.check_amount_in_words"/>***</span>
+                    <span id="company_info" style="top: 22mm;left: 25mm;position:absolute;width:100%;text-transform: uppercase;">***<span  t-field="o.payee_user_id" style="text-transform: uppercase;"/>***</span>
+                    <span id="check_amount_in_words" style="top: 32mm;left: 25mm;position:absolute;width:100%;">***<span t-field="o.check_amount_in_words"/>***</span>
                     
                 </div>
               </t>                   

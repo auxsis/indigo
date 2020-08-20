@@ -6,7 +6,7 @@
         <!--Mail template level 0-->
 
 
-       <record id="email_template_customer_monthly_statement" model="mail.template">
+<!--        <record id="email_template_customer_monthly_statement" model="mail.template">
             <field name="name">Customer Monthly Statement Email</field>
             <field name="email_from">${(user.email or '')|safe}</field>
             <field name="subject">${user.company_id.name} Customer Monthly Statement</field>
@@ -40,7 +40,7 @@ ${user.name}
 
 </div>
             ]]></field>
-        </record>
+        </record> -->
 
 
 

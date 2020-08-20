@@ -194,6 +194,10 @@
                               <span id="company_info" t-field="page_lists[page_list][0].company_id"/>
                           </div>
                           
+                          <span id="check" style="top: 70mm;left: 45mm;position:absolute;width:100%;"><strong>x</strong></span>
+                          
+                          <span id="check" style="top: 85mm;left: 15mm;position:absolute;width:100%;"><strong>x</strong></span>
+                          
                           <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">
                             <t t-set="total" t-value="0.0"/>
                             <tbody>
@@ -254,6 +258,10 @@
                     <div class="col-xs-3" style="top: 55mm;left: 15mm;position:absolute;">
                         <span id="company_info" t-field="o.company_id"/>
                     </div>
+                    
+                    <span id="check" style="top: 70mm;left: 45mm;position:absolute;width:100%;"><strong>x</strong></span>
+                    
+                    <span id="check" style="top: 85mm;left: 15mm;position:absolute;width:100%;"><strong>x</strong></span>
 
 
                     <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">

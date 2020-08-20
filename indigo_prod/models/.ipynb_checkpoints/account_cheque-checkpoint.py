@@ -17,7 +17,15 @@ class AccountCheque(models.Model):
     
     @api.onchange('amount')
     def _onchange_amount(self):
-        whole = num2words(int(self.amount))
+        whole = num2words(int(self.amount)) + ' Pesos '
+        whole = whole.replace(' and ',' ')
+        if "." in str(self.amount): # quick check if it is decimal
+            decimal_no = str(round(self.amount, 2)).split(".")[1]
+            if len(decimal_no) == 1:
+                decimal_no = decimal_no + "0"
+            if decimal_no:
+                whole = whole + "and " + decimal_no + '/100'
+        whole = whole.replace(',','')
         self.check_amount_in_words = whole.upper() + " ONLY"
     
     @api.onchange('sequence')
@@ -50,6 +58,11 @@ class AccountCheque(models.Model):
                 if move.state == 'draft':
                     move.post()
                     
+    @api.multi
+    def update_amount_words(self):
+        for record in self:
+            record._onchange_amount()
+        return True
                     
     # OVERRIDE
 #     def open_payment_matching_screen(self):

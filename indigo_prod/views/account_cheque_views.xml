@@ -67,7 +67,7 @@
 	        </field>
 	    </record>
 
-		<record id="action_server_update_bank" model="ir.actions.server">
+	<!--	<record id="action_server_update_bank" model="ir.actions.server">
 			<field name="name">Update Bank and Bank number</field>
 			<field name="type">ir.actions.server</field>
 			<field name="model_id" ref="bi_account_cheque.model_account_cheque" />
@@ -77,7 +77,7 @@
 				for item in records:
 				item.update_bank_id()
 			</field>
-		</record>
+		</record> -->
 
 	</data>
 </odoo>

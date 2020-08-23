@@ -136,7 +136,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
     
-    price_unit_decimal = fields.Float(string='Unit Price', required=True, digits=(14, 3))
+    price_unit_decimal = fields.Float(string='Unit Price', digits=(14, 3))
     orig_price_unit = fields.Float(string='Original Currency Price')
     
     @api.one

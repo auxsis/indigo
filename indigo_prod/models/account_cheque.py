@@ -1,6 +1,8 @@
 from odoo import models, fields, api, _
 from num2words import num2words
 
+from odoo.exceptions import UserError, AccessError
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -13,6 +15,7 @@ class AccountCheque(models.Model):
     bank_account_number_id = fields.Many2one(
         'res.partner.bank', string='Bank Account Number')
     check_amount_in_words = fields.Char(string="Amount in Words")
+    deposit_date = fields.Date(string="Deposit Date")
 
     @api.onchange('bank_account_id')
     def _onchange_bank_account_id(self):
@@ -82,12 +85,29 @@ class AccountCheque(models.Model):
             for move in account_move_ids:
                 if move.state == 'draft':
                     move.post()
-
+                    
+    # OVERRIDE DEPOSITE FUNCTION
+    @api.multi
+    def set_to_deposite(self):
+        if not self.deposit_date:
+            raise UserError(_('Deposit Date is required!'))
+        result = super(AccountCheque, self).set_to_deposite()
+        return result
+    
+    # FOR SCRIPT USE
     @api.multi
     def update_amount_words(self):
         for record in self:
             record._onchange_amount()
         return True
+    
+    @api.multi
+    def update_bank_account_number(self):
+        for record in self:
+            record._onchange_bank_account_id()
+        return True
+    
+    
 
     # OVERRIDE
 #     def open_payment_matching_screen(self):

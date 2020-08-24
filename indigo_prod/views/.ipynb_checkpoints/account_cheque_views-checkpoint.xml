@@ -17,6 +17,9 @@
                     <button name="unpost_cheque_entries" string="Unpost Entries" type="object" class="btn-primary" attrs="{'invisible': [('status1', 'in', ['draft','cancel'])]}"/>
                     <button name="post_cheque_entries" string="Post Entries" type="object" class="btn-primary" attrs="{'invisible': [('status1', 'in', ['draft','cancel'])]}"/>
 				</xpath>
+                <xpath expr="//field[@name='cheque_receive_date']" position="after">
+					<field name="deposit_date" attrs="{'invisible': [('status1', 'in', ['draft','bounced','return','cancel','transfered','deposited'])]}"/>
+				</xpath>
 			</field>
 		</record>
 

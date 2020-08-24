@@ -109,6 +109,18 @@ class IndySaleOrder(models.Model):
     def onchange_legacy_number(self):
         for invoice in self.invoice_ids:
             invoice.legacy_number = self.legacy_number
+    
+    @api.model
+    def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
+        res = super(IndySaleOrder, self).read_group(domain, fields, groupby, offset, limit, orderby, lazy)
+        context = dict(self._context or {})
+        if 'total_margin_percent' in fields:
+            for line in res:
+                total_margin = line.get('margin')
+                total_amount = line.get('amount_total')
+                total_margin_percent = (total_margin / total_amount) * 100
+                line['total_margin_percent'] = round(total_margin_percent, 2)
+        return res
 
 
 class IndySaleOrderLine(models.Model):

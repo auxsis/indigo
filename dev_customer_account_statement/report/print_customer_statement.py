@@ -191,6 +191,64 @@ class print_customer_statement(models.AbstractModel):
 
         return res
 
+    def _lines_get_all_invoice(self, partner, date_from, date_to):
+        moveline_obj = self.env['account.move.line']
+        domain = [('partner_id', '=', partner.id)]
+        # if partner.aging_by == 'inv_date':
+        #    domain += [('date', '>=', date_from), ('date', '<=', date_to)]
+        # if partner.aging_by == 'due_date':
+        #    domain += [('date_maturity', '>=', date_from),
+        #               ('date_maturity', '<=', date_to)]
+        movelines = moveline_obj.search(domain)
+
+        return movelines
+
+    def get_lines_all_invoice(self, partner, date_from, date_to):
+        move_lines = self._lines_get_all_invoice(partner, date_from, date_to)
+        res = []
+        if move_lines:
+            for line in move_lines:
+                inv_amt = 0.0
+                paid_amt = 0.0
+                if line.account_id.user_type_id.type == 'receivable':
+                    if line.debit:
+                        inv_amt = line.debit
+                    else:
+                        inv_amt = line.credit * -1
+                total = 0.0
+                if inv_amt > 0:
+                    for m in line.matched_credit_ids:
+                        c_date = datetime.strptime(
+                            m.credit_move_id.date, "%Y-%m-%d")
+                        part_over_date = datetime.strptime(
+                            partner.overdue_date, "%Y-%m-%d")
+                        if c_date <= part_over_date:
+                            paid_amt += m.amount
+                else:
+                    for m in line.matched_debit_ids:
+                        c_date = datetime.strptime(
+                            m.debit_move_id.date, "%Y-%m-%d")
+                        part_over_date = datetime.strptime(
+                            partner.overdue_date, "%Y-%m-%d")
+                        if c_date <= part_over_date:
+                            paid_amt += (m.amount * -1)
+
+                #total = float(inv_amt - paid_amt)
+                if inv_amt != 0 and inv_amt != 0:
+                    res.append({
+                        'date': line.date,
+                        'desc': line.ref or '/',
+                        'ref': line.move_id.name or '',
+                        'legacy_number': line.invoice_id.legacy_number,
+                        'origin': line.invoice_id.origin,
+                        'date_maturity': line.date_maturity,
+                        'debit': float(inv_amt),
+                        'credit': float(paid_amt),
+                        'total': float(total),
+                    })
+
+        return res
+
     @api.multi
     def get_report_values(self, docids, data=None):
         docs = self.env['res.partner'].browse(data['form'])
@@ -202,8 +260,10 @@ class print_customer_statement(models.AbstractModel):
             'date_to': data['date_to'],
             'as_of_date': data['as_of_date'],
             'get_lines': self.get_lines,
+            'get_lines_all_invoice': self.get_lines_all_invoice,
             'set_ageing': self.set_ageing,
             'set_amount': self.set_amount,
+            'hide_paid_invoice': data['hide_paid_invoice'],
         }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

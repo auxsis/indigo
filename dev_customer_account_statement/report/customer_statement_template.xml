@@ -81,12 +81,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 			                        <th class="text-center">REF</th>
 			                        <th class="text-right">Invoice Amt</th>
 			                        <th class="text-right">Payment Amt</th>
-									<t t-if="hide_paid_invoice == true">
-			                        	<th class="text-right">Balance Due True</th>
-									</t>
-									<t t-if="hide_paid_invoice == false">
-			                        	<th class="text-right">Balance Due False</th>
-									</t>
+			                        <th class="text-right">Balance Due</th>
 			                    </tr>
 			                </thead>
 			                <tbody style="font-size:14px;" class="invoice_tbody">

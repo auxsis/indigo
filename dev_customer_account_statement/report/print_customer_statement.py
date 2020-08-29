@@ -233,8 +233,9 @@ class print_customer_statement(models.AbstractModel):
                         if c_date <= part_over_date:
                             paid_amt += (m.amount * -1)
 
-                #total = float(inv_amt - paid_amt)
-                if inv_amt != 0 and inv_amt != 0:
+                total = float(inv_amt - paid_amt)
+                # if total > 0 or total < 0:
+                if inv_amt > 0 or inv_amt < 0:
                     res.append({
                         'date': line.date,
                         'desc': line.ref or '/',

@@ -192,61 +192,46 @@ class print_customer_statement(models.AbstractModel):
         return res
 
     def _lines_get_all_invoice(self, partner, date_from, date_to):
-        moveline_obj = self.env['account.move.line']
-        domain = [('partner_id', '=', partner.id)]
+        inv_obj = self.env['account.invoice']
+        domain = [('partner_id', '=', partner.id),
+                  ('state', 'in', ['open', 'paid'])]
         if partner.aging_by == 'inv_date':
-            domain += [('date', '>=', date_from), ('date', '<=', date_to)]
+            domain += [('date_invoice', '>=', date_from),
+                       ('date_invoice', '<=', date_to)]
         if partner.aging_by == 'due_date':
-            domain += [('date_maturity', '>=', date_from),
-                       ('date_maturity', '<=', date_to)]
-        movelines = moveline_obj.search(domain)
+            domain += [('date_due', '>=', date_from),
+                       ('date_due', '<=', date_to)]
+        invoices = inv_obj.search(domain)
 
-        return movelines
+        return invoices
 
     def get_lines_all_invoice(self, partner, date_from, date_to):
-        move_lines = self._lines_get_all_invoice(partner, date_from, date_to)
+        invoices = self._lines_get_all_invoice(partner, date_from, date_to)
         res = []
-        if move_lines:
-            for line in move_lines:
-                inv_amt = 0.0
+        if invoices:
+            for inv in invoices:
+                inv_amt = inv.amount_total_signed
                 paid_amt = 0.0
-                if line.account_id.user_type_id.type == 'receivable':
-                    if line.debit:
-                        inv_amt = line.debit
-                    else:
-                        inv_amt = line.credit * -1
-                total = 0.0
-                if inv_amt > 0:
-                    for m in line.matched_credit_ids:
-                        c_date = datetime.strptime(
-                            m.credit_move_id.date, "%Y-%m-%d")
-                        part_over_date = datetime.strptime(
-                            partner.overdue_date, "%Y-%m-%d")
-                        if c_date <= part_over_date:
-                            paid_amt += m.amount
-                else:
-                    for m in line.matched_debit_ids:
-                        c_date = datetime.strptime(
-                            m.debit_move_id.date, "%Y-%m-%d")
-                        part_over_date = datetime.strptime(
-                            partner.overdue_date, "%Y-%m-%d")
-                        if c_date <= part_over_date:
-                            paid_amt += (m.amount * -1)
+
+                if inv:
+                    for line in inv.payment_move_line_ids:
+                        if line.account_id.user_type_id.type == 'receivable':
+                            if line.debit:
+                                paid_amt += (line.debit * -1)
+                            else:
+                                paid_amt += line.credit
 
                 total = float(inv_amt - paid_amt)
-                # if total > 0 or total < 0:
-                if inv_amt > 0 or inv_amt < 0:
-                    res.append({
-                        'date': line.date,
-                        'desc': line.ref or '/',
-                        'ref': line.move_id.name or '',
-                        'legacy_number': line.invoice_id.legacy_number,
-                        'origin': line.invoice_id.origin,
-                        'date_maturity': line.date_maturity,
-                        'debit': float(inv_amt),
-                        'credit': float(paid_amt),
-                        'total': float(total),
-                    })
+                res.append({
+                    'date': inv.date_invoice,
+                    'ref': inv.name or '',
+                    'legacy_number': inv.legacy_number,
+                    'origin': inv.origin,
+                    'date_maturity': inv.date_due,
+                    'debit': float(inv_amt),
+                    'credit': float(paid_amt),
+                    'total': float(total),
+                })
 
         return res
 

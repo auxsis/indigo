@@ -193,9 +193,9 @@
                               <span id="company_info" t-field="page_lists[page_list][0].company_id"/>
                           </div>
                           
-                          <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:12pt;"><strong>x</strong></span>
+                          <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
                           
-                          <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:12pt;"><strong>x</strong></span>
+                          <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
                           
                           <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">
                             <t t-set="total" t-value="0.0"/>
@@ -257,9 +257,9 @@
                         <span id="company_info" t-field="o.company_id"/>
                     </div>
                     
-                    <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:12pt;"><strong>x</strong></span>
+                    <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
                     
-                    <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:12pt;"><strong>x</strong></span>
+                    <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
 
 
                     <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">

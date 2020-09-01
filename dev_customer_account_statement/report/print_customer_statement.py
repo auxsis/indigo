@@ -199,8 +199,8 @@ class print_customer_statement(models.AbstractModel):
             domain += [('date_invoice', '>=', date_from),
                        ('date_invoice', '<=', date_to)]
         if partner.aging_by == 'due_date':
-            domain += [('date_due', '>=', date_from),
-                       ('date_due', '<=', date_to)]
+            domain += [('date_invoice', '>=', date_from),
+                       ('date_invoice', '<=', date_to)]
         invoices = inv_obj.search(domain)
 
         return invoices

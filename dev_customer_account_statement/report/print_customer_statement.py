@@ -139,8 +139,8 @@ class print_customer_statement(models.AbstractModel):
         if partner.aging_by == 'inv_date':
             domain += [('date', '>=', date_from), ('date', '<=', date_to)]
         if partner.aging_by == 'due_date':
-            domain += [('date_maturity', '>=', date_from),
-                       ('date_maturity', '<=', date_to)]
+            domain += [('date', '>=', date_from),
+                       ('date', '<=', date_to)]
         movelines = moveline_obj.search(domain)
 
         return movelines

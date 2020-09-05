@@ -7,8 +7,11 @@
 			<field name="inherit_id" ref="bi_account_cheque.account_incoming_cheque_form_view"/>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='bank_account_id']" position="after">
-				 <field name="bank_id"/>
-				 <field name="bank_account_number_id" domain="[('bank_id', '=', bank_id)]"/>
+					<field name="bank_account_number_id" domain="[('bank_id', '=', bank_id)]"/>
+					<field name="bank_id" string="Customer Bank"/>
+				</xpath>
+				<xpath expr="//field[@name='cheque_number']" position="attributes">
+					<attribute name="string">Customer Cheque Number</attribute>
 				</xpath>
 				<xpath expr="//field[@name='name']" position="attributes">
 					<attribute name="invisible">1</attribute>

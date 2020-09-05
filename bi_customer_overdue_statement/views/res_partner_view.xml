@@ -47,6 +47,10 @@
 									<label for="aging_by" string="Aging By"/>
 									<field name="aging_by" required="1"/>
 								</div>
+								<div class="oe_left">
+									<label for="hide_paid_invoice" string="Hide Paid Invoice"/>
+									<field name="hide_paid_invoice"/>
+								</div>
 
 							</div>
 

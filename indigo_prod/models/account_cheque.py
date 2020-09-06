@@ -24,10 +24,10 @@ class AccountCheque(models.Model):
 
         if bank_number:
             self.bank_account_number_id = bank_number[0].bank_account_id.id
-            self.bank_id = bank_number[0].bank_id.id
+            #self.bank_id = bank_number[0].bank_id.id
         else:
             self.bank_account_number_id = None
-            self.bank_id = None
+            #self.bank_id = None
 
     @api.multi
     def update_bank_id(self):
@@ -91,7 +91,7 @@ class AccountCheque(models.Model):
             for move in account_move_ids:
                 if move.state == 'draft':
                     move.post()
-                    
+
     # OVERRIDE DEPOSITE FUNCTION
     @api.multi
     def set_to_deposite(self):
@@ -99,21 +99,19 @@ class AccountCheque(models.Model):
             raise UserError(_('Deposit Date is required!'))
         result = super(AccountCheque, self).set_to_deposite()
         return result
-    
+
     # FOR SCRIPT USE
     @api.multi
     def update_amount_words(self):
         for record in self:
             record._onchange_amount()
         return True
-    
+
     @api.multi
     def update_bank_account_number(self):
         for record in self:
             record._onchange_bank_account_id()
         return True
-    
-    
 
     # OVERRIDE
 #     def open_payment_matching_screen(self):

@@ -88,45 +88,94 @@
 		                        <t t-set="l_credit" t-value="0" />
 		                        <t t-set="l_total" t-value="0" />
 			                	<t t-foreach="doc.customer_statement_line_ids" t-as="l" >
-								<t t-if="l.excluded== false">
-			                		<tr>
-<!-- 				                        <td class="text-center">
-				                            <span t-esc="l.get('desc')"/>
-				                        </td> -->
-										<t t-if="doc.aging_by == 'inv_date'">
-				                            <td class="text-center">
-				                            	<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_invoice,'%Y-%m-%d'))"/>
-				                            </td>
-				                        </t>
-				                        <t t-if="doc.aging_by == 'due_date'">
-				                            <td class="text-center">
-				                            	<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_due,'%Y-%m-%d'))"/>
-				                            </td>
-				                        </t>
-				                        
-				                        <td class="text-center">
-				                            <span t-esc="l.origin"/>
-				                        </td>
-										<td class="text-center">
-				                            <span t-esc="l.legacy_number"/>
-				                        </td>
-				                        <td class="text-right">
-				                            <t t-set="l_debit" t-value="l_debit + l.amount_total" />
-				                            <!--<span t-esc="set_amount(l.get('debit'))"/>-->
-											<t t-esc="'{0:,.2f}'.format(int(l.amount_total))" />
-				                        </td>
-				                        <td class="text-right">
-				                            <t t-set="l_credit" t-value="l_credit + l.credit_amount" />
-				                            <!--<span t-esc="set_amount(l.get('credit'))"/>-->
-											<t t-esc="'{0:,.2f}'.format(int(l.credit_amount))" />
-				                        </td>
-				                        <td class="text-right">
-			                                <t t-set="l_total" t-value="l_total+ l.result" />
-			                                <!--<span t-esc="set_amount(l.get('total'))"/>-->
-											<t t-esc="'{0:,.2f}'.format(int(l.result))" />
-				                        </td>
-				                    </tr>
-			                	</t>
+								<t t-if="doc.hide_paid_invoice == true">
+									<t t-if="l.result!= 0">
+										<t t-if="l.excluded== false">
+											<tr>
+		<!-- 				                        <td class="text-center">
+													<span t-esc="l.get('desc')"/>
+												</td> -->
+												<t t-if="doc.aging_by == 'inv_date'">
+													<td class="text-center">
+														<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_invoice,'%Y-%m-%d'))"/>
+													</td>
+												</t>
+												<t t-if="doc.aging_by == 'due_date'">
+													<td class="text-center">
+														<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_due,'%Y-%m-%d'))"/>
+													</td>
+												</t>
+												
+												<td class="text-center">
+													<span t-esc="l.origin"/>
+												</td>
+												<td class="text-center">
+													<span t-esc="l.legacy_number"/>
+												</td>
+												<td class="text-right">
+													<t t-set="l_debit" t-value="l_debit + l.amount_total" />
+													<!--<span t-esc="set_amount(l.get('debit'))"/>-->
+													<t t-esc="'{0:,.2f}'.format(int(l.amount_total))" />
+												</td>
+												<td class="text-right">
+													<t t-set="l_credit" t-value="l_credit + l.credit_amount" />
+													<!--<span t-esc="set_amount(l.get('credit'))"/>-->
+													<t t-esc="'{0:,.2f}'.format(int(l.credit_amount))" />
+												</td>
+												<td class="text-right">
+													<t t-set="l_total" t-value="l_total+ l.result" />
+													<!--<span t-esc="set_amount(l.get('total'))"/>-->
+													<t t-esc="'{0:,.2f}'.format(int(l.result))" />
+												</td>
+											</tr>
+										</t>
+									</t>
+								</t>
+								<!--Break-->
+								<t t-if="doc.hide_paid_invoice == false">
+									
+									<t t-if="l.excluded== false">
+										<tr>
+											<!--<td class="text-center">
+												<span t-esc="l.get('desc')"/>
+											</td> -->
+											<t t-if="doc.aging_by == 'inv_date'">
+												<td class="text-center">
+													<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_invoice,'%Y-%m-%d'))"/>
+												</td>
+											</t>
+											<t t-if="doc.aging_by == 'due_date'">
+												<td class="text-center">
+													<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.date_due,'%Y-%m-%d'))"/>
+												</td>
+											</t>
+											
+											<td class="text-center">
+												<span t-esc="l.origin"/>
+											</td>
+											<td class="text-center">
+												<span t-esc="l.legacy_number"/>
+											</td>
+											<td class="text-right">
+												<t t-set="l_debit" t-value="l_debit + l.amount_total" />
+												<!--<span t-esc="set_amount(l.get('debit'))"/>-->
+												<t t-esc="'{0:,.2f}'.format(int(l.amount_total))" />
+											</td>
+											<td class="text-right">
+												<t t-set="l_credit" t-value="l_credit + l.credit_amount" />
+												<!--<span t-esc="set_amount(l.get('credit'))"/>-->
+												<t t-esc="'{0:,.2f}'.format(int(l.credit_amount))" />
+											</td>
+											<td class="text-right">
+												<t t-set="l_total" t-value="l_total+ l.result" />
+												<!--<span t-esc="set_amount(l.get('total'))"/>-->
+												<t t-esc="'{0:,.2f}'.format(int(l.result))" />
+											</td>
+										</tr>
+									</t>
+								
+								</t>
+
 								</t>
 			                	<tr style="background:#e0e0e0;">
 		                            <td style="border-top:1px solid black" colspan="1"></td>

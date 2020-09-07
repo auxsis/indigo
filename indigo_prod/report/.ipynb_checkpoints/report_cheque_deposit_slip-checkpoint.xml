@@ -185,7 +185,7 @@
                   <t t-if="len(page_lists[page_list][1]) &gt; 0">
                       <div class="page article" style="top:0in;left:0in;position:relative;font-size:11pt;width:8.5in">
                           
-                          <span id="deposit_date" t-field="page_lists[page_list][0].date" style="top: 28mm;left: 18mm;position:relative;width:100%;" t-options='{"format": "MMMM d, Y"}'/>
+                          <span id="deposit_date" t-field="page_lists[page_list][0].date" style="top: 28mm;left: 18mm;position:relative;width:100%;" />
                           
                           <span id="account_no" t-field="page_lists[page_list][1][0].bank_account_number_id.acc_number" style="top: 45mm;left: 18mm;position:absolute;width:100%;"/>
                           
@@ -193,9 +193,9 @@
                               <span id="company_info" t-field="page_lists[page_list][0].company_id"/>
                           </div>
                           
-                          <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
+                          <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:15pt;"><strong>x</strong></span>
                           
-                          <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
+                          <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:15pt;"><strong>x</strong></span>
                           
                           <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">
                             <t t-set="total" t-value="0.0"/>
@@ -249,7 +249,7 @@
               <t t-foreach="docs" t-as="o">
                 <div class="page article" style="top:0in;left:0in;position:relative;font-size:11pt;width:8.5in">
                     
-                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y')" style="top: 28mm;left: 18mm;position:relative;width:100%;"/>
+                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y')" style="top: 28mm;left: 18mm;position:relative;width:100%;"/>
                     
                     <span id="account_no" t-field="o.bank_account_number_id.acc_number" style="top: 45mm;left: 18mm;position:absolute;width:100%;"/>
                     
@@ -257,9 +257,9 @@
                         <span id="company_info" t-field="o.company_id"/>
                     </div>
                     
-                    <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
+                    <span id="check" style="top: 85mm;left: 50mm;position:absolute;width:100%;font-size:15pt;"><strong>x</strong></span>
                     
-                    <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:13pt;"><strong>x</strong></span>
+                    <span id="check" style="top: 105mm;left: 5mm;position:absolute;width:100%;font-size:15pt;"><strong>x</strong></span>
 
 
                     <table class="table table-bordered table-condensed" style="top: 28mm;left:75mm;position:absolute;">

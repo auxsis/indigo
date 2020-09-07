@@ -122,7 +122,7 @@ class Res_Partner(models.Model):
         compute='_get_amounts_and_date_amount', string="Supplier Balance Due")
     filter_payment_amount_overdue_amt_supplier = fields.Float(compute='_get_amounts_and_date_amount',
                                                               string="Total Supplier Overdue Amount")
-
+    hide_paid_invoice = fields.Boolean(string="Hide Paid Invoice")
     statement_from_date = fields.Date('From Date')
     statement_to_date = fields.Date('To Date')
     today_date = fields.Date(
@@ -338,8 +338,8 @@ class Res_Partner(models.Model):
             payments = account_payment_obj.search(domain_payment)
             if invoices:
                 for invoice in invoices.sorted(key=lambda r: r.number):
-#                     # ADDED BY RCS FOR CHECKING OF LEGACY NUMBER
-#                     invoice.check_legacy_number()
+                    #                     # ADDED BY RCS FOR CHECKING OF LEGACY NUMBER
+                    #                     invoice.check_legacy_number()
                     vals = {
                         'partner_id': invoice.partner_id.id or False,
                         'state': invoice.state or False,

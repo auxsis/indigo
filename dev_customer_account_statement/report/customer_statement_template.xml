@@ -61,9 +61,6 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 				<br/>
 					
 						
-				
-				<t t-set="get_lines" t-value="get_lines(o,date_from,date_to)"/>
-				<t t-set="get_lines_all_invoice" t-value="get_lines_all_invoice(o,date_from,date_to)"/>
 				<div class="mt16 mb16"/>
 				<div class="row">
 					<div class="col-xs-12" style="font-size: 12px" t-if="get_lines">
@@ -81,12 +78,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 			                        <th class="text-center">REF</th>
 			                        <th class="text-right">Invoice Amt</th>
 			                        <th class="text-right">Payment Amt</th>
-									<t t-if="hide_paid_invoice == true">
-			                        	<th class="text-right">Balance Due True</th>
-									</t>
-									<t t-if="hide_paid_invoice == false">
-			                        	<th class="text-right">Balance Due False</th>
-									</t>
+			                        <th class="text-right">Balance Due</th>
 			                    </tr>
 			                </thead>
 			                <tbody style="font-size:14px;" class="invoice_tbody">
@@ -94,6 +86,7 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 		                        <t t-set="l_credit" t-value="0" />
 		                        <t t-set="l_total" t-value="0" />
 										<t t-if="hide_paid_invoice == true">
+										<t t-set="get_lines" t-value="get_lines(o,date_from,date_to)"/>
 										<t t-foreach="get_lines" t-as="l" >
 											<tr>
 		<!-- 				                        <td class="text-center">
@@ -132,38 +125,40 @@ For Module Support : devintelle@gmail.com  or Skype : devintelle
 										</t>
 
 										<t t-if="hide_paid_invoice == false">
-										<t t-foreach="get_lines_all_invoice" t-as="l" >
+										<t t-set="get_lines_all_invoice" t-value="get_lines_all_invoice(o,date_from,date_to)"/>
+										<t t-foreach="get_lines_all_invoice" t-as="ln" >
 											<tr>
 		<!-- 				                        <td class="text-center">
 													<span t-esc="l.get('desc')"/>
 												</td> -->
 												<t t-if="o.aging_by == 'inv_date'">
 													<td class="text-center">
-														<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.get('date'),'%Y-%m-%d'))"/>
+														<span t-esc="time.strftime('%m/%d/%Y',time.strptime(ln.get('date'),'%Y-%m-%d'))"/>
 													</td>
 												</t>
 												<t t-if="o.aging_by == 'due_date'">
 													<td class="text-center">
-														<span t-esc="time.strftime('%m/%d/%Y',time.strptime(l.get('date_maturity'),'%Y-%m-%d'))"/>
+														<span t-esc="time.strftime('%m/%d/%Y',time.strptime(ln.get('date_maturity'),'%Y-%m-%d'))"/>
 													</td>
 												</t>
+												
 												<td class="text-center">
-													<span t-esc="l.get('origin')"/>
+													<span t-esc="ln.get('origin')"/>
 												</td>
 												<td class="text-center">
-													<span t-esc="l.get('legacy_number')"/>
+													<span t-esc="ln.get('legacy_number')"/>
 												</td>
 												<td class="text-right">
-													<t t-set="l_debit" t-value="l_debit + l.get('debit')" />
-													<span t-esc="set_amount(l.get('debit'))"/>
+													<t t-set="l_debit" t-value="l_debit + ln.get('debit')" />
+													<span t-esc="set_amount(ln.get('debit'))"/>
 												</td>
 												<td class="text-right">
-													<t t-set="l_credit" t-value="l_credit + l.get('credit')" />
-													<span t-esc="set_amount(l.get('credit'))"/>
+													<t t-set="l_credit" t-value="l_credit + ln.get('credit')" />
+													<span t-esc="set_amount(ln.get('credit'))"/>
 												</td>
 												<td class="text-right">
-													<t t-set="l_total" t-value="l_total+ l.get('total')" />
-													<span t-esc="set_amount(l.get('total'))"/>
+													<t t-set="l_total" t-value="l_total+ ln.get('total')" />
+													<span t-esc="set_amount(ln.get('total'))"/>
 												</td>
 											</tr>
 										</t>

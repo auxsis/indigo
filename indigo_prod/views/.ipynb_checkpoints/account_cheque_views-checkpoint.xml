@@ -7,8 +7,11 @@
 			<field name="inherit_id" ref="bi_account_cheque.account_incoming_cheque_form_view"/>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='bank_account_id']" position="after">
-				 <field name="bank_id"/>
-				 <field name="bank_account_number_id" domain="[('bank_id', '=', bank_id)]"/>
+					<field name="bank_account_number_id" domain="[('bank_id', '=', bank_id)]"/>
+					<field name="bank_id" string="Customer Bank"/>
+				</xpath>
+				<xpath expr="//field[@name='cheque_number']" position="attributes">
+					<attribute name="string">Customer Cheque Number</attribute>
 				</xpath>
 				<xpath expr="//field[@name='name']" position="attributes">
 					<attribute name="invisible">1</attribute>
@@ -18,7 +21,17 @@
                     <button name="post_cheque_entries" string="Post Entries" type="object" class="btn-primary" attrs="{'invisible': [('status1', 'in', ['draft','cancel'])]}"/>
 				</xpath>
                 <xpath expr="//field[@name='cheque_receive_date']" position="after">
-					<field name="deposit_date" attrs="{'invisible': [('status1', 'in', ['draft','bounced','return','cancel','transfered','deposited'])]}"/>
+					<field name="deposit_date" attrs="{'invisible': [('status1', 'in', ['draft','bounced','return','cancel','transfered'])]}"/>
+                    <field name="bounced_date" attrs="{'invisible': [('status1', 'in', ['draft','return','cancel','transfered','registered'])]}"/>
+                    <field name="bounced_count" attrs="{'invisible': [('status1', 'in', ['draft','return','cancel','transfered','registered'])]}" readonly="1"/>
+                    <field name="returned_date" attrs="{'invisible': [('status1', 'in', ['draft','deposited','cancel'])]}"/>
+                    <field name="returned_count" attrs="{'invisible': [('status1', 'in', ['draft','deposited','cancel'])]}" readonly="1"/>
+				</xpath>
+                <xpath expr="//button[@name='set_to_bounced']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('status1', 'in', ['draft','return','cancel','transfered','registered'])]}</attribute>
+				</xpath>
+                <xpath expr="//button[@name='set_to_return']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('status1', 'in', ['draft','deposited','cancel'])]}</attribute>
 				</xpath>
 			</field>
 		</record>
@@ -69,6 +82,18 @@
 	           </search>
 	        </field>
 	    </record>
+
+	<!--	<record id="action_server_update_bank" model="ir.actions.server">
+			<field name="name">Update Bank and Bank number</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="bi_account_cheque.model_account_cheque" />
+			<field name="binding_model_id" ref="bi_account_cheque.model_account_cheque" />
+			<field name="state">code</field>
+			<field name="code">
+				for item in records:
+				item.update_bank_id()
+			</field>
+		</record> -->
 
 	</data>
 </odoo>

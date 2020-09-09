@@ -21,7 +21,17 @@
                     <button name="post_cheque_entries" string="Post Entries" type="object" class="btn-primary" attrs="{'invisible': [('status1', 'in', ['draft','cancel'])]}"/>
 				</xpath>
                 <xpath expr="//field[@name='cheque_receive_date']" position="after">
-					<field name="deposit_date" attrs="{'invisible': [('status1', 'in', ['draft','bounced','return','cancel','transfered','deposited'])]}"/>
+					<field name="deposit_date" attrs="{'invisible': [('status1', 'in', ['draft','bounced','return','cancel','transfered'])]}"/>
+                    <field name="bounced_date" attrs="{'invisible': [('status1', 'in', ['draft','return','cancel','transfered','registered'])]}"/>
+                    <field name="bounced_count" attrs="{'invisible': [('status1', 'in', ['draft','return','cancel','transfered','registered'])]}" readonly="1"/>
+                    <field name="returned_date" attrs="{'invisible': [('status1', 'in', ['draft','deposited','cancel'])]}"/>
+                    <field name="returned_count" attrs="{'invisible': [('status1', 'in', ['draft','deposited','cancel'])]}" readonly="1"/>
+				</xpath>
+                <xpath expr="//button[@name='set_to_bounced']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('status1', 'in', ['draft','return','cancel','transfered','registered'])]}</attribute>
+				</xpath>
+                <xpath expr="//button[@name='set_to_return']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('status1', 'in', ['draft','deposited','cancel'])]}</attribute>
 				</xpath>
 			</field>
 		</record>

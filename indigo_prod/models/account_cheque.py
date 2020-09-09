@@ -16,7 +16,23 @@ class AccountCheque(models.Model):
         'res.partner.bank', string='Bank Account Number')
     check_amount_in_words = fields.Char(string="Amount in Words")
     deposit_date = fields.Date(string="Deposit Date")
-
+    bounced_date = fields.Date(string="Bounced Cheque Date")
+    bounced_count = fields.Integer(string="Bounced Cheque Count")
+    returned_date = fields.Date(string="Returned Date")
+    returned_count = fields.Integer(string="Returned Count")
+    
+    # OVERRIDE FIELD
+    status1 = fields.Selection([
+        ('draft','Draft'),
+        ('registered','Registered'),
+        ('deposited','Deposited'),
+        ('bounced','Bounced'),
+        ('return','Returned'),
+        ('transfered','Transfered'),
+        ('cashed','Done'),
+        ('cancel','Cancel')
+    ],string="Status",default="draft",copy=False, index=True, track_visibility='onchange')
+    
     @api.onchange('bank_account_id')
     def _onchange_bank_account_id(self):
         bank_number = self.env['account.journal'].search(
@@ -92,12 +108,30 @@ class AccountCheque(models.Model):
                 if move.state == 'draft':
                     move.post()
 
-    # OVERRIDE DEPOSITE FUNCTION
+    # INHERIT DEPOSITE FUNCTION
     @api.multi
     def set_to_deposite(self):
         if not self.deposit_date:
             raise UserError(_('Deposit Date is required!'))
         result = super(AccountCheque, self).set_to_deposite()
+        return result
+    
+    # INHERIT BOUNCED FUNCTION
+    @api.multi
+    def set_to_bounced(self):
+        if not self.bounced_date:
+            raise UserError(_('Bounced Cheque Date is required!'))
+        result = super(AccountCheque, self).set_to_bounced()
+        self.bounced_count += 1
+        return result
+    
+    # INHERIT RETURN FUNCTION
+    @api.multi
+    def set_to_return(self):
+        if not self.returned_date:
+            raise UserError(_('Returned Date is required!'))
+        result = super(AccountCheque, self).set_to_return()
+        self.returned_count += 1
         return result
 
     # FOR SCRIPT USE

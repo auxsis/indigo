@@ -20,19 +20,20 @@ class AccountCheque(models.Model):
     bounced_count = fields.Integer(string="Bounced Cheque Count")
     returned_date = fields.Date(string="Returned Date")
     returned_count = fields.Integer(string="Returned Count")
-    
+
     # OVERRIDE FIELD
     status1 = fields.Selection([
-        ('draft','Draft'),
-        ('registered','Registered'),
-        ('deposited','Deposited'),
-        ('bounced','Bounced'),
-        ('return','Returned'),
-        ('transfered','Transfered'),
-        ('cashed','Done'),
-        ('cancel','Cancel')
-    ],string="Status",default="draft",copy=False, index=True, track_visibility='onchange')
-    
+        ('draft', 'Draft'),
+        ('registered', 'Registered'),
+        ('deposited', 'Deposited'),
+        ('bounced', 'Bounced'),
+        ('return', 'Returned'),
+        ('transfered', 'Transfered'),
+        ('closed', 'Closed'),
+        ('cashed', 'Done'),
+        ('cancel', 'Cancel')
+    ], string="Status", default="draft", copy=False, index=True, track_visibility='onchange')
+
     @api.onchange('bank_account_id')
     def _onchange_bank_account_id(self):
         bank_number = self.env['account.journal'].search(
@@ -80,6 +81,18 @@ class AccountCheque(models.Model):
     def set_name(self):
         self.name = self.sequence
 
+    # CLOSED
+    @api.multi
+    def set_to_close(self):
+        if self.account_cheque_type == 'incoming':
+            account_move_obj = self.env['account.move']
+            account_move = account_move_obj.search(
+                [('account_cheque_id', '=', self.id)])
+            account_move.button_cancel()
+            account_move.unlink()
+            self.status1 = 'closed'
+        return account_move
+
     # UNPOST ENTRIES / UNRECONCILE
     @api.multi
     def unpost_cheque_entries(self):
@@ -115,7 +128,7 @@ class AccountCheque(models.Model):
             raise UserError(_('Deposit Date is required!'))
         result = super(AccountCheque, self).set_to_deposite()
         return result
-    
+
     # INHERIT BOUNCED FUNCTION
     @api.multi
     def set_to_bounced(self):
@@ -124,7 +137,7 @@ class AccountCheque(models.Model):
         result = super(AccountCheque, self).set_to_bounced()
         self.bounced_count += 1
         return result
-    
+
     # INHERIT RETURN FUNCTION
     @api.multi
     def set_to_return(self):

@@ -20,6 +20,7 @@ class AccountCheque(models.Model):
     bounced_count = fields.Integer(string="Bounced Cheque Count")
     returned_date = fields.Date(string="Returned Date")
     returned_count = fields.Integer(string="Returned Count")
+    applied_invoice_ids = fields.Many2many('account.invoice', string="Applied Invoices", compute="_compute_account_applied_invoice")
 
     # OVERRIDE FIELD
     status1 = fields.Selection([
@@ -183,3 +184,28 @@ class AccountCheque(models.Model):
 #             'tag': 'manual_reconciliation_view',
 #             'context': action_context,
 #         }
+
+    @api.multi
+    def _compute_account_applied_invoice(self):
+        for record in self:
+            invoice_list = []
+            move_ids = self.env['account.move'].search([('account_cheque_id', '=', record.id)])
+            for move in move_ids:
+                for line in move.line_ids:
+                    if line.full_reconcile_id:
+                        invoice_ids = line.full_reconcile_id.mapped('reconciled_line_ids').mapped('invoice_id').ids
+                        for invoice in invoice_ids:
+                            if invoice not in invoice_list:
+                                invoice_list.append(invoice)
+                    if line.matched_credit_ids:
+                        invoice_ids = line.matched_credit_id.mapped('credit_move_id').mapped('invoice_id').ids
+                        for invoice in invoice_ids:
+                            if invoice not in invoice_list:
+                                invoice_list.append(invoice)
+                    if line.matched_debit_ids:
+                        invoice_ids = line.matched_debit_ids.mapped('debit_move_id').mapped('invoice_id').ids
+                        for invoice in invoice_ids:
+                            if invoice not in invoice_list:
+                                invoice_list.append(invoice)
+            record.applied_invoice_ids = [(6, 0, invoice_list)]
+        return

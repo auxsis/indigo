@@ -36,7 +36,6 @@
 				</xpath>
                 <xpath expr="//page[3]" position="after">
                     <page string="Applied Invoices">
-<!--                         <field name="applied_invoice_ids"/> -->
                         <field name="applied_invoice_ids" mode="tree,form" readonly="1">
                             <tree>
                                 <field name="partner_id"/>
@@ -47,6 +46,7 @@
                                 <field name="origin"/>
                                 <field name="amount_total_signed"/>
                                 <field name="residual"/>
+                                <field name="state"/>
                             </tree>
                         </field>
                     </page>

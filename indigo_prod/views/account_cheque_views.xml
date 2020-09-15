@@ -34,6 +34,23 @@
                 <xpath expr="//button[@name='set_to_return']" position="attributes">
                     <attribute name="attrs">{'invisible': [('status1', 'in', ['draft','deposited','cancel','closed'])]}</attribute>
 				</xpath>
+                <xpath expr="//page[3]" position="after">
+                    <page string="Applied Invoices">
+                        <field name="applied_invoice_ids" mode="tree,form" readonly="1">
+                            <tree>
+                                <field name="partner_id"/>
+                                <field name="number"/>
+                                <field name="legacy_number"/>
+                                <field name="date_invoice"/>
+                                <field name="date_due"/>
+                                <field name="origin"/>
+                                <field name="amount_total_signed"/>
+                                <field name="residual"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+				</xpath>
 			</field>
 		</record>
 

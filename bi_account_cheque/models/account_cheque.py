@@ -235,7 +235,7 @@ class AccountCheque(models.Model):
         if self.account_cheque_type == 'incoming':
             vals = {
                 'name': self.name,
-                'date': self.cheque_receive_date,
+                'date': self.bounced_date,
                 'journal_id': self.journal_id.id,
                 'company_id': self.company_id.id,
                 'state': 'draft',
@@ -245,9 +245,9 @@ class AccountCheque(models.Model):
             account_move = account_move_obj.create(vals)
             debit_vals = {
                 'partner_id': self.payee_user_id.id,
-                'account_id': self.debit_account_id.id,
+                'account_id': self.env.user.company_id.deposite_account_id.id,
                 'debit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.bounced_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }
@@ -256,7 +256,7 @@ class AccountCheque(models.Model):
                 'partner_id': self.payee_user_id.id,
                 'account_id': self.payee_user_id.property_account_receivable_id.id,
                 'credit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.bounced_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }
@@ -266,7 +266,7 @@ class AccountCheque(models.Model):
         else:
             vals = {
                 'name': self.name,
-                'date': self.cheque_given_date,
+                'date': self.bounced_date,
                 'journal_id': self.journal_id.id,
                 'company_id': self.company_id.id,
                 'state': 'draft',
@@ -278,7 +278,7 @@ class AccountCheque(models.Model):
                 'partner_id': self.payee_user_id.id,
                 'account_id': self.payee_user_id.property_account_payable_id.id,
                 'debit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.bounced_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }
@@ -287,7 +287,7 @@ class AccountCheque(models.Model):
                 'partner_id': self.payee_user_id.id,
                 'account_id': self.debit_account_id.id,
                 'credit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.bounced_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }
@@ -323,7 +323,7 @@ class AccountCheque(models.Model):
         if self.account_cheque_type == 'incoming':
             vals = {
                 'name': self.name,
-                'date': self.cheque_receive_date,
+                'date': self.returned_date,
                 'journal_id': self.journal_id.id,
                 'company_id': self.company_id.id,
                 'state': 'draft',
@@ -335,7 +335,7 @@ class AccountCheque(models.Model):
                 'partner_id': self.payee_user_id.id,
                 'account_id': self.credit_account_id.id,
                 'debit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.returned_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }
@@ -344,7 +344,7 @@ class AccountCheque(models.Model):
                 'partner_id': self.payee_user_id.id,
                 'account_id': self.debit_account_id.id,
                 'credit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.returned_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }
@@ -355,7 +355,7 @@ class AccountCheque(models.Model):
         else:
             vals = {
                 'name': self.name,
-                'date': self.cheque_given_date,
+                'date': self.returned_date,
                 'journal_id': self.journal_id.id,
                 'company_id': self.company_id.id,
                 'state': 'draft',
@@ -367,7 +367,7 @@ class AccountCheque(models.Model):
                 'partner_id': self.payee_user_id.id,
                 'account_id': self.credit_account_id.id,
                 'debit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.returned_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }
@@ -376,7 +376,7 @@ class AccountCheque(models.Model):
                 'partner_id': self.payee_user_id.id,
                 'account_id': self.debit_account_id.id,
                 'credit': self.amount,
-                'date_maturity': datetime.now(),
+                'date_maturity': self.returned_date,
                 'move_id': account_move.id,
                 'company_id': self.company_id.id,
             }

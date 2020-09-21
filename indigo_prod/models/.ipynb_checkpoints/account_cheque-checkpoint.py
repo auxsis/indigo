@@ -198,7 +198,7 @@ class AccountCheque(models.Model):
                             if invoice not in invoice_list:
                                 invoice_list.append(invoice)
                     if line.matched_credit_ids:
-                        invoice_ids = line.matched_credit_id.mapped('credit_move_id').mapped('invoice_id').ids
+                        invoice_ids = line.matched_credit_ids.mapped('credit_move_id').mapped('invoice_id').ids
                         for invoice in invoice_ids:
                             if invoice not in invoice_list:
                                 invoice_list.append(invoice)

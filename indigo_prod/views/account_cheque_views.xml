@@ -72,6 +72,23 @@
                     <button name="unpost_cheque_entries" string="Unpost Entries" type="object" class="btn-primary" attrs="{'invisible': [('status', 'in', ['draft','cancel'])]}"/>
                     <button name="post_cheque_entries" string="Post Entries" type="object" class="btn-primary" attrs="{'invisible': [('status', 'in', ['draft','cancel'])]}"/>
 				</xpath>
+                <xpath expr="//page[3]" position="after">
+                    <page string="Applied Invoices">
+                        <field name="applied_invoice_ids" mode="tree,form" readonly="1">
+                            <tree>
+                                <field name="partner_id"/>
+                                <field name="number"/>
+                                <field name="legacy_number"/>
+                                <field name="date_invoice"/>
+                                <field name="date_due"/>
+                                <field name="origin"/>
+                                <field name="amount_total_signed"/>
+                                <field name="residual"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+				</xpath>
 			</field>
 		</record>
 

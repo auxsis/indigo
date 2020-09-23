@@ -12,8 +12,78 @@ _logger = logging.getLogger(__name__)
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
-    
-    legacy_number = fields.Char("Legacy Number", compute='_get_legacy_number', store=True)
+
+    @api.multi
+    @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount', 'tax_line_ids.amount_rounding',
+                 'currency_id', 'company_id', 'date_invoice', 'type', 'amount_adjust', 'downpayment_line_ids.price_subtotal')
+    def _compute_amount(self):
+        for rec in self:
+            res = super(AccountInvoice, rec)._compute_amount()
+            if rec.downpayment_line_ids:
+                rec.calculate_adjust()
+            sign = rec.type in ['in_refund', 'out_refund'] and -1 or 1
+            rec.amount_total_company_signed = rec.amount_total * sign
+            rec.amount_total_signed = rec.amount_total * sign
+        return res
+
+    @api.multi
+    def calculate_adjust(self):
+        for rec in self:
+            if rec.downpayment_line_ids:
+                rec.amount_adjust = sum(
+                    line.price_subtotal for line in rec.downpayment_line_ids)
+
+            rec.amount_total = rec.amount_tax + rec.amount_untaxed - rec.amount_adjust
+
+    @api.model
+    def invoice_line_move_line_get(self):
+        ks_res = super(AccountInvoice, self).invoice_line_move_line_get()
+        if self.amount_adjust > 0:
+            adj_name = "Adjust"
+            if self.downpayment_line_ids.account_id and (self.type == "out_invoice" or self.type == "out_refund"):
+                dict = {
+                    'invl_id': self.number,
+                    'type': 'src',
+                    'name': adj_name,
+                    'price_unit': self.amount_adjust,
+                    'quantity': 1,
+                    'price': -self.amount_adjust,
+                    'account_id': self.downpayment_line_ids.account_id.id,
+                    'invoice_id': self.id,
+                }
+                ks_res.append(dict)
+
+            elif self.downpayment_line_ids.account_id and (self.type == "in_invoice" or self.type == "in_refund"):
+                dict = {
+                    'invl_id': self.number,
+                    'type': 'src',
+                    'name': adj_name,
+                    'price_unit': self.amount_adjust,
+                    'quantity': 1,
+                    'price': -self.amount_adjust,
+                    'account_id': self.downpayment_line_ids.account_id.id,
+                    'invoice_id': self.id,
+                }
+                ks_res.append(dict)
+
+        return ks_res
+
+    @api.model
+    def _prepare_refund(self, invoice, date_invoice=None, date=None, description=None, journal_id=None):
+        ks_res = super(AccountInvoice, self)._prepare_refund(invoice, date_invoice=None, date=None,
+                                                             description=None, journal_id=None)
+        ks_res['amount_adjust'] = self.amount_adjust
+
+        return ks_res
+
+    legacy_number = fields.Char(
+        "Legacy Number", compute='_get_legacy_number', store=True)
+
+    downpayment_line_ids = fields.One2many(
+        'account.downpayment.line', 'invoice_id', string='Invoice Lines')
+
+    amount_adjust = fields.Monetary(string='Adjust',
+                                    store=True, readonly=True, compute='_compute_amount')
 
     @api.multi
     def _is_convert_currency(self):
@@ -33,15 +103,16 @@ class AccountInvoice(models.Model):
     exchange_rate = fields.Float(string='Exchange Rate')
     convert_currency = fields.Boolean(compute='_is_convert_currency')
     due_date = fields.Char(string="Date Due", strore=True)
-    
+
     @api.multi
     @api.depends('invoice_line_ids')
     def _get_legacy_number(self):
         for record in self:
-            legacy_number = record.mapped('invoice_line_ids').mapped('sale_line_ids').mapped('order_id').mapped('legacy_number')
+            legacy_number = record.mapped('invoice_line_ids').mapped(
+                'sale_line_ids').mapped('order_id').mapped('legacy_number')
             if legacy_number:
                 record.legacy_number = legacy_number[0]
-    
+
     @api.multi
     def check_legacy_number(self):
         for record in self:
@@ -135,10 +206,10 @@ class AccountInvoice(models.Model):
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
-    
+
     price_unit_decimal = fields.Float(string='Unit Price', digits=(14, 3))
     orig_price_unit = fields.Float(string='Original Currency Price')
-    
+
     @api.one
     @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
                  'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id', 'invoice_id.company_id',
@@ -166,25 +237,32 @@ class AccountInvoiceLine(models.Model):
                     if purchase_currency_id != currency and exchange_rate:
                         price_unit = price_unit * exchange_rate
                         price_unit_decimal = price_unit
-                        price_unit = [math.floor(round(price_unit,3) * 10 ** i) / 10 ** i for i in range(3)][2]
+                        price_unit = [math.floor(
+                            round(price_unit, 3) * 10 ** i) / 10 ** i for i in range(3)][2]
             self.price_unit = price_unit
             self.price_unit_decimal = price_unit_decimal
             self.orig_price_unit = orig_price_unit
-            
+
         result = super(AccountInvoiceLine, self)._compute_price()
-        
+
         if self.invoice_id.convert_currency and self.invoice_id.type in ('in_invoice', 'in_refund') and self.price_unit_decimal:
             currency = self.invoice_id and self.invoice_id.currency_id or None
-            price = self.price_unit_decimal * (1 - (self.discount or 0.0) / 100.0)
+            price = self.price_unit_decimal * \
+                (1 - (self.discount or 0.0) / 100.0)
             taxes = False
             if self.invoice_line_tax_ids:
-                taxes = self.invoice_line_tax_ids.compute_all(price, currency, self.quantity, product=self.product_id, partner=self.invoice_id.partner_id)
-            self.price_subtotal = price_subtotal_signed = taxes['total_excluded'] if taxes else self.quantity * price
-            self.price_subtotal_2 = price_subtotal_signed = taxes['total_excluded'] if taxes else self.quantity * price
+                taxes = self.invoice_line_tax_ids.compute_all(
+                    price, currency, self.quantity, product=self.product_id, partner=self.invoice_id.partner_id)
+            self.price_subtotal = price_subtotal_signed = taxes[
+                'total_excluded'] if taxes else self.quantity * price
+            self.price_subtotal_2 = price_subtotal_signed = taxes[
+                'total_excluded'] if taxes else self.quantity * price
             self.price_total = taxes['total_included'] if taxes else self.price_subtotal
             if self.invoice_id.currency_id and self.invoice_id.currency_id != self.invoice_id.company_id.currency_id:
-                price_subtotal_signed = self.invoice_id.currency_id.with_context(date=self.invoice_id.date_invoice).compute(price_subtotal_signed, self.invoice_id.company_id.currency_id)
-            sign = self.invoice_id.type in ['in_refund', 'out_refund'] and -1 or 1
+                price_subtotal_signed = self.invoice_id.currency_id.with_context(
+                    date=self.invoice_id.date_invoice).compute(price_subtotal_signed, self.invoice_id.company_id.currency_id)
+            sign = self.invoice_id.type in [
+                'in_refund', 'out_refund'] and -1 or 1
             self.price_subtotal_signed = price_subtotal_signed * sign
         return result
 
@@ -213,9 +291,62 @@ class AccountInvoiceLine(models.Model):
                     if purchase_currency_id != currency and exchange_rate:
                         price_unit = price_unit * exchange_rate
                         price_unit_decimal = price_unit
-                        price_unit = [math.floor(round(price_unit,3) * 10 ** i) / 10 ** i for i in range(3)][2]
+                        price_unit = [math.floor(
+                            round(price_unit, 3) * 10 ** i) / 10 ** i for i in range(3)][2]
 
             self.price_unit = price_unit
             self.price_unit_decimal = price_unit_decimal
             self.orig_price_unit = orig_price_unit
         return result
+
+
+class AccountDownpaymentLine(models.Model):
+    _name = "account.downpayment.line"
+    _description = "Downpayment Line"
+
+    @api.one
+    @api.depends('price_unit', 'quantity')
+    def _compute_price(self):
+        self.price_subtotal = self.quantity * self.price_unit
+
+    @api.model
+    def _default_account(self):
+        if self._context.get('journal_id'):
+            journal = self.env['account.journal'].browse(
+                self._context.get('journal_id'))
+            if self._context.get('type') in ('out_invoice', 'in_refund'):
+                return journal.default_credit_account_id.id
+            return journal.default_debit_account_id.id
+
+    name = fields.Text(string='Description', required=True)
+    product_id = fields.Many2one('product.product', string='Product',
+                                 ondelete='restrict', index=True)
+    invoice_id = fields.Many2one('account.invoice', string='Invoice Reference',
+                                 ondelete='cascade', index=True)
+    invoice_type = fields.Selection(related='invoice_id.type', readonly=True)
+    account_id = fields.Many2one('account.account', string='Account',
+                                 required=True, domain=[('deprecated', '=', False)],
+                                 default=_default_account,
+                                 help="The income or expense account related to the selected product.")
+    price_unit = fields.Float(
+        string='Unit Price', required=True, digits=dp.get_precision('Product Price'))
+    price_subtotal = fields.Monetary(string='Amount',
+                                     store=True, readonly=True, compute='_compute_price', help="Total amount")
+
+    quantity = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'),
+                            required=True, default=1)
+
+    account_analytic_id = fields.Many2one('account.analytic.account',
+                                          string='Analytic Account')
+    analytic_tag_ids = fields.Many2many(
+        'account.analytic.tag', string='Analytic Tags')
+    company_id = fields.Many2one('res.company', string='Company',
+                                 related='invoice_id.company_id', store=True, readonly=True, related_sudo=False)
+    partner_id = fields.Many2one('res.partner', string='Partner',
+                                 related='invoice_id.partner_id', store=True, readonly=True, related_sudo=False)
+    currency_id = fields.Many2one(
+        'res.currency', related='invoice_id.purchase_currency_id', store=True, related_sudo=False)
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        self.name = self.product_id.name

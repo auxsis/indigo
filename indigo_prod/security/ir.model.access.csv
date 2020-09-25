@@ -15,3 +15,4 @@ access_disciplinary_action_discipline_category_user,access.disciplinary.action.d
 access_disciplinary_action_category_user,access.disciplinary.action.category.user,hr_disciplinary_tracking.model_action_category,base.group_user,1,0,0,0
 access_stock_picking_return_type_user,access.stock.picking.return.type.user,model_stock_picking_return_type,base.group_user,1,0,0,0
 access_account_cheque_batch_billing,access.account.cheque.batch,model_account_cheque_batch,account.group_account_invoice,1,1,1,1
+access_account_downpayment_line,access.account.downpayment.line,model_account_downpayment_line,account.group_account_invoice,1,1,1,1

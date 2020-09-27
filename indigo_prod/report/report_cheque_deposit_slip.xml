@@ -41,7 +41,7 @@
                                               <span id="cheque_number" t-field="account_cheque_id.cheque_number"/>
                                           </td>
                                           <td style="border:1px solid white;font-size:90%;width:10%;" class="text-left">
-                                              <span id="amount" t-field="account_cheque_id.amount"/>
+                                              <span id="amount" t-esc="'{0:,.2f}'.format(account_cheque_id.amount)"/>
                                           </td>
                                           <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
                                           </td>
@@ -148,7 +148,7 @@
                                     <span id="cheque_number" t-field="o.cheque_number"/>
                                 </td>
                                 <td style="border:1px solid white;font-size:90%;width:10%;" class="text-left">
-                                    <span id="amount" t-field="o.amount"/>
+                                    <span id="amount" t-esc="'{0:,.2f}'.format(o.amount)"/>
                                 </td>
                                 <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
                                 </td>
@@ -212,7 +212,7 @@
                                               <span id="cheque_number" t-field="account_cheque_id.cheque_number"/>
                                           </td>
                                           <td style="border:1px solid white;font-size:90%;width:10%;" class="text-right">
-                                              <span id="amount" t-field="account_cheque_id.amount"/>
+                                              <span id="amount" t-esc="'{0:,.2f}'.format(account_cheque_id.amount)"/>
                                           </td>
                                           <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
                                           </td>
@@ -276,7 +276,7 @@
                                     <span id="cheque_number" t-field="o.cheque_number"/>
                                 </td>
                                 <td style="border:1px solid white;font-size:90%;width:10%;" class="text-right">
-                                    <span id="amount" t-field="o.amount"/>
+                                    <span id="amount" t-esc="'{0:,.2f}'.format(o.amount)"/>
                                 </td>
                                 <td style="border:1px solid white;font-size:90%;width:5%;" class="text-left">
                                 </td>

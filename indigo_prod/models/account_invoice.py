@@ -80,7 +80,7 @@ class AccountInvoice(models.Model):
         "Legacy Number", compute='_get_legacy_number', store=True)
 
     downpayment_line_ids = fields.One2many(
-        'account.downpayment.line', 'invoice_id', string='Invoice Lines')
+        'account.downpayment.line', 'invoice_id', string='Invoice Lines', readonly=True, states={'draft': [('readonly', False)]})
 
     amount_adjust = fields.Monetary(string='Adjust',
                                     store=True, readonly=True, compute='_compute_amount')

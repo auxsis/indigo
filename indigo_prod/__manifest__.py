@@ -64,6 +64,7 @@
         'wizard/sales_report_outstock_item_view.xml',
         'wizard/stock_picking_return_views.xml',
         'wizard/customer_statement_views.xml',
+        'wizard/sales_delete_posted_view.xml',
         'views/menu_views.xml',
     ],
     # only loaded in demonstration mode

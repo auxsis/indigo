@@ -4,3 +4,4 @@ from . import stock_pick_item_report
 from . import sales_report_outstock_item
 from . import stock_picking_return
 from . import customer_statement
+from . import sales_delete_posted

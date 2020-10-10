@@ -19,11 +19,8 @@
 			<field name="model">product.template</field>
 			<field name="inherit_id" ref="product.product_template_only_form_view"/>
 			<field name="arch" type="xml">
-				<xpath expr="//label[@for='list_price']" position="before">
-					<label for="retail_price" string="Retail Price"/>
-                    <div>
-                        <field name="retail_price" widget="monetary"/>
-                    </div>
+				<xpath expr="//field[@name='list_price']" position="before">
+					<field name="retail_price" widget="monetary" groups="base.group_erp_manager"/>
 				</xpath>
 			</field>
 		</record>

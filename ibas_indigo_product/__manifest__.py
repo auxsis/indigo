@@ -19,18 +19,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale'],
+    'depends': ['sale', 'indigo_prod'],
 
     # always loaded
     'data': [
          # Data
          'data/res_groups_data.xml',
+         'data/sale_order_delete_posted_data.xml',
 
          # Security
          'security/ir.model.access.csv',
 
          # Views
-        'views/product_template_ext_views.xml'
+         'views/product_template_ext_views.xml'
 
     ],
     # only loaded in demonstration mode

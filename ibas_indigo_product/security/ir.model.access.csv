@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_delete_sale_order_user,access.delete.sale.order.user,sale.model_sale_order,group_delete_sale_order,0,0,0,1
+

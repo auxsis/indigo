@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
         <act_window
             id="sales_order_delete_posted_action"
             groups="ibas_indigo_product.group_delete_sale_order"/>
-    </data>
 </odoo>

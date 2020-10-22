@@ -4,6 +4,7 @@ try:
 except ImportError:
     from odoo.addons.setu_advance_inventory_reports.library import xlsxwriter
 from . import setu_excel_formatter
+from odoo.exceptions import UserError
 import base64
 from io import BytesIO
 
@@ -123,7 +124,12 @@ class SetuInventoryOutOfStockReport(models.TransientModel):
                 warehouse_wise_data.get(key).update({data.get('product_id') : data})
         return warehouse_wise_data
 
+    def check_user_input(self):
+        if self.advance_stock_days <= 0:
+            raise UserError(_('Ivnalid user input!\nAnalyse Inventory for Next X Days must be greater than 0'))
+
     def download_report(self):
+        self.check_user_input()
         file_name = self.get_file_name()
         file_pointer = BytesIO()
         stock_data = self.get_products_outofstock_data()
@@ -155,6 +161,7 @@ class SetuInventoryOutOfStockReport(models.TransientModel):
         }
 
     def download_report_in_listview(self):
+        self.check_user_input()
         stock_data = self.get_products_outofstock_data()
         print (stock_data)
         for overstock_data_value in stock_data:

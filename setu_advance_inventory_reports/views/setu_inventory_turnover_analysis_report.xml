@@ -8,7 +8,6 @@
                 <form string="Inventory Turnover Analysis Report">
                     <sheet string="Inventory Turnover Analysis">
                         <group expand="0" string="Filters">
-
                             <group expand="0" string="Choose dates to calculate sales">
                                 <field name="start_date" required="True" />
                                 <field name="end_date" required="True" />
@@ -26,7 +25,6 @@
                                 <field name="warehouse_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                             </group>
                         </group>
-
                     </sheet>
                     <footer>
                         <button name="download_report" string="Excel Report" type="object"

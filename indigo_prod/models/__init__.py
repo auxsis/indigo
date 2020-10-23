@@ -22,3 +22,7 @@ from . import account_cheque_batch
 from . import account_followup_report
 
 from . import res_users
+from . import res_company
+from . import stock_inventory_line
+from . import stock_inventory
+from . import stock_move_line

@@ -8,12 +8,31 @@
     'category': 'stock',
     'summary': """	
         Advance Inventory Reports / Inventory Analysis Reports
-        Reports used to analyse inventories by different inventory management techniques.
+        - Inventory Turnover Analysis Report / Inventory Turnover Ratio
+        - Inventory FSN Analysis Report / non moving report
+        - Inventory XYZ Analysis Report
+        - Inventory FSN with XYZ Analysis Report / FSN-XYZ Analysis / FSN XYZ Analysis
+        - Inventory Age Report / stock ageing / Inventory ageing / stock age
+        - Inventory Age Breakdown Report
+        - Inventory Overtsock Report / Excess Inventory Report  
+        - Stock Movement Report / Stock Rotation Report 
+        - Inventory Out Of Stock Report / inventory coverage report / outofstock report
+        Advanced Inventory Reports / All in one inventory reports / all in one reports
 		""",
     'website' : 'https://www.setuconsulting.com' ,
     'support' : 'support@setuconsulting.com',
     'description' : """
         Advance Inventory Reports / Inventory Analysis Reports
+        - Inventory Turnover Analysis Report / Inventory Turnover Ratio
+        - Inventory FSN Analysis Report / non moving report
+        - Inventory XYZ Analysis Report
+        - Inventory FSN with XYZ Analysis Report / FSN-XYZ Analysis / FSN XYZ Analysis
+        - Inventory Age Report / stock ageing / Inventory ageing / stock age
+        - Inventory Age Breakdown Report
+        - Inventory Overtsock Report / Excess Inventory Report  
+        - Stock Movement Report / Stock Rotation Report 
+        - Inventory Out Of Stock Report / inventory coverage report / outofstock report
+        Advanced Inventory Reports / All in one inventory reports / all in one reports
     """,
     'author' : 'Setu Consulting',
     'license' : 'OPL-1',
@@ -33,5 +52,4 @@
     ],
     'application': True,
     'pre_init_hook': 'pre_init',
-    'live_test_url' : 'http://95.111.225.133:8889/web/login',
 }

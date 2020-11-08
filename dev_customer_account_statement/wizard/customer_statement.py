@@ -28,7 +28,7 @@ class customer_statement(models.TransientModel):
     date_to = fields.Date('Date To')
     is_privious_year = fields.Boolean('Print Previous Year')
     as_of_date = fields.Date('As of')
-    hide_paid_invoice = fields.Boolean("Hide Paid Invoices")
+    hide_paid_invoice = fields.Boolean("Hide Paid Invoices", default=True)
 
 #     @api.onchange('month','is_privious_year')
 #     def onchange_month(self):

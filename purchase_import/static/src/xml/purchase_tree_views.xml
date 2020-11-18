@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="PurchaseListView.purchase_import_wizard">
+        <t t-jquery="button" t-operation="after">
+            <button type="button" class="btn btn-primary btn_purchase_import_wizard">
+                Import Purchase Order
+            </button>
+        </t>
+    </t>
+</templates>

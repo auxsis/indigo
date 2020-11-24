@@ -45,14 +45,24 @@ class PurchaseOrderImport(models.TransientModel):
                     'product_qty': rec.get("Q'TY"),
                     'price_unit': rec.get('PRICE'),
                     'date_planned': fields.Datetime.now(),
-                    'product_uom': product.uom_id.id
+                    'product_uom': product.uom_id.id,
+                    'ctns': rec['CTNS'],
+                    'tgw': rec['T.G.W.'],
+                    'tnw': rec['T.N.W.'],
+                    'total_volume': rec['TOTAL VOLUME'],
+                    'pcs_ctn': rec['PCS/CTN'],
+                    'length': rec['L'],
+                    'weight': rec['W'],
+                    'height': rec['H'],
+                    'gw': rec['G.W.'],
+                    'nw': rec['N.W.'],
                 }))
-            vals = {
-                'partner_id': vendor.id,
-                'company_id': company and company.id or self.env.user.company_id.id,
-                'order_line': order_line,
-                'name': rec.get('P/I NO.')
-            }
+        vals = {
+            'partner_id': vendor.id,
+            'company_id': company and company.id or self.env.user.company_id.id,
+            'order_line': order_line,
+            'name': rec.get('P/I NO.')
+        }
         self.env['purchase.order'].create(vals)
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 
